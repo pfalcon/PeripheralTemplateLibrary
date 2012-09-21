@@ -3,7 +3,6 @@
 #include <cpu.hpp>
 #include <board.hpp>
 
-typedef Board<MSP430Launchpad> board;
 
 int main()
 {
