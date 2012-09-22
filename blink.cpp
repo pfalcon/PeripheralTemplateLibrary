@@ -7,6 +7,7 @@
 int main()
 {
     cpu::init(cpu::DEFAULT);
+    board::LED::port::enable();
     board::LED::output();
     while (true) {
         board::LED::high();
