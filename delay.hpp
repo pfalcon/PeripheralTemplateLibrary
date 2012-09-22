@@ -1,8 +1,8 @@
+#include <delay_base.hpp>
 #if defined(__MSP430__)
-#define delay(x) __delay_cycles(x)
+#include <delay_msp430.hpp>
 #elif defined(__AVR__)
-#include <util/delay_basic.h>
-#define delay(x) _delay_loop_2(x / 4)
+#include <delay_avr.hpp>
 #else
 #error Unknown platform in delay.hpp
 #endif
