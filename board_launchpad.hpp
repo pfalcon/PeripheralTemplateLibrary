@@ -8,6 +8,7 @@ class Board<MSP430Launchpad>
 {
 public:
     typedef Pin<P1, Bit0> LED;
+    static const long freq = 1 MHZ;
 };
 
 typedef Board<MSP430Launchpad> board;
