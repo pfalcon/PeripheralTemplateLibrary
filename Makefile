@@ -1,21 +1,34 @@
-TARGET = msp430
-
 ifeq ($(TARGET), avr)
 MCU = atmega168
+TARGET_CFLAGS = -mmcu=$(MCU)
 endif
 ifeq ($(TARGET), msp430)
 MCU = msp430g2553
+TARGET_CFLAGS = -mmcu=$(MCU)
+endif
+ifeq ($(TARGET), stm32)
+LIBOPENCM3_PATH = ../libopencm3
+CROSS_COMPILE = arm-linux-gnueabi-
+GCC_VER = -4.4
+TARGET_INCLUDE = -I$(LIBOPENCM3_PATH)/include
+TARGET_FLAGS =  -mthumb -mcpu=cortex-m3
+TARGET_CFLAGS = -D__STM32__ -DSTM32F1 $(TARGET_FLAGS)
+TARGET_LDFLAGS = --static $(TARGET_FLAGS) -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld -Wl,--gc-sections \
+    -Wl,--build-id=none
+LDLIBS = -L$(LIBOPENCM3_PATH)/lib -lopencm3_stm32f1
 endif
 
-CROSS_COMPILE = $(TARGET)-
-CC = $(CROSS_COMPILE)gcc
-CXX = $(CROSS_COMPILE)g++
+CROSS_COMPILE ?= $(TARGET)-
+GCC_VER ?= ""
+CC = $(CROSS_COMPILE)gcc$(GCC_VER)
+CXX = $(CROSS_COMPILE)g++$(GCC_VER)
 OBJDUMP = $(CROSS_COMPILE)objdump
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
-INCLUDE = -I.
-CFLAGS = $(INCLUDE) -mmcu=$(MCU) -O -g
+INCLUDE = -I. $(TARGET_INCLUDE)
+CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g -fno-exceptions
 CXXFLAGS = $(CFLAGS)
+LDFLAGS = $(TARGET_LDFLAGS)
 
 $(TARGET)/blink: $(TARGET)/blink.o
 
@@ -25,10 +38,13 @@ $(TARGET)/%.o: %.cpp
 	mkdir -p $(TARGET)
 	$(CXX) $(CXXFLAGS) -c $^ -o $@
 
+.PRECIOUS: $(TARGET)/%.hex $(TARGET)/%.bin
+
 ifeq ($(TARGET), msp430)
 flash-%: $(TARGET)/%
 	mspdebug rf2500 "prog $^"
 endif
+
 ifeq ($(TARGET), avr)
 $(TARGET)/%.hex: $(TARGET)/%
 	$(OBJCOPY) -O ihex -R .eeprom $^ $@
@@ -37,6 +53,15 @@ $(TARGET)/%.hex: $(TARGET)/%
 flash-%: $(TARGET)/%.hex
 	avrdude -p m328p -c arduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:$^
 endif
+
+ifeq ($(TARGET), stm32)
+$(TARGET)/%.bin: $(TARGET)/%
+	$(OBJCOPY) -O binary $^ $@
+
+flash-%: $(TARGET)/%.bin
+	st-flash write $^ 0x8000000
+endif
+
 
 disasm-%: $(TARGET)/%
 	$(OBJDUMP) -dSt --demangle $^ >$^.disasm
