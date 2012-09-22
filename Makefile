@@ -17,25 +17,29 @@ INCLUDE = -I.
 CFLAGS = $(INCLUDE) -mmcu=$(MCU) -O -g
 CXXFLAGS = $(CFLAGS)
 
-blink: blink.o
+$(TARGET)/blink: $(TARGET)/blink.o
 
-blink.o: blink.cpp
+$(TARGET)/blink.o: blink.cpp
+
+$(TARGET)/%.o: %.cpp
+	mkdir -p $(TARGET)
+	$(CXX) $(CXXFLAGS) -c $^ -o $@
 
 ifeq ($(TARGET), msp430)
-flash-%: %
+flash-%: $(TARGET)/%
 	mspdebug rf2500 "prog $^"
 endif
 ifeq ($(TARGET), avr)
-%.hex: %
+$(TARGET)/%.hex: $(TARGET)/%
 	$(OBJCOPY) -O ihex -R .eeprom $^ $@
 	$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O ihex $^ $^.eep || exit 0
 
-flash-%: %.hex
+flash-%: $(TARGET)/%.hex
 	avrdude -p m328p -c arduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:$^
 endif
 
-disasm-%: %
+disasm-%: $(TARGET)/%
 	$(OBJDUMP) -dSt --demangle $^ >$^.disasm
 
 clean:
-	rm -f *.o
+	rm -f $(TARGET)/*.o
