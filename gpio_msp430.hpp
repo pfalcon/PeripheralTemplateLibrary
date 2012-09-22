@@ -6,7 +6,7 @@
 
 
 template <int in_reg_, int out_reg_, int dir_reg_>
-class Port
+class Port : public IPort
 {
 public:
     static const int in_reg = in_reg_;
@@ -17,10 +17,12 @@ public:
 typedef Port<P1IN_, P1OUT_, P1DIR_> P1;
 typedef Port<P2IN_, P2OUT_, P2DIR_> P2;
 
-template <class port, class bit>
+template <class port_, class bit>
 class Pin : IPin
 {
 public:
+    typedef port_ port;
+
     static uint8_t value()
     {
         return *(volatile uint8_t*)port::in_reg & bit::value;

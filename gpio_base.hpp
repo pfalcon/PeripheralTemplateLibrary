@@ -7,10 +7,11 @@
 
 class IPort
 {
+public:
     // Enable port for access (power on, set up clocks, etc.)
-    static void enable();
+    static void enable() {}
     // Disable port (power off)
-    static void disable();
+    static void disable() {}
 };
 
 class IPin
