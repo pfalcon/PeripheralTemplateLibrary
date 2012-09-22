@@ -10,8 +10,8 @@ int main()
     board::LED::output();
     while (true) {
         board::LED::high();
-        delay(50000);
+        delay_ms<board::freq, 1000>();
         board::LED::low();
-        delay(50000);
+        delay_ms<board::freq, 1000>();
     }
 }
