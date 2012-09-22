@@ -2,18 +2,20 @@ ifeq ($(TARGET), avr)
 MCU = atmega168
 TARGET_FLAGS = -mmcu=$(MCU)
 endif
+
 ifeq ($(TARGET), msp430)
 MCU = msp430g2553
 TARGET_FLAGS = -mmcu=$(MCU)
 endif
+
 ifeq ($(TARGET), stm32)
 LIBOPENCM3_PATH = ../libopencm3
 CROSS_COMPILE = arm-linux-gnueabi-
 GCC_VER = -4.4
 TARGET_INCLUDE = -I$(LIBOPENCM3_PATH)/include
-TARGET_FLAGS =  -mthumb -mcpu=cortex-m3
-TARGET_CFLAGS = -D__STM32__ -DSTM32F1 $(TARGET_FLAGS)
-TARGET_LDFLAGS = --static $(TARGET_FLAGS) -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld -Wl,--gc-sections \
+TARGET_FLAGS = -mthumb -mcpu=cortex-m3
+TARGET_CFLAGS = $(TARGET_FLAGS) -D__STM32__ -DSTM32F1
+TARGET_LDFLAGS = $(TARGET_FLAGS) --static -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld -Wl,--gc-sections \
     -Wl,--build-id=none
 LDLIBS = -L$(LIBOPENCM3_PATH)/lib -lopencm3_stm32f1
 endif
@@ -28,8 +30,8 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 INCLUDE = -I. $(TARGET_INCLUDE)
 TARGET_CFLAGS  ?= $(TARGET_FLAGS)
 TARGET_LDFLAGS ?= $(TARGET_FLAGS)
-CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g -fno-exceptions
-CXXFLAGS = $(CFLAGS)
+CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
+CXXFLAGS = $(CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS)
 
 $(TARGET)/blink: $(TARGET)/blink.o
