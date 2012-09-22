@@ -1,10 +1,10 @@
 ifeq ($(TARGET), avr)
 MCU = atmega168
-TARGET_CFLAGS = -mmcu=$(MCU)
+TARGET_FLAGS = -mmcu=$(MCU)
 endif
 ifeq ($(TARGET), msp430)
 MCU = msp430g2553
-TARGET_CFLAGS = -mmcu=$(MCU)
+TARGET_FLAGS = -mmcu=$(MCU)
 endif
 ifeq ($(TARGET), stm32)
 LIBOPENCM3_PATH = ../libopencm3
@@ -26,6 +26,8 @@ OBJDUMP = $(CROSS_COMPILE)objdump
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
 INCLUDE = -I. $(TARGET_INCLUDE)
+TARGET_CFLAGS  ?= $(TARGET_FLAGS)
+TARGET_LDFLAGS ?= $(TARGET_FLAGS)
 CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g -fno-exceptions
 CXXFLAGS = $(CFLAGS)
 LDFLAGS = $(TARGET_LDFLAGS)
