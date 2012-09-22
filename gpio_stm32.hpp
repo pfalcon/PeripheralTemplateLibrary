@@ -7,11 +7,28 @@
 
 
 template <int base_, typename width_>
-class Port
+class Port : IPort
 {
 public:
     static const int base = base_;
     typedef width_ width;
+
+    static void enable() {
+        switch (base) {
+        case GPIOA:
+            RCC_APB2ENR |= RCC_APB2ENR_IOPAEN;
+            break;
+        case GPIOB:
+            RCC_APB2ENR |= RCC_APB2ENR_IOPBEN;
+            break;
+        case GPIOC:
+            RCC_APB2ENR |= RCC_APB2ENR_IOPCEN;
+            break;
+        case GPIOD:
+            RCC_APB2ENR |= RCC_APB2ENR_IOPDEN;
+            break;
+        }
+    }
 };
 
 typedef Port<GPIOA, uint16_t> PA;
@@ -19,7 +36,7 @@ typedef Port<GPIOB, uint16_t> PB;
 typedef Port<GPIOC, uint16_t> PC;
 typedef Port<GPIOD, uint16_t> PD;
 
-template <class port, class bit>
+template <class port_, class bit>
 class Pin : IPin
 {
     static void set_mode(int mode)
@@ -35,6 +52,8 @@ class Pin : IPin
     }
 
 public:
+    typedef port_ port;
+
     static typename port::width value()
     {
         return GPIO_IDR(port::base) & bit::value;

@@ -5,6 +5,14 @@
 #include <stdint.h>
 #include <bits.hpp>
 
+class IPort
+{
+    // Enable port for access (power on, set up clocks, etc.)
+    static void enable();
+    // Disable port (power off)
+    static void disable();
+};
+
 class IPin
 {
     static void output();
