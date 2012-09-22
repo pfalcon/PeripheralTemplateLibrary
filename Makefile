@@ -19,7 +19,7 @@ LDLIBS = -L$(LIBOPENCM3_PATH)/lib -lopencm3_stm32f1
 endif
 
 CROSS_COMPILE ?= $(TARGET)-
-GCC_VER ?= ""
+GCC_VER ?=
 CC = $(CROSS_COMPILE)gcc$(GCC_VER)
 CXX = $(CROSS_COMPILE)g++$(GCC_VER)
 OBJDUMP = $(CROSS_COMPILE)objdump
