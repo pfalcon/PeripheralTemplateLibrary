@@ -1,7 +1,8 @@
+#include <spi_base.hpp>
 #include <gpio.hpp>
 
 template <class sclk, class miso, class mosi>
-class SPI
+class SPI : public ISPI, public SPIBlockXfer< SPI<sclk, miso, mosi> >
 {
 public:
     static void init()
