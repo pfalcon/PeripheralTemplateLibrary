@@ -13,6 +13,9 @@ public:
         case DEFAULT:
             // Disable watchdog
             WDTCTL = WDTPW | WDTHOLD;
+            // Use precalibrated 1MHz frequency
+            BCSCTL1 = CALBC1_1MHZ;
+            DCOCTL = CALDCO_1MHZ;
             break;
         }
     }
