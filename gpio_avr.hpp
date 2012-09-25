@@ -7,26 +7,27 @@
 #include <avr/io.h>
 
 
-template <int in_reg_, int out_reg_, int dir_reg_>
+template <int in_reg_, int out_reg_, int dir_reg_, typename width_>
 class Port : public IPort
 {
 public:
     static const int in_reg = in_reg_;
     static const int out_reg = out_reg_;
     static const int dir_reg = dir_reg_;
+    typedef width_ width;
 };
 
 #ifdef PINA
-typedef Port<PINA, PORTA, DDRA> PA;
+typedef Port<PINA, PORTA, DDRA, uint8_t> PA;
 #endif
 #ifdef PINB
-typedef Port<PINB, PORTB, DDRB> PB;
+typedef Port<PINB, PORTB, DDRB, uint8_t> PB;
 #endif
 #ifdef PINC
-typedef Port<PINC, PORTC, DDRC> PC;
+typedef Port<PINC, PORTC, DDRC, uint8_t> PC;
 #endif
 #ifdef PIND
-typedef Port<PIND, PORTD, DDRD> PD;
+typedef Port<PIND, PORTD, DDRD, uint8_t> PD;
 #endif
 
 template <class port_, class bit>
