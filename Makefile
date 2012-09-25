@@ -34,9 +34,25 @@ CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
 CXXFLAGS = $(CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS)
 
-$(TARGET)/blink: $(TARGET)/blink.o
+.PHONY: blink blink_timer uart_echo spi
 
+blink: $(TARGET)/blink
+blink_timer: $(TARGET)/blink_timer
+uart_echo: $(TARGET)/uart_echo
+spi: $(TARGET)/spi
+
+$(TARGET)/blink: $(TARGET)/blink.o
 $(TARGET)/blink.o: blink.cpp
+
+$(TARGET)/blink_timer: $(TARGET)/blink_timer.o
+$(TARGET)/blink_timer.o: blink_timer.cpp
+
+$(TARGET)/uart_echo: $(TARGET)/uart_echo.o
+$(TARGET)/uart_echo.o: uart_echo.cpp
+
+$(TARGET)/spi: $(TARGET)/spi.o
+$(TARGET)/spi.o: spi.cpp
+
 
 $(TARGET)/%.o: %.cpp
 	mkdir -p $(TARGET)
