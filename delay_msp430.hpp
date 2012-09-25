@@ -1,5 +1,5 @@
 template <long cycles, bool toobig = (cycles > 32767)>
-class Delay
+class MSP430Delay
 {
 public:
     static void delay()
@@ -9,7 +9,7 @@ public:
 };
 
 template <long cycles>
-class Delay<cycles, true>
+class MSP430Delay<cycles, true>
 {
 public:
     static void delay()
@@ -23,5 +23,5 @@ public:
 template <long cycles>
 inline void delay()
 {
-    Delay<cycles>::delay();
+    MSP430Delay<cycles>::delay();
 }
