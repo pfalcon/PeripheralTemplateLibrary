@@ -26,6 +26,12 @@ public:
         puthex4(b & 0xf);
     }
 
+    static void puthex8(uint8_t *buf, int len)
+    {
+        while (len--)
+            puthex8(*buf++);
+    }
+
     static void puthex16(uint16_t v)
     {
         puthex8(v >> 8);
