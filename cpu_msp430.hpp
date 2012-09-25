@@ -1,4 +1,5 @@
 #include <cpu_base.hpp>
+#include <msp430.h>
 
 class MSP430CPU {};
 
