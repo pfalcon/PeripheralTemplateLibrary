@@ -34,7 +34,11 @@ CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
 CXXFLAGS = $(CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS)
 
-.PHONY: blink blink_timer uart_echo spi
+ALL = blink blink_timer uart_echo spi
+
+.PHONY: $(ALL)
+
+all: $(ALL)
 
 blink: $(TARGET)/blink
 blink_timer: $(TARGET)/blink_timer
