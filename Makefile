@@ -32,7 +32,7 @@ TARGET_CFLAGS  ?= $(TARGET_FLAGS)
 TARGET_LDFLAGS ?= $(TARGET_FLAGS)
 CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
 CXXFLAGS = $(CFLAGS) -fno-exceptions
-LDFLAGS = $(TARGET_LDFLAGS)
+LDFLAGS = $(TARGET_LDFLAGS) -Wl,-Map=$@.map,--cref
 
 ALL = blink blink_timer uart_echo spi
 
