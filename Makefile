@@ -34,7 +34,7 @@ CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
 CXXFLAGS = $(CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS) -Wl,-Map=$@.map,--cref
 
-ALL = blink blink_timer uart_echo spi
+ALL = blink blink_timer uart_echo spi i2c_24cxx
 
 .PHONY: $(ALL)
 
@@ -44,6 +44,7 @@ blink: $(TARGET)/blink
 blink_timer: $(TARGET)/blink_timer
 uart_echo: $(TARGET)/uart_echo
 spi: $(TARGET)/spi
+i2c_24cxx: $(TARGET)/i2c_24cxx
 
 $(TARGET)/blink: $(TARGET)/blink.o
 $(TARGET)/blink.o: blink.cpp
@@ -56,6 +57,9 @@ $(TARGET)/uart_echo.o: uart_echo.cpp
 
 $(TARGET)/spi: $(TARGET)/spi.o
 $(TARGET)/spi.o: spi.cpp
+
+$(TARGET)/i2c_24cxx: $(TARGET)/i2c_24cxx.o
+$(TARGET)/i2c_24cxx.o: i2c_24cxx.cpp
 
 
 $(TARGET)/%.o: %.cpp
