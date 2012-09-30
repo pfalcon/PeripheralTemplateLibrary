@@ -20,6 +20,7 @@ class ICPU
 {
 public:
     static const int DEFAULT = 0;
+    static const int FREQ_8MHZ = 1;
 };
 
 template <class cpu>

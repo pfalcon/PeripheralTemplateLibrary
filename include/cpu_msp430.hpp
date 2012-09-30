@@ -27,13 +27,17 @@ class CPU<MSP430CPU> : public ICPU
 public:
     static void init(int flags)
     {
+        // Disable watchdog
+        WDTCTL = WDTPW | WDTHOLD;
         switch (flags) {
         case DEFAULT:
-            // Disable watchdog
-            WDTCTL = WDTPW | WDTHOLD;
             // Use precalibrated 1MHz frequency
             BCSCTL1 = CALBC1_1MHZ;
             DCOCTL = CALDCO_1MHZ;
+            break;
+        case FREQ_8MHZ:
+            BCSCTL1 = CALBC1_8MHZ;
+            DCOCTL = CALDCO_8MHZ;
             break;
         }
     }
