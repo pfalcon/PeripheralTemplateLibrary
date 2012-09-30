@@ -38,6 +38,12 @@ public:
         pin::input();
         pin::pullup();
     }
+    static void bus_power()
+    {
+        pin::pulloff(); // Required for MSP430
+        pin::output();
+        pin::high();
+    }
     static typename pin::port::width bus_value()
     {
         return pin::value();
