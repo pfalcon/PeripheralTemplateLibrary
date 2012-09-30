@@ -54,6 +54,7 @@ public:
 
     static void write(uint8_t b);
     static uint8_t read();
+    static void read_block(uint8_t *buf, uint8_t len);
 };
 
 template <class pin, class delayer>
@@ -129,4 +130,12 @@ uint8_t OneWire<pin, delayer>::read()
             b |= 0x80;
     }
     return b;
+}
+
+template <class pin, class delayer>
+void OneWire<pin, delayer>::read_block(uint8_t *buf, uint8_t len)
+{
+    while (len--) {
+        *buf++ = read();
+    }
 }
