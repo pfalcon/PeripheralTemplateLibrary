@@ -30,6 +30,11 @@ public:
         byte_writer::write('\n');
     }
 
+    static void putc(uint8_t c)
+    {
+        byte_writer::write(c);
+    }
+
     static void puthex4(uint8_t b)
     {
         b += '0';
