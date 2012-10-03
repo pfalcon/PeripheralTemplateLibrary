@@ -29,11 +29,17 @@ public:
     static width value() { return *(volatile width*)val_reg; }
     static void free_run();
 
+    static bool expired(width start, width duration)
+    {
+        return value() - start >= duration;
+    }
+
     static void delay(width cycles)
     {
         width start = value();
         delay_since(start, cycles);
     }
+
     static void delay_since(width since, width delay)
     {
         while (value() - since < delay);
