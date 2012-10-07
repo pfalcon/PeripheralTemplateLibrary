@@ -39,41 +39,42 @@ TARGET_LDFLAGS ?= $(TARGET_FLAGS)
 CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
 CXXFLAGS = $(CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS) -Wl,-Map=$@.map,--cref
+TARGETDIR = bin-$(TARGET)
 
 
-$(TARGET)/%.o: %.cpp
-	mkdir -p $(TARGET)
+$(TARGETDIR)/%.o: %.cpp
+	mkdir -p $(TARGETDIR)
 	$(CXX) $(CXXFLAGS) -c $^ -o $@
 
-.PRECIOUS: $(TARGET)/%.hex $(TARGET)/%.bin
+.PRECIOUS: $(TARGETDIR)/%.hex $(TARGETDIR)/%.bin
 
 ifeq ($(TARGET), msp430)
-flash-%: $(TARGET)/%
+flash-%: $(TARGETDIR)/%
 	mspdebug rf2500 "prog $^"
 endif
 
 ifeq ($(TARGET), avr)
-$(TARGET)/%.hex: $(TARGET)/%
+$(TARGETDIR)/%.hex: $(TARGETDIR)/%
 	$(OBJCOPY) -O ihex -R .eeprom $^ $@
 	$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O ihex $^ $^.eep || exit 0
 
-flash-%: $(TARGET)/%.hex
+flash-%: $(TARGETDIR)/%.hex
 	avrdude -p m328p -c arduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:$^
 endif
 
 ifeq ($(TARGET), stm32)
-$(TARGET)/%.bin: $(TARGET)/%
+$(TARGETDIR)/%.bin: $(TARGETDIR)/%
 	$(OBJCOPY) -O binary $^ $@
 
-flash-%: $(TARGET)/%.bin
+flash-%: $(TARGETDIR)/%.bin
 	st-flash write $^ 0x8000000
 endif
 
 
-disasm-%: $(TARGET)/%
+disasm-%: $(TARGETDIR)/%
 	$(OBJDUMP) -dSt --demangle $^ >$^.disasm
 
 all:
 
 clean:
-	rm -f $(TARGET)/*.o
+	rm -f $(TARGETDIR)/*.o
