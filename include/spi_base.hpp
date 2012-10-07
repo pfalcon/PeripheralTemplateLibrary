@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _SPI_BASE_HPP
+#define _SPI_BASE_HPP
+
 class ISPI
 {
 public:
@@ -52,3 +55,5 @@ void SPIBlockXfer<spi_impl>::write_block(uint8_t *buf, uint8_t len)
          spi_impl::transfer(*buf++);
     }
 }
+
+#endif //_SPI_BASE_HPP

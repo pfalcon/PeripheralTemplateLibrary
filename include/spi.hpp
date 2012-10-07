@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _SPI_HPP
+#define _SPI_HPP
+
 #include <spi_base.hpp>
 #include <gpio.hpp>
 
@@ -53,3 +56,5 @@ uint8_t SPI<sclk, miso, mosi>::transfer(uint8_t b)
         }
         return b;
 }
+
+#endif //_SPI_HPP
