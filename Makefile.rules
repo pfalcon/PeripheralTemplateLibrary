@@ -1,3 +1,5 @@
+PTL_PATH ?= .
+
 ifeq ($(TARGET),)
 $(error You need to define target: $(MAKE) TARGET=(msp430|avr|stm32))
 endif
@@ -31,7 +33,7 @@ CXX = $(CROSS_COMPILE)g++$(GCC_VER)
 OBJDUMP = $(CROSS_COMPILE)objdump
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
-INCLUDE = -Iinclude/ $(TARGET_INCLUDE)
+INCLUDE = -I$(PTL_PATH)/include/ $(TARGET_INCLUDE) -I.
 TARGET_CFLAGS  ?= $(TARGET_FLAGS)
 TARGET_LDFLAGS ?= $(TARGET_FLAGS)
 CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
