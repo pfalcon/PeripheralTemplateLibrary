@@ -1,3 +1,7 @@
+ifeq ($(TARGET),)
+$(error You need to define target: $(MAKE) TARGET=(msp430|avr|stm32))
+endif
+
 ifeq ($(TARGET), avr)
 MCU = atmega168
 TARGET_FLAGS = -mmcu=$(MCU)
@@ -66,6 +70,8 @@ endif
 
 disasm-%: $(TARGET)/%
 	$(OBJDUMP) -dSt --demangle $^ >$^.disasm
+
+all:
 
 clean:
 	rm -f $(TARGET)/*.o
