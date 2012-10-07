@@ -66,4 +66,16 @@ public:
         puthex8(v >> 8);
         puthex8(v  & 0xff);
     }
+
+    static void putdec(uint16_t v)
+    {
+        char buf[6];
+        char *p = buf + 5;
+        *p = 0;
+        do {
+            *--p = (v % 10) + '0';
+            v = v / 10;
+        } while (v > 0);
+        putstr(p);
+    }
 };
