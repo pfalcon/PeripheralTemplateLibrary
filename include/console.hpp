@@ -35,6 +35,12 @@ public:
         byte_writer::write(c);
     }
 
+    static void putstr(const char *str)
+    {
+        while (*str)
+            putc(*str++);
+    }
+
     static void puthex4(uint8_t b)
     {
         b += '0';
