@@ -67,7 +67,7 @@ public:
         cs::deassert();
     }
 
-    static void spi_command_write_block(uint8_t cmd, uint8_t *buf, uint8_t len)
+    static void spi_command_write_block(uint8_t cmd, const uint8_t *buf, uint8_t len)
     {
         cs::assert();
         spi::transfer(cmd);

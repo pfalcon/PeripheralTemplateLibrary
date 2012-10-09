@@ -37,7 +37,7 @@ public:
     // implementation of such, with basic default
     // implementation provided.
     static void read_block(uint8_t *buf, uint8_t len);
-    static void write_block(uint8_t *buf, uint8_t len);
+    static void write_block(const uint8_t *buf, uint8_t len);
 };
 
 template <class spi_impl>
@@ -49,7 +49,7 @@ void SPIBlockXfer<spi_impl>::read_block(uint8_t *buf, uint8_t len)
 }
 
 template <class spi_impl>
-void SPIBlockXfer<spi_impl>::write_block(uint8_t *buf, uint8_t len)
+void SPIBlockXfer<spi_impl>::write_block(const uint8_t *buf, uint8_t len)
 {
     while (len--) {
          spi_impl::transfer(*buf++);
