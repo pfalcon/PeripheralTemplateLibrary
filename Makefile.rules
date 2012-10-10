@@ -33,18 +33,23 @@ CXX = $(CROSS_COMPILE)g++$(GCC_VER)
 OBJDUMP = $(CROSS_COMPILE)objdump
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
-INCLUDE = -I$(PTL_PATH)/include/ $(TARGET_INCLUDE) -I.
+CFLAGS ?= -Os -g
+ALL_INCLUDE = -I$(PTL_PATH)/include/ $(TARGET_INCLUDE) $(INCLUDE)
 TARGET_CFLAGS  ?= $(TARGET_FLAGS)
 TARGET_LDFLAGS ?= $(TARGET_FLAGS)
-CFLAGS = $(INCLUDE) $(TARGET_CFLAGS) -Os -g
-CXXFLAGS = $(CFLAGS) -fno-exceptions
+ALL_CFLAGS = $(ALL_INCLUDE) $(TARGET_CFLAGS) $(CFLAGS)
+ALL_CXXFLAGS = $(ALL_CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS) -Wl,-Map=$@.map,--cref
 TARGETDIR = bin-$(TARGET)
 
 
 $(TARGETDIR)/%.o: %.cpp
 	mkdir -p $(TARGETDIR)
-	$(CXX) $(CXXFLAGS) -c $^ -o $@
+	$(CXX) $(ALL_CXXFLAGS) -c $^ -o $@
+
+$(TARGETDIR)/%.o: %.c
+	mkdir -p $(TARGETDIR)
+	$(CXX) $(ALL_CXXFLAGS) -c $^ -o $@
 
 .PRECIOUS: $(TARGETDIR)/%.hex $(TARGETDIR)/%.bin
 
