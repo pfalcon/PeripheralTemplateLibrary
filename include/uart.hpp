@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _UART_HPP
+#define _UART_HPP
+
 #include <gpio.hpp>
 
 template <class tx, class rx, class timer, int bit_time>
@@ -93,3 +96,5 @@ uint8_t UART<tx, rx, timer, bit_time>::read()
 
     return b;
 }
+
+#endif //_UART_HPP
