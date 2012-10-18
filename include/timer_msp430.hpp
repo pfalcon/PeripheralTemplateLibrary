@@ -40,6 +40,18 @@ public:
         delay_since(start, cycles);
     }
 
+    static void delay(int32_t cycles)
+    {
+        width start = value();
+        while (true) {
+            width end = value();
+            cycles -= end - start;
+            if (cycles < 0)
+                break;
+            start = end;
+        }
+    }
+
     static void delay_since(width since, width delay)
     {
         while (value() - since < delay);
