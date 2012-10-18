@@ -23,6 +23,8 @@ template <class pin>
 class Signal
 {
 public:
+    typedef typename pin::port port;
+
     static void output()   { pin::output(); }
     static void input()    { pin::input(); }
     static void assert()   { pin::high(); }
@@ -34,6 +36,8 @@ template <class pin>
 class InvertedSignal
 {
 public:
+    typedef typename pin::port port;
+
     static void output()   { pin::output(); }
     static void input()    { pin::input(); }
     static void assert()   { pin::low(); }
