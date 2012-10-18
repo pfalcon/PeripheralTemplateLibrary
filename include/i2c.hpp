@@ -19,7 +19,7 @@
 
 // Based on http://en.wikipedia.org/wiki/I%C2%B2C
 
-template <class sda, class scl, class delayer, int delay_>
+template <class sda, class scl, class delayer, unsigned delay_>
 class I2C
 {
 public:

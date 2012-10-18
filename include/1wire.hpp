@@ -48,7 +48,7 @@ public:
     {
         return pin::value();
     }
-    static void delay(int us)
+    static void delay(unsigned us)
     {
         delayer::delay(us * 8);
     }
