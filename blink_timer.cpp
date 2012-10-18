@@ -1,9 +1,7 @@
 #include <gpio.hpp>
-#include <delay.hpp>
 #include <cpu.hpp>
 #include <board.hpp>
 #include <timer.hpp>
-#include <delay_new.hpp>
 
 
 int main()
@@ -14,8 +12,8 @@ int main()
     timer::free_run();
     while (true) {
         board::LED::high();
-        timer::delay(65535);
+        timer::delay(200000);
         board::LED::low();
-        timer::delay(65535);
+        timer::delay(200000);
     }
 }

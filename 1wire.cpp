@@ -1,7 +1,7 @@
 #include <cpu.hpp>
 #include <board.hpp>
 #include <gpio.hpp>
-#include <delay.hpp>
+#include <delay_static.hpp>
 #include <timer.hpp>
 #include <uart.hpp>
 #include <console.hpp>

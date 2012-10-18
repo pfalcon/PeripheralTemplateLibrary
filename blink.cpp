@@ -1,7 +1,7 @@
 #include <gpio.hpp>
-#include <delay.hpp>
 #include <cpu.hpp>
 #include <board.hpp>
+#include <delay_static.hpp>
 
 
 int main()
