@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <delay_base.hpp>
+#include <delay_static_base.hpp>
 #if defined(__MSP430__)
-#include <delay_msp430.hpp>
+#include <delay_static_msp430.hpp>
 #elif defined(__AVR__)
-#include <delay_avr.hpp>
+#include <delay_static_avr.hpp>
 #elif defined(__STM32__)
-#include <delay_stm32.hpp>
+#include <delay_static_stm32.hpp>
 #else
-#error Unknown platform in delay.hpp
+#error Unknown platform in delay_static.hpp
 #endif
