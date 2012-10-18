@@ -12,8 +12,8 @@ int main()
     timer::free_run();
     while (true) {
         board::LED::high();
-        timer::delay(200000);
+        timer::delay(200000U);
         board::LED::low();
-        timer::delay(200000);
+        timer::delay(200000U);
     }
 }
