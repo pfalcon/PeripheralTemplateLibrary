@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <delay_static_base.hpp>
 #if defined(__MSP430__)
 #include <delay_static_msp430.hpp>
 #elif defined(__AVR__)
