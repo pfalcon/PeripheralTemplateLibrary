@@ -4,6 +4,8 @@
 #include <timer.hpp>
 
 
+typedef timer delayer;
+
 int main()
 {
     cpu::init(cpu::DEFAULT);
@@ -12,8 +14,8 @@ int main()
     timer::free_run();
     while (true) {
         board::LED::high();
-        timer::delay(200000U);
+        delayer::delay(100000U);
         board::LED::low();
-        timer::delay(200000U);
+        delayer::delay(100000U);
     }
 }

@@ -4,6 +4,8 @@
 #include <delay.hpp>
 
 
+typedef Delay delayer;
+
 int main()
 {
     cpu::init(cpu::DEFAULT);
@@ -11,8 +13,8 @@ int main()
     board::LED::output();
     while (true) {
         board::LED::high();
-        Delay::delay(3000000);
+        delayer::delay(100000U);
         board::LED::low();
-        Delay::delay(3000000);
+        delayer::delay(100000U);
     }
 }
