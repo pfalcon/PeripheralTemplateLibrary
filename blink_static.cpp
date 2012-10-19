@@ -3,7 +3,6 @@
 #include <board.hpp>
 #include <delay_static.hpp>
 
-
 int main()
 {
     cpu::init(cpu::DEFAULT);
@@ -11,8 +10,8 @@ int main()
     board::LED::output();
     while (true) {
         board::LED::high();
-        delay_ms<board::freq, 1000>();
+        StaticDelay::delay(100000U);
         board::LED::low();
-        delay_ms<board::freq, 1000>();
+        StaticDelay::delay(100000U);
     }
 }
