@@ -1,0 +1,27 @@
+Q:
+I have in my program:
+
+timer::delay(20000);
+
+And get following compiler error on it:
+
+blink_timer.cpp:15:27: error: call of overloaded ‘delay(int)’ is ambiguous
+
+A:
+First of all, delay value is by definition unsigned - you can't turn back
+time. PTL is also highly optimized library, for example for 8/16 bit MCUs,
+it usually provides two delay implementation - separately for 16 bit and
+32 bit delay values. Last final note is that integer constants in C/C++
+are by default signed. And that last fact actually leads to ambiguities.
+For example, consider call like "timer::delay(65535)". You may think that
+it would use optimized 16 bit implementation, as 65535 fits perfectly
+in 16 bit. But actually, that's not the case, because for *signed*
+16 bit integer value range is [-32768, 32767]. So, 65535 doesn't have
+type "integer", but instead "long", and for it "heavy" 32 bit
+implementation will be selected. Instead of silently allowing such
+hardly expected behavior, it was decided to explicitly remind programmer
+to use unsigned values for delays. So, just use "U" suffix (recommended),
+or explicitly cast value to uint type:
+
+timer::delay(20000U);
+timer::delay((uint16_t)20000);
