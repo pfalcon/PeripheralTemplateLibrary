@@ -23,9 +23,11 @@
 
 class None {};
 
-template <int bit_time, class tx, class rx = None, class timer = None>
+template <unsigned long freq, unsigned baud, class tx, class rx = None, class timer = None>
 class UART
 {
+    static const int bit_time = freq / baud;
+
 public:
     static void init()
     {
@@ -37,8 +39,8 @@ public:
     static void write(uint8_t b);
 };
 
-template <int bit_time, class tx, class rx, class timer>
-void UART<bit_time, tx, rx, timer>::write(uint8_t val)
+template <unsigned long freq, unsigned baud, class tx, class rx, class timer>
+void UART<freq, baud, tx, rx, timer>::write(uint8_t val)
 {
     typename timer::width start;
     uint8_t bit_count = 8;
@@ -69,8 +71,8 @@ void UART<bit_time, tx, rx, timer>::write(uint8_t val)
     timer::delay_since(start, bit_time);
 }
 
-template <int bit_time, class tx, class rx, class timer>
-uint8_t UART<bit_time, tx, rx, timer>::read()
+template <unsigned long freq, unsigned baud, class tx, class rx, class timer>
+uint8_t UART<freq, baud, tx, rx, timer>::read()
 {
     typename timer::width start;
     uint8_t bit_count = 8;
