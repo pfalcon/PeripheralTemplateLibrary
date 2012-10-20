@@ -18,7 +18,7 @@
  */
 #include <uart_base.hpp>
 #ifdef __MSP430__
-//#include <uart_msp430.hpp>
+#include <uart_msp430.hpp>
 #else
 #error Unknown platform in uart.hpp
 #endif
