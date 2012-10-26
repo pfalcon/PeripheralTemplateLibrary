@@ -18,6 +18,7 @@
  */
 #include <cpu_base.hpp>
 #include <msp430.h>
+#include <legacymsp430.h>
 
 class MSP430CPU {};
 
@@ -41,6 +42,9 @@ public:
             break;
         }
     }
+
+    static void enable_irq()  { eint(); }
+    static void disable_irq() { dint(); }
 };
 
 typedef CPU<MSP430CPU> cpu;
