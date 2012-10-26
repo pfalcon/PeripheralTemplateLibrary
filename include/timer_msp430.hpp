@@ -71,11 +71,11 @@ template <int ctrl_reg_, int val_reg_, int intr_reg_>
 void Timer<ctrl_reg_, val_reg_, intr_reg_>::free_run()
 {
     // SMCLK, continuous mode
-    TACTL = TASSEL_2 | MC_2;
+    *(volatile uint16_t*)ctrl_reg = TASSEL_2 | MC_2;
 }
 
 typedef Timer<TACTL_, TAR_, TAIV_> Timer0_A;
 #ifdef TA1CTL_
-typedef Timer<TACTL_, TAR_, TAIV_> Timer1_A;
+typedef Timer<TA1CTL_, TA1R_, TA1IV_> Timer1_A;
 #endif
 typedef Timer0_A timer;
