@@ -1,6 +1,6 @@
 include Makefile.rules
 
-ALL = blink blink_static blink_dynamic blink_timer uart_echo spi i2c_24cxx 1wire adc
+ALL = blink blink_static blink_dynamic blink_timer uart_echo spi i2c_24cxx 1wire adc timer_irq
 
 .PHONY: $(ALL)
 
@@ -15,6 +15,7 @@ spi: $(TARGETDIR)/spi
 i2c_24cxx: $(TARGETDIR)/i2c_24cxx
 1wire: $(TARGETDIR)/1wire
 adc: $(TARGETDIR)/adc
+timer_irq: $(TARGETDIR)/timer_irq
 
 $(TARGETDIR)/blink: $(TARGETDIR)/blink.o
 $(TARGETDIR)/blink.o: blink.cpp
