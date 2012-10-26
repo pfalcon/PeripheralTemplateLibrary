@@ -17,6 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <timer_base.hpp>
+// interrupt(X) define. TODO: get rid of?
+#include <legacymsp430.h>
 
 template <int ctrl_reg_, int val_reg_, int intr_reg_>
 class Timer : public ITimer<uint16_t>
@@ -57,6 +59,10 @@ public:
         while (value() - since < delay);
     }
 
+    static void enable_irq()  { *(volatile uint16_t*)ctrl_reg |= TAIE; }
+    static void disable_irq() { *(volatile uint16_t*)ctrl_reg &= ~TAIE; }
+//    __attribute__((interrupt(TIMER0_A1_VECTOR))) static void irq_handler();
+    interrupt(TIMER0_A1_VECTOR) irq_handler();
 };
 
 template <int ctrl_reg_, int val_reg_, int intr_reg_>
