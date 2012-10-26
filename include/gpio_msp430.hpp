@@ -55,6 +55,10 @@ public:
     {
         *(volatile uint8_t*)port::out_reg &= ~bit::value;
     }
+    static void toggle()
+    {
+        *(volatile uint8_t*)port::out_reg ^= bit::value;
+    }
     static void output()
     {
         *(volatile uint8_t*)port::dir_reg |= bit::value;
