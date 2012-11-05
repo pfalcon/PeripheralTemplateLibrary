@@ -7,7 +7,7 @@
 #include <console.hpp>
 
 
-typedef UART<Pin<P1, Bit1>, Pin<P1, Bit2>, timer, 1 MHZ / 9600> uart;
+typedef UART<1 MHZ, 9600, Pin<P1, Bit1>, Pin<P1, Bit2>, timer> uart;
 typedef I2C< Pin<P1, Bit4>, Pin<P1, Bit5>, timer, 10 > i2c;
 
 int main()

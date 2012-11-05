@@ -8,7 +8,7 @@
 #include <1wire.hpp>
 
 
-typedef UART<Pin<P1, Bit1>, Pin<P1, Bit2>, timer, 8 MHZ / 9600> uart;
+typedef UART<8 MHZ, 9600, Pin<P1, Bit1>, Pin<P1, Bit2>, timer> uart;
 typedef OneWire< Pin<P1, Bit5>, timer > onewire;
 typedef Console<uart> con;
 
