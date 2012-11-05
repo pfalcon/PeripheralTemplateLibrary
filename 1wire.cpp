@@ -2,12 +2,14 @@
 #include <board.hpp>
 #include <gpio.hpp>
 #include <delay_static.hpp>
+#include <delay_time.hpp>
 #include <timer.hpp>
 #include <uart.hpp>
 #include <console.hpp>
 #include <1wire.hpp>
 
 
+typedef TimeDelay<8 MHZ, StaticDelay> delayer;
 typedef UART<8 MHZ, 9600, Pin<P1, Bit1>, Pin<P1, Bit2>, timer> uart;
 typedef OneWire< Pin<P1, Bit5>, timer > onewire;
 typedef Console<uart> con;
@@ -65,7 +67,7 @@ int main()
         onewire::write(0xcc);
         onewire::write(0x44);
         onewire::bus_power();
-        delay_ms<8 MHZ, 800>();
+        delayer::delay_ms(800);
 
         read_scratchpad(buf);
     }
