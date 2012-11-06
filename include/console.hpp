@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _CONSOLE_HPP
+#define _CONSOLE_HPP
 
 #define ENDL "\r\n"
 
@@ -82,3 +84,5 @@ public:
         putstr(p);
     }
 };
+
+#endif // _CONSOLE_HPP

@@ -16,7 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _BOARD_BASE_HPP
+#define _BOARD_BASE_HPP
+
 template <class board>
 class Board
 {
 };
+
+#endif // _BOARD_BASE_HPP
