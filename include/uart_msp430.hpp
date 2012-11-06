@@ -63,6 +63,34 @@ The recommended USCI initialization/re-configuration process is:
         UCA0TXBUF = b;
         while (!(IFG2 & UCA0TXIFG));
     }
+
+    static uint8_t read_async()
+    {
+        return UCA0RXBUF;
+    }
+
+    static void write_async(uint8_t b)
+    {
+        UCA0TXBUF = b;
+    }
+
+    static bool read_ready()
+    {
+        return IFG2 & UCA0RXIFG;
+    }
+
+    static bool write_ready()
+    {
+        return IFG2 & UCA0TXIFG;
+    }
+
+    static void enable_rx_irq()  { IE2 |= UCA0RXIE; }
+    static void disable_rx_irq() { IE2 &= ~UCA0RXIE; }
+    static void enable_tx_irq()  { IE2 |= UCA0TXIE; }
+    static void disable_tx_irq() { IE2 &= ~UCA0TXIE; }
+
+    static interrupt(USCIAB0RX_VECTOR) irq_handler_rx();
+    static interrupt(USCIAB0TX_VECTOR) irq_handler_tx();
 };
 
 #endif //_UART_MSP430_HPP
