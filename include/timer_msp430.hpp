@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _TIMER_MSP430_HPP
+#define _TIMER_MSP430_HPP
+
 #include <timer_base.hpp>
 // interrupt(X) define. TODO: get rid of?
 #include <legacymsp430.h>
@@ -79,3 +82,5 @@ typedef Timer<TACTL_, TAR_, TAIV_> Timer0_A;
 typedef Timer<TA1CTL_, TA1R_, TA1IV_> Timer1_A;
 #endif
 typedef Timer0_A timer;
+
+#endif // _TIMER_MSP430_HPP
