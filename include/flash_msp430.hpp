@@ -20,6 +20,8 @@
 // 1MHz / 3 = 333KHz
 #define FLASH_CLOCK_DIV 3
 
+#define SEGMENT_D 0x1000
+
 class Flash
 {
 public:
@@ -40,7 +42,7 @@ public:
             FCTL3 = FWKEY | LOCK;
         }
 
-        static void write_u8(uint8_t *addr, uint8_t val)
+        static void write8(uint8_t *addr, uint8_t val)
         {
             // Reset LOCK and other status bits
             FCTL3 = FWKEY;
@@ -50,7 +52,7 @@ public:
             FCTL3 = FWKEY | LOCK;
         }
 
-        static void write_u16(uint16_t *addr, uint16_t val)
+        static void write16(uint16_t *addr, uint16_t val)
         {
             // Reset LOCK and other status bits
             FCTL3 = FWKEY;
