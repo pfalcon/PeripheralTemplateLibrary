@@ -19,6 +19,8 @@
 #ifndef _CONSOLE_HPP
 #define _CONSOLE_HPP
 
+#include <inline.hpp>
+
 #define ENDL "\r\n"
 
 template <class byte_writer>
@@ -40,7 +42,7 @@ public:
         byte_writer::write(c);
     }
 
-    static void putstr(const char *str)
+    NOINLINE static void putstr(const char *str)
     {
         while (*str)
             putc(*str++);
@@ -66,13 +68,13 @@ public:
             puthex8(*buf++);
     }
 
-    static void puthex16(uint16_t v)
+    NOINLINE static void puthex16(uint16_t v)
     {
         puthex8(v >> 8);
         puthex8(v  & 0xff);
     }
 
-    static void putdec(uint16_t v)
+    NOINLINE static void putdec(uint16_t v)
     {
         char buf[6];
         char *p = buf + 5;
