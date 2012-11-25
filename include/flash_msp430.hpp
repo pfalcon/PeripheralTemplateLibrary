@@ -20,7 +20,7 @@
 // 1MHz / 3 = 333KHz
 #define FLASH_CLOCK_DIV 3
 
-#define SEGMENT_D 0x1000
+#define FLASH_SEGMENT_D 0x1000
 
 class Flash
 {

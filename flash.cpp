@@ -21,16 +21,16 @@ int main()
     uart::read();
 
     con::putstr("Current value: ");
-    con::puthex16(*(uint16_t*)SEGMENT_D);
+    con::puthex16(*(uint16_t*)FLASH_SEGMENT_D);
     con::newline();
 
-    Flash::erase((uint16_t*)SEGMENT_D);
+    Flash::erase((uint16_t*)FLASH_SEGMENT_D);
     con::putstr("After erase: ");
-    con::puthex16(*(uint16_t*)SEGMENT_D);
+    con::puthex16(*(uint16_t*)FLASH_SEGMENT_D);
     con::newline();
 
     con::putstr("After write: ");
-    Flash::write16((uint16_t*)SEGMENT_D, 0x1234);
-    con::puthex16(*(uint16_t*)SEGMENT_D);
+    Flash::write16((uint16_t*)FLASH_SEGMENT_D, 0x1234);
+    con::puthex16(*(uint16_t*)FLASH_SEGMENT_D);
     con::newline();
 }
