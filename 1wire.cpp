@@ -8,29 +8,36 @@
 #include <console.hpp>
 #include <1wire.hpp>
 
+#define READ_ROM 0x33
+#define SKIP_ROM 0xCC
+#define READ_POWER_SUPPLY 0xB4
+#define CONVERT_T 0x44
+#define READ_SCRATCHPAD 0xBE
 
 typedef TimeDelay<8 MHZ, StaticDelay> delayer;
-typedef UART<8 MHZ, 9600, Pin<P1, Bit1>, Pin<P1, Bit2>, timer> uart;
+typedef UART<8 MHZ, 9600, Pin<P1, Bit2>, Pin<P1, Bit1>, timer> uart;
 typedef OneWire< Pin<P1, Bit5>, timer > onewire;
 typedef Console<uart> con;
 
 uint8_t crc8(uint8_t *buf, int len);
 
-void read_scratchpad(uint8_t *buf)
+void read_scratchpad(const char *msg, uint8_t *buf)
 {
     bool res = onewire::reset();
-    Console<uart>::puthex8(res);
-    Console<uart>::newline();
+    con::putstr("Presence: ");
+    con::puthex8(res);
+    con::newline();
 
-    onewire::write(0xcc);
-    onewire::write(0xbe);
+    onewire::write(SKIP_ROM);
+    onewire::write(READ_SCRATCHPAD);
     onewire::read_block(buf, 9);
+    con::putstr(msg);
     con::puthex8(buf, 9);
-    Console<uart>::newline();
+    con::putc(' ');
 
     uint8_t crc = crc8(buf, 9);
-    Console<uart>::puthex8(crc);
-    Console<uart>::newline();
+    con::puthex8(crc);
+    con::newline();
 }
 
 int main()
@@ -45,31 +52,36 @@ int main()
         uart::read();
 
         bool res = onewire::reset();
-        Console<uart>::puthex8(res);
-        onewire::write(0xcc);
-        onewire::write(0xb4);
+        con::putstr("Initial presence: ");
+        con::puthex8(res);
+        con::newline();
+
+        onewire::write(SKIP_ROM);
+        onewire::write(READ_POWER_SUPPLY);
         uint8_t b = onewire::read();
-        Console<uart>::puthex8(b);
-        Console<uart>::newline();
+        con::putstr("Power status: ");
+        con::puthex8(b);
+        con::newline();
 
         onewire::reset();
-        onewire::write(0x33);
+        onewire::write(READ_ROM);
         onewire::read_block(buf, 8);
+        con::putstr("Address: ");
         con::puthex8(buf, 8);
-        con::newline();
+        con::putc(' ');
         con::puthex8(crc8(buf, 8));
         con::newline();
-        con::newline();
 
-        read_scratchpad(buf);
+        read_scratchpad("Before measurement: ", buf);
 
         onewire::reset();
-        onewire::write(0xcc);
-        onewire::write(0x44);
+        onewire::write(SKIP_ROM);
+        onewire::write(CONVERT_T);
         onewire::bus_power();
         delayer::delay_ms(800);
 
-        read_scratchpad(buf);
+        read_scratchpad("After measurement: ", buf);
+        con::newline();
     }
 }
 
