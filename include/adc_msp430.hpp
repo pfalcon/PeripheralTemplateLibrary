@@ -125,6 +125,7 @@ class ADC
 {
 public:
     typedef uint16_t width;
+    const static int MAX_VALUE = (1 << 10) - 1;
 
 
     enum Channel {
