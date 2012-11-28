@@ -12,11 +12,13 @@ public:
         cycles -= 5 + 3 + 5 + 3 - 4; // 3 clocks
         cycles >>= 2; // 5 instructions, 5 cycles
         asm(
+            "mov    %A0, r14 \n"
+            "mov    %B0, r15 \n"
             "1: \n"
-            "sub    #1, %A0 \n" // 1 cycle
-            "subc   #0, %B0 \n" // 1 cycle
+            "sub    #1, r14 \n" // 1 cycle
+            "subc   #0, r15 \n" // 1 cycle
             "jc    1b \n" // 2 cycles, msp430 has weird C flag value for substracts
-            : : "r" (cycles)
+            : : "ir" (cycles)
         );
         // ret: 3 cycles
     }
