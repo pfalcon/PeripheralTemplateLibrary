@@ -135,6 +135,22 @@ public:
         A12 = 12 << 12, A13 = 13 << 12, A14 = 14 << 12, A15 = 15 << 12
     };
 
+    /*
+     * Enable channel for ADC usage.
+     */
+    static void enable_channel(enum Channel channel)
+    {
+#ifdef ADC10AE1
+        if (channel >= A12) {
+            ADC10AE1 |= 1 << ((channel >> 12) - 8);
+            return;
+        }
+#endif
+        if (channel <= A7) {
+            ADC10AE0 |= 1 << (channel >> 12);
+        }
+    }
+
     static void set_channel(enum Channel channel)
     {
         ADC10CTL1 = (ADC10CTL1 & ~INCH_15) | channel;
@@ -184,9 +200,7 @@ ADC::width ADC::easy_sample(enum Channel channel)
 //    ADC10CTL0 = SREF_1 | ADC10SHT_2 | ADC10SR | ADC_VREF | REFON | ADC10ON; //!REFOUT !MSC
 //    ADC10CTL1 = ADC10SSEL_3 | ADC10DIV_0 | channel;
     // Disable digital buffer on analog pin
-    if (channel < 8) {
-        ADC10AE0 |= 1 << channel;
-    }
+    enable_channel(channel);
     // Let Vref to settle
     __delay_cycles(30);
 
