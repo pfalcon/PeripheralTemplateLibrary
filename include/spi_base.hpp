@@ -52,7 +52,7 @@ template <class spi_impl>
 void SPIBlockXfer<spi_impl>::write_block(const uint8_t *buf, uint8_t len)
 {
     while (len--) {
-         spi_impl::transfer(*buf++);
+         spi_impl::write(*buf++);
     }
 }
 
