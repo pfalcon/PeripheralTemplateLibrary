@@ -56,7 +56,7 @@ public:
         byte_writer::write(b);
     }
 
-    static void puthex8(uint8_t b)
+    NOINLINE static void puthex8(uint8_t b)
     {
         puthex4(b >> 4);
         puthex4(b & 0xf);
