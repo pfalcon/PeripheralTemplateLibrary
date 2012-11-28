@@ -193,14 +193,9 @@ public:
 
 ADC::width ADC::easy_sample(enum Channel channel)
 {
+    enable_channel(channel);
     unlock();
     set_channel(channel);
-    // range GND..Vref, sample&hold: 16clk,.
-#define ADC_VREF REF2_5V
-//    ADC10CTL0 = SREF_1 | ADC10SHT_2 | ADC10SR | ADC_VREF | REFON | ADC10ON; //!REFOUT !MSC
-//    ADC10CTL1 = ADC10SSEL_3 | ADC10DIV_0 | channel;
-    // Disable digital buffer on analog pin
-    enable_channel(channel);
     // Let Vref to settle
     __delay_cycles(30);
 
