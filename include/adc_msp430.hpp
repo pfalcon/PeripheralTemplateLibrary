@@ -163,7 +163,7 @@ public:
     // Start conversion (automatically locks config)
     static void start() { ADC10CTL0 |= ADC10ON; ADC10CTL0 |= ENC | ADC10SC; }
     // Busy-wait for conversion end
-    static void wait() { while (!(ADC10CTL0 & ADC10IFG)); }
+    static void wait() { while (!(ADC10CTL0 & ADC10IFG)); ADC10CTL0 &= ~ADC10IFG; }
     // Get conversion result
     static width value() { return ADC10MEM; }
     static void disable() { ADC10CTL0 &= ~(REFOUT | REFON | ADC10ON | ENC); }
