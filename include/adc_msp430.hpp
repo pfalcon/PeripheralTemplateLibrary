@@ -138,7 +138,7 @@ public:
     /*
      * Enable channel for ADC usage.
      */
-    static void enable_channel(enum Channel channel)
+    static void enable_channel(unsigned channel)
     {
 #ifdef ADC10AE1
         if (channel >= A12) {
