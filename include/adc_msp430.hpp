@@ -186,7 +186,7 @@ public:
     static void config()
     {
         ADC10CTL0 = (ADC10CTL0 & 0xf) | ctl0<config_>();
-        ADC10CTL1 = (ADC10CTL1 & (INCH_15 | ADC10DIV_7 | ADC10SSEL_3)) | ctl1<config_>();
+        ADC10CTL1 = (ADC10CTL1 & (INCH_15 | ADC10DIV_7)) | ctl1<config_>();
     }
 };
 
