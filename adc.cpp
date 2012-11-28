@@ -7,7 +7,7 @@
 #include <adc.hpp>
 
 
-typedef UART<1 MHZ, 9600, Pin<P1, Bit1>, Pin<P1, Bit2>, timer> uart;
+typedef UART<1 MHZ, 9600, Pin<P1, Bit2>, Pin<P1, Bit1>, timer> uart;
 typedef Console<uart> con;
 typedef ADC adc;
 
