@@ -17,45 +17,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ADC
-{
-public:
-    typedef uint16_t width;
-
-
-    enum Channel {
-        A0 = 0 << 12, A1 = 1 << 12, A2 = 2 << 12, A3 = 3 << 12,
-        A4 = 4 << 12, A5 = 5 << 12, A6 = 6 << 12, A7 = 7 << 12,
-        VeREFp = 8 << 12, VREFm = 9 << 12, VeREFm = VREFm, TEMP = 10 << 12, VCC_HALF = 11 << 12,
-        A12 = 12 << 12, A13 = 13 << 12, A14 = 14 << 12, A15 = 15 << 12
-    };
-
-    template <class config_>
-    static void config()
-    {
-        config_::config();
-    }
-
-    static void set_channel(enum Channel channel)
-    {
-        ADC10CTL1 = (ADC10CTL1 & ~INCH_15) | channel;
-    }
-
-    // Allow to change config
-    static void unlock() { ADC10CTL0 &= ~ENC; }
-    // Lock config to perform conversion
-    static void lock() { ADC10CTL0 |= ENC; }
-    // Start conversion (automatically locks config)
-    static void start() { ADC10CTL0 |= ADC10ON; ADC10CTL0 |= ENC | ADC10SC; }
-    // Busy-wait for conversion end
-    static void wait() { while (!(ADC10CTL0 & ADC10IFG)); }
-    // Get conversion result
-    static width value() { return ADC10MEM; }
-    static void disable() { ADC10CTL0 &= ~(REFOUT | REFON | ADC10ON | ENC); }
-
-    static width easy_sample(enum Channel channel);
-};
-
 
 struct ADCDefaultConfig
 {
@@ -157,22 +118,60 @@ struct ADCDefaultConfig
 
     // TODO: redo clocks using standard API
     const static int clock = SMCLK;
-
-    static uint16_t ctl0()
-    {
-        return reference | sample_time | sample_rate | ref_out | ref_buffer | repeat | vref_voltage | vref_state;
-    }
-    static uint16_t ctl1()
-    {
-        return sample_signal | value_format | sample_signal_polarity | mode    | clock;
-    }
-    static void config()
-    {
-        ADC10CTL0 = (ADC10CTL0 & 0xf) | ctl0();
-        ADC10CTL1 = (ADC10CTL1 & (INCH_15 | ADC10DIV_7 | ADC10SSEL_3)) | ctl1();
-    }
 };
 
+
+class ADC
+{
+public:
+    typedef uint16_t width;
+
+
+    enum Channel {
+        A0 = 0 << 12, A1 = 1 << 12, A2 = 2 << 12, A3 = 3 << 12,
+        A4 = 4 << 12, A5 = 5 << 12, A6 = 6 << 12, A7 = 7 << 12,
+        VeREFp = 8 << 12, VREFm = 9 << 12, VeREFm = VREFm, TEMP = 10 << 12, VCC_HALF = 11 << 12,
+        A12 = 12 << 12, A13 = 13 << 12, A14 = 14 << 12, A15 = 15 << 12
+    };
+
+    static void set_channel(enum Channel channel)
+    {
+        ADC10CTL1 = (ADC10CTL1 & ~INCH_15) | channel;
+    }
+
+    // Allow to change config
+    static void unlock() { ADC10CTL0 &= ~ENC; }
+    // Lock config to perform conversion
+    static void lock() { ADC10CTL0 |= ENC; }
+    // Start conversion (automatically locks config)
+    static void start() { ADC10CTL0 |= ADC10ON; ADC10CTL0 |= ENC | ADC10SC; }
+    // Busy-wait for conversion end
+    static void wait() { while (!(ADC10CTL0 & ADC10IFG)); }
+    // Get conversion result
+    static width value() { return ADC10MEM; }
+    static void disable() { ADC10CTL0 &= ~(REFOUT | REFON | ADC10ON | ENC); }
+
+    static width easy_sample(enum Channel channel);
+
+
+    template <class c>
+    static uint16_t ctl0()
+    {
+        return c::reference | c::sample_time| c::sample_rate | c::ref_out
+               | c::ref_buffer | c::repeat | c::vref_voltage | c::vref_state;
+    }
+    template <class c>
+    static uint16_t ctl1()
+    {
+        return c::sample_signal | c::value_format | c::sample_signal_polarity | c::mode | c::clock;
+    }
+    template <class config_>
+    static void config()
+    {
+        ADC10CTL0 = (ADC10CTL0 & 0xf) | ctl0<config_>();
+        ADC10CTL1 = (ADC10CTL1 & (INCH_15 | ADC10DIV_7 | ADC10SSEL_3)) | ctl1<config_>();
+    }
+};
 
 
 ADC::width ADC::easy_sample(enum Channel channel)
