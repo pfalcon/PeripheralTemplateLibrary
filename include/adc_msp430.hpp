@@ -17,6 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _ADC_MSP430_HPP
+#define _ADC_MSP430_HPP
 
 struct ADCDefaultConfig
 {
@@ -192,7 +194,7 @@ public:
 };
 
 
-ADC::width ADC::easy_sample(enum Channel channel)
+inline ADC::width ADC::easy_sample(enum Channel channel)
 {
     enable_channel(channel);
     unlock();
@@ -209,3 +211,5 @@ ADC::width ADC::easy_sample(enum Channel channel)
 //    disable();
     return val;
 }
+
+#endif //_ADC_MSP430_HPP
