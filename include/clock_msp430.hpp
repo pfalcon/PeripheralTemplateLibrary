@@ -120,7 +120,7 @@ class LFXT1CLK_HI_EXTCLK
 
 // Optional high-frequency external clock
 template <enum CrystalRange range>
-class XT2CLK
+struct XT2CLK
 {
     static void enable()
     {
@@ -135,7 +135,7 @@ class XT2CLK
 };
 
 
-class MCLK
+struct MCLK
 {
     template <class source_, enum ClockDivider div>
     static void source()
@@ -149,7 +149,7 @@ class MCLK
     }
 };
 
-class SMCLK
+struct SMCLK
 {
     template <class source_, enum ClockDivider div>
     static void source()
