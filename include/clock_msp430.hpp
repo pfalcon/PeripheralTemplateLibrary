@@ -63,6 +63,8 @@ class DCOCLK
     {
         DCOCTL = (subfreq << 5) | modulator;
     }
+
+    static uint16_t smclk() { return SELS_0; }
 };
 
 
@@ -75,6 +77,7 @@ class LFXT1CLK_LO_CRYSTAL
         // TI screwed up naming here
         return XTS_0 | LFXT1S_0 | (cap << 2);
     }
+    static uint16_t smclk() { return SELS_1; }
 };
 
 class LFXT1CLK_LO_EXTCLK
@@ -84,6 +87,7 @@ class LFXT1CLK_LO_EXTCLK
         // TI screwed up naming here
         return XTS_0 | LFXT1S_3;
     }
+    static uint16_t smclk() { return SELS_1; }
 };
 
 template <enum CrystalRange range>
@@ -94,6 +98,7 @@ class LFXT1CLK_HI_CRYSTAL
         // TI screwed up naming here
         return XTS_1 | (range << 4);
     }
+    static uint16_t smclk() { return SELS_1; }
 };
 
 class LFXT1CLK_HI_EXTCLK
@@ -103,6 +108,7 @@ class LFXT1CLK_HI_EXTCLK
         // TI screwed up naming here
         return XTS_1 | LFXT1S_3;
     }
+    static uint16_t smclk() { return SELS_1; }
 };
 
 
@@ -118,6 +124,7 @@ class XT2CLK
     {
         BCSCTL1 |= XT2OFF;
     }
+    static uint16_t smclk() { return SELS_1; }
 };
 
 
@@ -133,7 +140,11 @@ class MCLK
 
 class SMCLK
 {
-//    static void source(enum ClockSource source);
+    template <class source_, enum ClockDivider div>
+    static void source()
+    {
+        BCSCTL2 = (BCSCTL2 & ~(3 << 1)) | (div << 1) | source_::smclk();
+    }
 
     static uint16_t as_timer_clock()
     {
