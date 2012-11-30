@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _CLOCK_MSP430_HPP
+#define _CLOCK_MSP430_HPP
+
 #include <msp430.h>
 #include <legacymsp430.h>
 
@@ -206,3 +209,5 @@ struct INCLK
         return TASSEL_3;
     }
 };
+
+#endif //_CLOCK_MSP430_HPP
