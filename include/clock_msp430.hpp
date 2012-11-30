@@ -64,6 +64,7 @@ class DCOCLK
         DCOCTL = (subfreq << 5) | modulator;
     }
 
+    static uint16_t mclk()  { return SELM_0; }
     static uint16_t smclk() { return SELS_0; }
 };
 
@@ -124,13 +125,18 @@ class XT2CLK
     {
         BCSCTL1 |= XT2OFF;
     }
+    static uint16_t mclk()  { return SELM_2; }
     static uint16_t smclk() { return SELS_1; }
 };
 
 
 class MCLK
 {
-//    static void source(enum ClockSource source);
+    template <class source_, enum ClockDivider div>
+    static void source()
+    {
+        BCSCTL2 = (BCSCTL2 & ~(SELM_3 | DIVM_3)) | (div << 4) | source_::mclk();
+    }
 
     static uint16_t as_adc_clock()
     {
@@ -143,7 +149,7 @@ class SMCLK
     template <class source_, enum ClockDivider div>
     static void source()
     {
-        BCSCTL2 = (BCSCTL2 & ~(3 << 1)) | (div << 1) | source_::smclk();
+        BCSCTL2 = (BCSCTL2 & ~((3 << 1) | SELS)) | (div << 1) | source_::smclk();
     }
 
     static uint16_t as_timer_clock()
