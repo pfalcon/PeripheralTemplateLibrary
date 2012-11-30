@@ -107,6 +107,7 @@ class LFXT1CLK_HI_EXTCLK
 
 
 // Optional high-frequency external clock
+template <enum CrystalRange range>
 class XT2CLK
 {
     static void enable()
