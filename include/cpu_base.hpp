@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _CPU_BASE_HPP
+#define _CPU_BASE_HPP
+
 class ICPU
 {
 public:
@@ -27,3 +30,5 @@ template <class cpu>
 class CPU : public ICPU
 {
 };
+
+#endif //_CPU_BASE_HPP
