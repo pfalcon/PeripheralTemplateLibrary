@@ -182,3 +182,21 @@ struct ACLK
         return ADC10SSEL_1;
     }
 };
+
+// External clock for timer (usually multiplexed with GPIO pin)
+struct TACLK
+{
+    static uint16_t as_timer_clock()
+    {
+        return TASSEL_0;
+    }
+};
+
+// External clock 2 for timer (usually aliased to some other clock sygnal)
+struct INCLK
+{
+    static uint16_t as_timer_clock()
+    {
+        return TASSEL_3;
+    }
+};
