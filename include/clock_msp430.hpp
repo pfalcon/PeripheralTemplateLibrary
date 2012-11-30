@@ -19,10 +19,12 @@
 #include <msp430.h>
 #include <legacymsp430.h>
 
-#define SELS_0  0
-#define SELS_1  SELS
-#define XTS_0   0
-#define XTS_1   XTS
+#define SELS_0          0
+#define SELS_1          SELS
+#define XTS_0           0
+#define XTS_1           XTS
+#define WDTSSEL_0       0
+#define WDTSSEL_1       WDTSSEL
 
 enum ClockDivider { DIV_1, DIV_2, DIV_4, DIV_8 };
 
@@ -161,6 +163,8 @@ class SMCLK
     {
         return ADC10SSEL_3;
     }
+
+    static uint16_t as_watchdog_clock() { return WDTSSEL_0; }
 };
 
 struct ACLK
@@ -181,6 +185,8 @@ struct ACLK
     {
         return ADC10SSEL_1;
     }
+
+    static uint16_t as_watchdog_clock() { return WDTSSEL_1; }
 };
 
 // External clock for timer (usually multiplexed with GPIO pin)
