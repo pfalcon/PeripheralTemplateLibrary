@@ -150,7 +150,7 @@ struct ACLK
     template <class source_, enum ClockDivider div>
     static void source()
     {
-        BCSCTL1 = BCSCTL1 & ~(3 << 4) | (div << 4);
+        BCSCTL1 = BCSCTL1 & ~((3 << 4) | XTS) | (div << 4) | source_::aclk_BCSCTL1();
         BCSCTL3 = (BCSCTL3 & ~(LFXT1S_3 | XCAP_3)) | source_::aclk_BCSCTL3();
     }
 
