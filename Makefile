@@ -1,6 +1,7 @@
 include Makefile.rules
 
 ALL = blink blink_static blink_dynamic blink_timer \
+      blink_sleep \
       uart_echo uart_echo_irq uart_echo_async \
       spi i2c_24cxx 1wire adc timer_irq flash \
       perf_counter
@@ -13,6 +14,7 @@ blink: $(TARGETDIR)/blink
 blink_static: $(TARGETDIR)/blink_static
 blink_dynamic: $(TARGETDIR)/blink_dynamic
 blink_timer: $(TARGETDIR)/blink_timer
+blink_sleep: $(TARGETDIR)/blink_sleep
 uart_echo: $(TARGETDIR)/uart_echo
 uart_echo_irq: $(TARGETDIR)/uart_echo_irq
 uart_echo_async: $(TARGETDIR)/uart_echo_async
