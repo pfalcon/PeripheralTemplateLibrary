@@ -17,6 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <msp430.h>
+
 // 1MHz / 3 = 333KHz
 #define FLASH_CLOCK_DIV 3
 
