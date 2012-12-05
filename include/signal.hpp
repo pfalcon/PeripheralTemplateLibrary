@@ -30,6 +30,7 @@ public:
     static void assert()   { pin::high(); }
     static void deassert() { pin::low(); }
     static bool value()    { return pin::value(); }
+    static bool is_asserted()    { return value(); }
 };
 
 template <class pin>
@@ -43,6 +44,7 @@ public:
     static void assert()   { pin::low(); }
     static void deassert() { pin::high(); }
     static bool value()    { return !pin::value(); }
+    static bool is_asserted()    { return value(); }
 };
 
 #endif //_SIGNAL_HPP
