@@ -17,23 +17,9 @@ public:
             "1: \n"
             "sub    #1, r14 \n" // 1 cycle
             "subc   #0, r15 \n" // 1 cycle
-            "jc    1b \n" // 2 cycles, msp430 has weird C flag value for substracts
+            "jc    1b \n" // 2 cycles, msp430 has weird C flag value for subtracts
             : : "ir" (cycles) : "r14", "r15"
         );
         // ret: 3 cycles
-    }
-};
-
-template <uint32_t freq>
-class DelayTime : public Delay
-{
-    static void delay_us(width us)
-    {
-        delay(freq * us / 1000000L);
-    }
-
-    static void delay_ms(width ms)
-    {
-        delay(freq * ms / 1000L);
     }
 };
