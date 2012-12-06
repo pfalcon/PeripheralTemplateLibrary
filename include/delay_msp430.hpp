@@ -18,7 +18,7 @@ public:
             "sub    #1, r14 \n" // 1 cycle
             "subc   #0, r15 \n" // 1 cycle
             "jc    1b \n" // 2 cycles, msp430 has weird C flag value for substracts
-            : : "ir" (cycles)
+            : : "ir" (cycles) : "r14", "r15"
         );
         // ret: 3 cycles
     }
