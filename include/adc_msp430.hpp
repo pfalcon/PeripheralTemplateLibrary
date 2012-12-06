@@ -168,7 +168,12 @@ public:
     static void wait() { while (!(ADC10CTL0 & ADC10IFG)); ADC10CTL0 &= ~ADC10IFG; }
     // Get conversion result
     static width value() { return ADC10MEM; }
-    static void disable() { ADC10CTL0 &= ~(REFOUT | REFON | ADC10ON | ENC); }
+    static void disable()
+    {
+        // Unlock is really required here
+        unlock();
+        ADC10CTL0 &= ~(REFOUT | REFON | ADC10ON | ENC);
+    }
 
     static width easy_sample(enum Channel channel);
 
