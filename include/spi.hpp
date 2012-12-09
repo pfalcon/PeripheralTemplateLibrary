@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _SPI_HPP
-#define _SPI_HPP
-
 #include <spi_base.hpp>
-
-#endif //_SPI_HPP
+#ifdef __MSP430__
+#include <spi_msp430.hpp>
+#endif
