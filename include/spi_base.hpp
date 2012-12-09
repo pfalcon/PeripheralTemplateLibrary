@@ -38,24 +38,19 @@ public:
     // are used. Functions below allow for efficient
     // implementation of such, with basic default
     // implementation provided.
-    static void read_block(uint8_t *buf, uint8_t len);
-    static void write_block(const uint8_t *buf, uint8_t len);
+    static void read_block(uint8_t *buf, uint8_t len)
+    {
+        while (len--) {
+            *buf++ = spi_impl::transfer(0xFF);
+        }
+    }
+
+    static void write_block(const uint8_t *buf, uint8_t len)
+    {
+        while (len--) {
+             spi_impl::write(*buf++);
+        }
+    }
 };
-
-template <class spi_impl>
-void SPIBlockXfer<spi_impl>::read_block(uint8_t *buf, uint8_t len)
-{
-    while (len--) {
-        *buf++ = spi_impl::transfer(0xFF);
-    }
-}
-
-template <class spi_impl>
-void SPIBlockXfer<spi_impl>::write_block(const uint8_t *buf, uint8_t len)
-{
-    while (len--) {
-         spi_impl::write(*buf++);
-    }
-}
 
 #endif //_SPI_BASE_HPP
