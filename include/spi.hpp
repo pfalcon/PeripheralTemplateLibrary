@@ -34,7 +34,7 @@ public:
         miso::input();
     }
     static uint8_t transfer(uint8_t b);
-    static uint8_t write(uint8_t b);
+    static void write(uint8_t b);
 
 };
 
@@ -60,7 +60,7 @@ uint8_t SPI<sclk, miso, mosi>::transfer(uint8_t b)
 }
 
 template <class sclk, class miso, class mosi>
-uint8_t SPI<sclk, miso, mosi>::write(uint8_t b)
+void SPI<sclk, miso, mosi>::write(uint8_t b)
 {
         for (uint8_t i = 8; i; i--) {
             if (b & 0x80)
@@ -74,7 +74,6 @@ uint8_t SPI<sclk, miso, mosi>::write(uint8_t b)
 
             sclk::low();
         }
-        return b;
 }
 
 #endif //_SPI_HPP

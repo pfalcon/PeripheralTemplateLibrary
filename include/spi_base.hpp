@@ -24,6 +24,8 @@ class ISPI
 public:
     static void init();
     static uint8_t transfer(uint8_t b);
+    // Optimized version of transfer which ignores read value
+    static void write(uint8_t b);
 };
 
 
