@@ -19,6 +19,7 @@
 #ifndef _CONSOLE_HPP
 #define _CONSOLE_HPP
 
+#include <stdarg.h>
 #include <inline.hpp>
 
 #define ENDL "\r\n"
@@ -84,6 +85,36 @@ public:
             v = v / 10;
         } while (v > 0);
         putstr(p);
+    }
+
+    NOINLINE static void printf(const char *format, ...)
+    {
+        va_list args;
+        va_start(args, format);
+        char c;
+
+        while (c = *format++) {
+            if (c == '%') {
+                switch (c = *format++) {
+                case 'x':
+                    puthex16(va_arg(args, int));
+                    break;
+                case 'd':
+                    putdec(va_arg(args, int));
+                    break;
+                case 's':
+                    putstr(va_arg(args, const char *));
+                    break;
+                default:
+                    goto putc;
+                }
+            } else {
+putc:
+                putc(c);
+            }
+        }
+
+        va_end(args);
     }
 };
 
