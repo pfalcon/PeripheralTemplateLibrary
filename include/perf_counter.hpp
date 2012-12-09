@@ -29,4 +29,6 @@ public:
     typename timer::width value()  { return counter; }
 };
 
+typedef PerfCounter<timer> Perf;
+
 #endif //_PERF_COUNTER_HPP
