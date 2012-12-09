@@ -16,8 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-template <long cycles>
-inline void delay()
+#include <inline.hpp>
+
+class StaticDelay
 {
-    __builtin_avr_delay_cycles(cycles);
-}
+public:
+    ALWAYS_INLINE static void delay(long cycles)
+    {
+        __builtin_avr_delay_cycles(cycles);
+    }
+};

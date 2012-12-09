@@ -18,6 +18,7 @@
  */
 #include <board_base.hpp>
 #include <gpio.hpp>
+#include <clock.hpp>
 
 class Arduino {};
 

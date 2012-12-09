@@ -23,5 +23,5 @@
 #if defined(__MSP430__)
 #include <clock_msp430.hpp>
 #else
-#error Unknown platform in clock.hpp
+//#error Unknown platform in clock.hpp
 #endif
