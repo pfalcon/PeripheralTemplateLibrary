@@ -1,0 +1,5 @@
+MCU = msp430g2553
+TARGET_FLAGS = -mmcu=$(MCU)
+
+deploy-%: $(TARGETDIR)/%
+	mspdebug rf2500 "prog $^"
