@@ -110,7 +110,10 @@ public:
                 }
             } else {
 putc:
-                putc(c);
+                if (c == '\n')
+                    newline();
+                else
+                    putc(c);
             }
         }
 
