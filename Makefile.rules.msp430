@@ -1,5 +1,9 @@
 MCU = msp430g2553
 TARGET_FLAGS = -mmcu=$(MCU)
+# Can select specific device if multiple connected at the same time,
+# format "-s <device_serial>" or "-U <usb_port_id>", see mspdebug --help
+DEVICE_SELECT ?=
+
 
 deploy-%: $(TARGETDIR)/%
-	mspdebug rf2500 "prog $^"
+	mspdebug $(DEVICE_SELECT) rf2500 "prog $^"
