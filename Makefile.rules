@@ -4,7 +4,9 @@ ifeq ($(TARGET),)
 $(error You need to define target: $(MAKE) TARGET=(msp430|avr|stm32))
 endif
 
-include Makefile.rules.$(TARGET)
+TARGETDIR = bin-$(TARGET)
+
+include $(PTL_PATH)/Makefile.rules.$(TARGET)
 
 CROSS_COMPILE ?= $(TARGET)-
 GCC_VER ?=
@@ -20,7 +22,6 @@ TARGET_LDFLAGS ?= $(TARGET_FLAGS)
 ALL_CFLAGS = $(ALL_INCLUDE) $(TARGET_CFLAGS) $(CFLAGS)
 ALL_CXXFLAGS = $(ALL_CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS) -Wl,-Map=$@.map,--cref
-TARGETDIR = bin-$(TARGET)
 
 
 $(TARGETDIR)/%.o: %.cpp
