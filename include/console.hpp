@@ -116,6 +116,32 @@ putc:
 
         va_end(args);
     }
+
+    NOINLINE static int readline(char *buf, int size)
+    {
+        char *p = buf;
+        while (1) {
+            char c = byte_writer::read();
+            if (c == '\x7f') {
+                if (p > buf) {
+                    p--;
+                    putstr("\b \b");
+                }
+                continue;
+            }
+            if (c == '\r') {
+                newline();
+                *p = 0;
+                break;
+            }
+            if (p < buf + size - 1) {
+                putc(c);
+                *p++ = c;
+            }
+        }
+        // Return number of entered chars
+        return p - buf;
+    }
 };
 
 #endif // _CONSOLE_HPP
