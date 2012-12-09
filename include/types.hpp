@@ -16,7 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _TYPES_HPP
+#define _TYPES_HPP
 
 #include <stdint.h>
 
 typedef uint8_t bool8;
+
+class None {};
+
+#endif //_TYPES_HPP

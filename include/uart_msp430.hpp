@@ -19,7 +19,7 @@
 #ifndef _UART_MSP430_HPP
 #define _UART_MSP430_HPP
 
-class USCI {};
+#include <cpu_msp430.hpp>
 
 template <unsigned long freq, unsigned baud>
 class UART<freq, baud, USCI>

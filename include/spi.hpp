@@ -19,10 +19,11 @@
 #ifndef _SPI_HPP
 #define _SPI_HPP
 
+#include <types.hpp>
 #include <spi_base.hpp>
 #include <gpio.hpp>
 
-template <class sclk, class miso, class mosi>
+template <class sclk, class miso = None, class mosi = None>
 class SPI : public ISPI, public SPIBlockXfer< SPI<sclk, miso, mosi> >
 {
 public:

@@ -25,6 +25,9 @@
 
 class MSP430CPU {};
 
+// Various blocks of CPU
+class USCI {};
+
 template <>
 class CPU<MSP430CPU> : public ICPU
 {

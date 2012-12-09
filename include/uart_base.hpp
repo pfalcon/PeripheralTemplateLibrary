@@ -19,9 +19,8 @@
 #ifndef _UART_HPP
 #define _UART_HPP
 
+#include <types.hpp>
 #include <gpio.hpp>
-
-class None {};
 
 template <unsigned long freq, unsigned baud, class tx, class rx = None, class timer = None>
 class UART
