@@ -16,33 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _CPU_AVR_HPP
-#define _CPU_AVR_HPP
-#include <cpu_base.hpp>
-#include <avr/wdt.h>
+#ifndef _TIMER_AVR_HPP
+#define _TIMER_AVR_HPP
 
-// CPU reg accessors
-#define _R8(addr) (*(volatile uint8_t*)addr)
-#define _R16(addr) (*(volatile uint16_t*)addr)
+#include <timer_base.hpp>
+#include <cpu_avr.hpp>
 
-class AVRCPU {};
-
-template <>
-class CPU<AVRCPU> : public ICPU
+class Timer1 : public ITimer<uint16_t, Timer1>
 {
 public:
-    static void init(int flags)
+    static width value() { return _R16(TCNT1); }
+    static void free_run()
     {
-#if 0
-        switch (flags) {
-        case DEFAULT:
-            wdt_disable();
-            break;
-        }
-#endif
+        _R8(TCCR1A) = 0;
+        _R8(TCCR1B) = _BV(CS10);
     }
+
 };
 
-typedef CPU<AVRCPU> cpu;
+typedef Timer1 timer;
 
-#endif //_CPU_AVR_HPP
+#endif // _TIMER_AVR_HPP
