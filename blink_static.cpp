@@ -13,8 +13,8 @@ int main()
     board::LED::output();
     while (true) {
         board::LED::high();
-        delayer::delay(100000U);
+        delayer::delay(1000000U);
         board::LED::low();
-        delayer::delay(100000U);
+        delayer::delay(1000000U);
     }
 }
