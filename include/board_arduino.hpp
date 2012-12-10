@@ -28,6 +28,10 @@ class Board<Arduino>
 public:
     // "digital pin 13"
     typedef Pin<PB, Bit5> LED;
+    // "digital pin 0"
+    typedef Pin<PD, Bit0> pin_uart_rx;
+    // "digital pin 1"
+    typedef Pin<PD, Bit1> pin_uart_tx;
     static const long freq = 16 MHZ;
 };
 
