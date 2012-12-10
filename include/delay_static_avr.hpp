@@ -18,6 +18,7 @@
  */
 #include <inline.hpp>
 
+// TODO: This is not yet cycle-perfect
 ALWAYS_INLINE void __delay_cycles2(unsigned long delay)
 {
     if (__builtin_constant_p(delay)) {
@@ -33,7 +34,7 @@ ALWAYS_INLINE void __delay_cycles2(unsigned long delay)
             "subi   r24, 1 \n" //1
             "sbci   r25, 0 \n" //1
 #endif
-            "brne   1b \n"
+            "brcc   1b \n"
             : : "M" (d & 0xff), "M" ((d >> 8) & 0xff) : "r24", "r25"
             );
         } else {
