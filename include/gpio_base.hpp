@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <bits.hpp>
+#include <types.hpp>
 
 class IPort
 {
@@ -32,14 +33,23 @@ public:
     static void disable() {}
 };
 
+template <class pin_impl>
 class IPin
 {
+public:
     static void output();
     static void input();
     // TODO: need better type
     static int  value();
     static void high();
     static void low();
+    static void set(bool8 val)
+    {
+        if (val)
+            pin_impl::high();
+        else
+            pin_impl::low();
+    }
     static void pulloff();
     static void pullup();
     static void pulldown();

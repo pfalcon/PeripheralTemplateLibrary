@@ -49,7 +49,7 @@ typedef Port<PIND, PORTD, DDRD, uint8_t> PD;
 #endif
 
 template <class port_, class bit>
-class Pin : IPin
+class Pin : public IPin< Pin<port_, bit> >
 {
 public:
     typedef port_ port;
