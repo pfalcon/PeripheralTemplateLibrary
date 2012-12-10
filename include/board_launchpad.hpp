@@ -30,6 +30,11 @@ class Board<MSP430Launchpad>
 {
 public:
     typedef Pin<P1, Bit0> LED;
+    // This is HWUART pin mapping. On 1.5, jumpers should be
+    // put in perpindicular position wrt other jumpers. Not
+    // compatible with Launchpad 1.4
+    typedef Pin<P1, Bit2> pin_uart_tx;
+    typedef Pin<P1, Bit1> pin_uart_rx;
     static const long freq = 1 MHZ;
 };
 
