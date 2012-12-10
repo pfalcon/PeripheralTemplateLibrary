@@ -24,7 +24,7 @@
 #include <legacymsp430.h>
 
 template <int ctrl_reg_, int val_reg_, int intr_reg_>
-class Timer : public ITimer<uint16_t>
+class Timer : public ITimer< uint16_t, Timer<ctrl_reg_, val_reg_, intr_reg_> >
 {
 public:
     static const int ctrl_reg = ctrl_reg_;
@@ -33,34 +33,6 @@ public:
 
     static width value() { return *(volatile width*)val_reg; }
     static void free_run();
-
-    static bool expired(width start, width duration)
-    {
-        return value() - start >= duration;
-    }
-
-    static void delay(width cycles)
-    {
-        width start = value();
-        delay_since(start, cycles);
-    }
-
-    static void delay(uint32_t cycles)
-    {
-        width start = value();
-        while (true) {
-            width end = value();
-            cycles -= end - start;
-            if ((int32_t)cycles < 0)
-                break;
-            start = end;
-        }
-    }
-
-    static void delay_since(width since, width delay)
-    {
-        while (value() - since < delay);
-    }
 
     static void enable_irq()  { *(volatile uint16_t*)ctrl_reg |= TAIE; }
     static void disable_irq() { *(volatile uint16_t*)ctrl_reg &= ~TAIE; }
