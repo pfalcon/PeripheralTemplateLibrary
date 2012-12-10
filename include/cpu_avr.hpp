@@ -33,6 +33,8 @@ class CPU<AVRCPU> : public ICPU
 public:
     static void init(int flags)
     {
+        // Disable hwuart enabled by Arduino bootloader
+        _R8(UCSR0B) = 0;
 #if 0
         switch (flags) {
         case DEFAULT:
