@@ -22,6 +22,7 @@
 #include <cpu.hpp>
 #include <clock.hpp>
 #include <watchdog_msp430.hpp>
+#include <adc.hpp>
 
 class Sleep
 {
@@ -39,5 +40,17 @@ public:
         // Disable watchdog again
         Watchdog::disable();
         LPM3_EXIT;
+    }
+
+    // Powerdown system, making it consume as little power
+    // as possible. Usecase: battery-power design w/o power
+    // button. It works for limited time and then auto powers
+    // off. To start again, push reset button which is often
+    // available, unlike the power switch.
+    static void powerdown()
+    {
+        cpu::disable_irq();
+        ADC::disable();
+        LPM4;
     }
 };
