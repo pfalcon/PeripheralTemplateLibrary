@@ -24,6 +24,9 @@
 
 class AVRCPU {};
 
+// Various blocks of MCU
+class USART0 {};
+
 template <>
 class CPU<AVRCPU> : public ICPU
 {
