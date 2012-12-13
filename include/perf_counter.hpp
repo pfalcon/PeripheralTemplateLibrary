@@ -19,6 +19,8 @@
 #ifndef _PERF_COUNTER_HPP
 #define _PERF_COUNTER_HPP
 
+#include <timer.hpp>
+
 template <class timer>
 class PerfCounter
 {
