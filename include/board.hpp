@@ -24,5 +24,5 @@
 #elif defined(__STM32__)
 #include <board_stm32vldiscovery.hpp>
 #else
-#error Unknown platform in cpu.hpp
+#error Unknown platform in board.hpp
 #endif
