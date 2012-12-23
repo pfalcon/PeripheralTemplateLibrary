@@ -44,4 +44,8 @@ typedef Bit<13> Bit13;
 typedef Bit<14> Bit14;
 typedef Bit<15> Bit15;
 
+// Bitfield manipulation helpers
+#define GET_BITFIELD(lval, mask)  ((lval) & (mask))
+#define SET_BITFIELD(lval, mask, field_val)  (lval = (((lval) & (mask)) | (field_val)))
+
 #endif //_BITS_HPP
