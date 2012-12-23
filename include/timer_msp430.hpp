@@ -32,9 +32,15 @@ public:
     static const int ctrl_reg = ctrl_reg_;
     static const int val_reg = val_reg_;
     static const int intr_reg = intr_reg_;
+    // TODO: refactor into common clock infra
+    enum ClockDivider { DIV_1 = ID_0, DIV_2 = ID_1, DIV_4 = ID_2, DIV_8 = ID_3 };
 
     static width value() { return *(volatile width*)val_reg; }
-    static void free_run();
+    static void free_run(ClockDivider div = DIV_1)
+    {
+        // SMCLK, continuous mode
+        _REG16(ctrl_reg) = TASSEL_2 | MC_2 | div;
+    }
 
     static void enable_irq()  { *(volatile uint16_t*)ctrl_reg |= TAIE; }
     static void disable_irq() { *(volatile uint16_t*)ctrl_reg &= ~TAIE; }
@@ -44,12 +50,6 @@ public:
     static interrupt(TIMER0_A0_VECTOR) irq_handler_cc0();
 };
 
-template <int ctrl_reg_, int val_reg_, int intr_reg_>
-void Timer<ctrl_reg_, val_reg_, intr_reg_>::free_run()
-{
-    // SMCLK, continuous mode
-    *(volatile uint16_t*)ctrl_reg = TASSEL_2 | MC_2;
-}
 
 typedef Timer<TACTL_, TAR_, TAIV_> Timer0_A;
 #ifdef TA1CTL_
