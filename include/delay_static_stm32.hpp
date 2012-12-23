@@ -16,9 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-template <long cycles>
-inline void delay()
+#include <inline.hpp>
+
+inline void __delay_cycles2(long cycles)
 {
     for (volatile int i = cycles / 12; i; i--) {
     }
 }
+
+class StaticDelay
+{
+public:
+    ALWAYS_INLINE static void delay(long cycles)
+    {
+        __delay_cycles2(cycles);
+    }
+};
