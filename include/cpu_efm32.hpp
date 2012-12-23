@@ -16,14 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef __MSP430__
-#include <gpio_msp430.hpp>
-#elif defined( __AVR__)
-#include <gpio_avr.hpp>
-#elif defined( __STM32__)
-#include <gpio_stm32.hpp>
-#elif defined( __EFM32__)
-#include <gpio_efm32.hpp>
-#else
-#error Unknown platform in gpio.hpp
-#endif
+#include <cpu_base.hpp>
+#include <em_chip.h>
+
+class EFM32CPU {};
+
+template <>
+class CPU<EFM32CPU> : public ICPU
+{
+public:
+    static void init(int flags)
+    {
+        CHIP_Init();
+    }
+};
+
+typedef CPU<EFM32CPU> cpu;

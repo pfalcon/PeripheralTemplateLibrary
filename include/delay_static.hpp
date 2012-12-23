@@ -22,6 +22,8 @@
 #include <delay_static_avr.hpp>
 #elif defined(__STM32__)
 #include <delay_static_stm32.hpp>
+#elif defined(__EFM32__)
+#include <delay_static_efm32.hpp>
 #else
 #error Unknown platform in delay_static.hpp
 #endif

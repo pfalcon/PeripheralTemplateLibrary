@@ -23,6 +23,8 @@
 #include <board_arduino.hpp>
 #elif defined(__STM32__)
 #include <board_stm32vldiscovery.hpp>
+#elif defined(__EFM32__)
+#include <board_efm32gg_stk3700.hpp>
 #else
 #error Unknown platform in board.hpp
 #endif

@@ -22,6 +22,8 @@
 #include <cpu_avr.hpp>
 #elif defined(__STM32__)
 #include <cpu_stm32.hpp>
+#elif defined(__EFM32__)
+#include <cpu_efm32.hpp>
 #else
 #error Unknown platform in cpu.hpp
 #endif

@@ -16,14 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef __MSP430__
-#include <gpio_msp430.hpp>
-#elif defined( __AVR__)
-#include <gpio_avr.hpp>
-#elif defined( __STM32__)
-#include <gpio_stm32.hpp>
-#elif defined( __EFM32__)
-#include <gpio_efm32.hpp>
-#else
-#error Unknown platform in gpio.hpp
-#endif
+#include <board_base.hpp>
+#include <gpio.hpp>
+#include <clock.hpp>
+
+class EFM32GGSTK3700 {};
+
+template <>
+class Board<EFM32GGSTK3700>
+{
+public:
+    typedef Pin<PE, Bit2> LED;
+    typedef Pin<PE, Bit3> LED2;
+    static const long freq = 48 MHZ;
+};
+
+typedef Board<EFM32GGSTK3700> board;
