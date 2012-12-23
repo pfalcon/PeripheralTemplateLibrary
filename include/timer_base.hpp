@@ -26,6 +26,11 @@ public:
         return timer_impl::value() - start >= duration;
     }
 
+    static void delay_since(width since, width delay)
+    {
+        while (!expired(since, delay));
+    }
+
     static void delay(width cycles)
     {
         width start = timer_impl::value();
@@ -42,10 +47,5 @@ public:
                 break;
             start = end;
         }
-    }
-
-    static void delay_since(width since, width delay)
-    {
-        while (timer_impl::value() - since < delay);
     }
 };
