@@ -72,10 +72,16 @@ public:
     NOINLINE static void puthex16(uint16_t v)
     {
         puthex8(v >> 8);
-        puthex8(v  & 0xff);
+        puthex8(v & 0xff);
     }
 
-    NOINLINE static void putdec(uint16_t v)
+    static void puthex32(uint32_t v)
+    {
+        puthex16(v >> 16);
+        puthex16(v);
+    }
+
+    NOINLINE static void putdec16(uint16_t v)
     {
         char buf[6];
         char *p = buf + 5;
@@ -87,20 +93,50 @@ public:
         putstr(p);
     }
 
+    NOINLINE static void putdec32(uint32_t v)
+    {
+        char buf[sizeof("4294967295")];
+        char *p = buf + sizeof(buf) - 1;
+        *p = 0;
+        do {
+            *--p = (v % 10) + '0';
+            v = v / 10;
+        } while (v > 0);
+        putstr(p);
+    }
+
+
     NOINLINE static void printf(const char *format, ...)
     {
         va_list args;
         va_start(args, format);
         char c;
+#define FLAG_LONG 1
+#define FLAG_UNSIGNED 2
+        uint8_t flags;
 
         while (c = *format++) {
             if (c == '%') {
+                flags = 0;
+format_again:
                 switch (c = *format++) {
+                case 'l':
+                    flags |= FLAG_LONG;
+                    goto format_again;
+                case 'u':
+                    flags |= FLAG_UNSIGNED;
+                    goto format_again;
                 case 'x':
-                    puthex16(va_arg(args, int));
+                    if (flags & FLAG_LONG)
+                        puthex32(va_arg(args, uint32_t));
+                    else
+                        puthex16(va_arg(args, int));
                     break;
                 case 'd':
-                    putdec(va_arg(args, int));
+                    if (flags & FLAG_LONG)
+                        putdec32(va_arg(args, long));
+                    else
+                        putdec16(va_arg(args, int));
                     break;
                 case 's':
                     putstr(va_arg(args, const char *));
