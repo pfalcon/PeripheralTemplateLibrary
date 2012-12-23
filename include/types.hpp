@@ -25,4 +25,9 @@ typedef uint8_t bool8;
 
 class None {};
 
+// Helpers to access iomem registers
+#define _REG8(addr) (*(volatile uint8_t*)addr)
+#define _REG16(addr) (*(volatile uint16_t*)addr)
+#define _REG32(addr) (*(volatile uint32_t*)addr)
+
 #endif //_TYPES_HPP

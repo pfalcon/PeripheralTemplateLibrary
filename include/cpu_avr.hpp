@@ -18,12 +18,9 @@
  */
 #ifndef _CPU_AVR_HPP
 #define _CPU_AVR_HPP
+#include <types.hpp>
 #include <cpu_base.hpp>
 #include <avr/wdt.h>
-
-// CPU reg accessors
-#define _R8(addr) (*(volatile uint8_t*)addr)
-#define _R16(addr) (*(volatile uint16_t*)addr)
 
 class AVRCPU {};
 
