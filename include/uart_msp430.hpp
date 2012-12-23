@@ -89,8 +89,8 @@ The recommended USCI initialization/re-configuration process is:
     static void enable_tx_irq()  { IE2 |= UCA0TXIE; }
     static void disable_tx_irq() { IE2 &= ~UCA0TXIE; }
 
-    static interrupt(USCIAB0RX_VECTOR) irq_handler_rx();
-    static interrupt(USCIAB0TX_VECTOR) irq_handler_tx();
+    static interrupt(USCIAB0RX_VECTOR) uart_rx_irq_handler();
+    static interrupt(USCIAB0TX_VECTOR) uart_tx_irq_handler();
 };
 
 #endif //_UART_MSP430_HPP
