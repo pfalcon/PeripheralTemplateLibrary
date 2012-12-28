@@ -23,11 +23,11 @@ class TimeDelay
 public:
     inline static void delay_us(unsigned us)
     {
-        cycle_delayer::delay((unsigned long long)freq * us / 1000000UL);
+        cycle_delayer::delay((uint32_t)(unsigned long long)freq * us / 1000000UL);
     }
 
     inline static void delay_ms(unsigned ms)
     {
-        cycle_delayer::delay((unsigned long long)freq * ms / 1000UL);
+        cycle_delayer::delay((uint32_t)((unsigned long long)freq * ms / 1000UL));
     }
 };
