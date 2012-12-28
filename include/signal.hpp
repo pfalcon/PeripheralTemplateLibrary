@@ -29,6 +29,7 @@ public:
     static void input()    { pin::input(); }
     static void assert()   { pin::high(); }
     static void deassert() { pin::low(); }
+    static void toggle()   { pin::toggle(); }
     static bool value()    { return pin::value(); }
     static bool is_asserted()    { return value(); }
 };
@@ -43,6 +44,7 @@ public:
     static void input()    { pin::input(); }
     static void assert()   { pin::low(); }
     static void deassert() { pin::high(); }
+    static void toggle()   { pin::toggle(); }
     static bool value()    { return !pin::value(); }
     static bool is_asserted()    { return value(); }
 };
