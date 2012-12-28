@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _WATCHDOG_MSP430_HPP
+#define _WATCHDOG_MSP430_HPP
 
 class Watchdog
 {
@@ -51,3 +53,5 @@ public:
     static void enable_irq()  { IE1 |= WDTIE; }
     static void disable_irq() { IE1 &= ~WDTIE; }
 };
+
+#endif //_WATCHDOG_MSP430_HPP
