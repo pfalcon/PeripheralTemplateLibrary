@@ -81,7 +81,7 @@ public:
         puthex16(v);
     }
 
-    NOINLINE static void putdec16(uint16_t v)
+    NOINLINE static void putdecu16(uint16_t v)
     {
         char buf[6];
         char *p = buf + 5;
@@ -93,7 +93,16 @@ public:
         putstr(p);
     }
 
-    NOINLINE static void putdec32(uint32_t v)
+    NOINLINE static void putdeci16(int16_t v)
+    {
+        if (v < 0) {
+            putc('-');
+            v = -v;
+        }
+        putdecu16(v);
+    }
+
+    NOINLINE static void putdecu32(uint32_t v)
     {
         char buf[sizeof("4294967295")];
         char *p = buf + sizeof(buf) - 1;
@@ -105,6 +114,15 @@ public:
         putstr(p);
     }
 
+    NOINLINE static void putdeci32(int32_t v)
+    {
+        if (v < 0) {
+            putc('-');
+            v = -v;
+        }
+        putdecu32(v);
+    }
+
 
     NOINLINE static void printf(const char *format, ...)
     {
@@ -112,7 +130,6 @@ public:
         va_start(args, format);
         char c;
 #define FLAG_LONG 1
-#define FLAG_UNSIGNED 2
         uint8_t flags;
 
         while (c = *format++) {
@@ -123,9 +140,6 @@ format_again:
                 case 'l':
                     flags |= FLAG_LONG;
                     goto format_again;
-                case 'u':
-                    flags |= FLAG_UNSIGNED;
-                    goto format_again;
                 case 'x':
                     if (flags & FLAG_LONG)
                         puthex32(va_arg(args, uint32_t));
@@ -134,9 +148,15 @@ format_again:
                     break;
                 case 'd':
                     if (flags & FLAG_LONG)
-                        putdec32(va_arg(args, long));
+                        putdeci32(va_arg(args, int32_t));
                     else
-                        putdec16(va_arg(args, int));
+                        putdeci16(va_arg(args, int16_t));
+                    break;
+                case 'u':
+                    if (flags & FLAG_LONG)
+                        putdecu32(va_arg(args, uint32_t));
+                    else
+                        putdecu16(va_arg(args, uint16_t));
                     break;
                 case 's':
                     putstr(va_arg(args, const char *));
