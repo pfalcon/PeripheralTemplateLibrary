@@ -36,10 +36,7 @@ class Sleep
 
     static void set_iteration()
     {
-        // We are going to change watchdog interval in either case
-        // This requires halting the watchdog first, so do it now
-        // for all cases, and use private set_interval() further.
-        Watchdog::disable();
+        // Warning: watchdog should be disabled when entering here
         if (!HIWORD(_interval)) {
             if (LOWORD(_interval) >= 8192) {
                 strong_cast(uint16_t, _interval) -= 8192;
@@ -79,9 +76,12 @@ public:
     __attribute__((optimize("O1"))) 
     static interrupt (WDT_VECTOR) watchdog_isr()
     {
+        // When enterring handler, we either need to disable watchdog because
+        // logical interval has expired, or disable it to reprogram to new
+        // hardware interval. In either case, we need to disable watchdog,
+        // so do it now.
+        Watchdog::disable();
         if (_interval == 0) {
-            // Disable watchdog again
-            Watchdog::disable();
             LPM3_EXIT;
         } else {
             // Wait again within LPM3
