@@ -6,7 +6,7 @@
 typedef UART<1 MHZ, 9600, USCI> uart;
 
 template <>
-void uart::irq_handler_rx()
+void uart::uart_rx_irq_handler()
 {
     uart::write_async(uart::read_async());
     board::LED::toggle();
