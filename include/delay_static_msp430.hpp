@@ -20,7 +20,7 @@
 #include <stdint.h>
 #include <inline.hpp>
 
-ALWAYS_INLINE void __delay_cycles2(long delay)
+static ALWAYS_INLINE void __delay_cycles2(long delay)
 {
 //  if (__builtin_constant_p(delay)) {
     if (delay == 1) {
