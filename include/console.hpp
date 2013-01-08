@@ -123,6 +123,26 @@ public:
         putdecu32(v);
     }
 
+    ALWAYS_INLINE static void putdec(int16_t v)
+    {
+        putdeci16(v);
+    }
+
+    ALWAYS_INLINE static void putdec(uint16_t v)
+    {
+        putdecu16(v);
+    }
+
+    ALWAYS_INLINE static void putdec(int32_t v)
+    {
+        putdeci32(v);
+    }
+
+    ALWAYS_INLINE static void putdec(uint32_t v)
+    {
+        putdecu32(v);
+    }
+
 
     NOINLINE static void printf(const char *format, ...)
     {
