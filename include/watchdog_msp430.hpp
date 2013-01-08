@@ -40,12 +40,21 @@ public:
     }
 
     template <class clock>
+    static void set_interval(uint16_t interval)
+    {
+        // Warning:
+        // slau144i 10.2.3 p.352 "The WDT+ should be halted before changing
+        // the clock source to avoid a possible incorrect interval."
+        WDTCTL = WDTPW | WDTTMSEL | WDTCNTCL | clock::as_watchdog_clock() | interval;
+    }
+
+    template <class clock>
     static void enable_interval(uint16_t interval)
     {
         // slau144i 10.2.3 p.352 "The WDT+ should be halted before changing
         // the clock source to avoid a possible incorrect interval."
         disable();
-        WDTCTL = WDTPW | WDTTMSEL | WDTCNTCL | clock::as_watchdog_clock() | interval;
+        set_interval<clock>(interval);
     }
 
     static void disable() { WDTCTL = WDTPW | WDTHOLD; }
