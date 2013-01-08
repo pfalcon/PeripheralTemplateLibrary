@@ -175,7 +175,23 @@ public:
         ADC10CTL0 &= ~(REFOUT | REFON | ADC10ON | ENC);
     }
 
-    static width easy_sample(enum Channel channel);
+    NOINLINE static width easy_sample(enum Channel channel)
+    {
+        enable_channel(channel);
+        unlock();
+        set_channel(channel);
+        // Let Vref to settle
+        __delay_cycles(30);
+
+        start();
+        wait();
+
+        int val = value();
+    // Disable all features of ADC
+//    unlock();
+//    disable();
+        return val;
+    }
 
 
     template <class c>
@@ -197,24 +213,5 @@ public:
         ADC10CTL1 = (ADC10CTL1 & (INCH_15 | ADC10DIV_7)) | ctl1<config_>();
     }
 };
-
-
-inline ADC::width ADC::easy_sample(enum Channel channel)
-{
-    enable_channel(channel);
-    unlock();
-    set_channel(channel);
-    // Let Vref to settle
-    __delay_cycles(30);
-
-    start();
-    wait();
-
-    int val = value();
-    // Disable all features of ADC
-//    unlock();
-//    disable();
-    return val;
-}
 
 #endif //_ADC_MSP430_HPP
