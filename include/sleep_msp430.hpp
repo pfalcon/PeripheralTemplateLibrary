@@ -26,6 +26,8 @@
 #include <watchdog_msp430.hpp>
 #include <adc.hpp>
 
+#define strong_cast(type, lval) (*(type*)&lval)
+
 class Sleep
 {
     static uint32_t _interval;
@@ -36,14 +38,14 @@ class Sleep
             _interval -= 32768;
             Watchdog::enable_interval<ACLK>(Watchdog::INTERVAL_32768);
         } else if (_interval >= 8192) {
-            _interval -= 8192;
+            strong_cast(uint16_t, _interval) -= 8192;
             Watchdog::enable_interval<ACLK>(Watchdog::INTERVAL_8192);
         } else if (_interval >= 512) {
-            _interval -= 512;
+            strong_cast(uint16_t, _interval) -= 512;
             Watchdog::enable_interval<ACLK>(Watchdog::INTERVAL_512);
         } else {
             if (_interval > 64)
-                _interval -= 64;
+                strong_cast(uint16_t, _interval) -= 64;
             else
                 _interval = 0;
             Watchdog::enable_interval<ACLK>(Watchdog::INTERVAL_64);
