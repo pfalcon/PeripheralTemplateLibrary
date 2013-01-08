@@ -1,8 +1,9 @@
 #include <gpio.hpp>
 #include <cpu.hpp>
 #include <board.hpp>
-#include <sleep.hpp>
 #include <clock.hpp>
+#include <sleep.hpp>
+#include <sleep_impl.hpp>
 
 
 int main()
