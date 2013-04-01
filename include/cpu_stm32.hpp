@@ -26,6 +26,8 @@ class CPU<STM32CPU> : public ICPU
 public:
     static void init(int flags)
     {
+        // CMSIS: The Startup File startup_<device>.s is executed
+        // after reset and calls SystemInit().
     }
 };
 
