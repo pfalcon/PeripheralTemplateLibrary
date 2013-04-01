@@ -27,6 +27,8 @@ class ISPI
 public:
     static void init();
     static uint8_t transfer(uint8_t b);
+    // Optimized version of transfer which uses arbitrary write value
+    static uint8_t read();
     // Optimized version of transfer which ignores read value
     static void write(uint8_t b);
 };
@@ -44,7 +46,7 @@ public:
     static void read_block(uint8_t *buf, uint8_t len)
     {
         while (len--) {
-            *buf++ = spi_impl::transfer(0xFF);
+            *buf++ = spi_impl::read();
         }
     }
 
@@ -68,6 +70,7 @@ public:
         miso::input();
     }
     static uint8_t transfer(uint8_t b);
+    static uint8_t read();
     static void write(uint8_t b);
 
 };
@@ -108,6 +111,13 @@ void SPI<sclk, miso, mosi>::write(uint8_t b)
 
             sclk::low();
         }
+}
+
+template <class sclk, class miso, class mosi>
+uint8_t SPI<sclk, miso, mosi>::read()
+{
+    // TODO: optimize
+    return transfer(0xFF);
 }
 
 #endif //_SPI_BASE_HPP
