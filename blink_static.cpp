@@ -5,16 +5,18 @@
 
 
 typedef StaticDelay delayer;
+typedef board::LED led;
+
 
 int main()
 {
     cpu::init(cpu::DEFAULT);
-    board::LED::port::enable();
-    board::LED::output();
+    led::port::enable();
+    led::output();
     while (true) {
-        board::LED::high();
+        led::high();
         delayer::delay(1000000U);
-        board::LED::low();
+        led::low();
         delayer::delay(1000000U);
     }
 }
