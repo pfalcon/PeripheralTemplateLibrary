@@ -20,6 +20,8 @@
 #include <gpio_msp430.hpp>
 #elif defined( __AVR__)
 #include <gpio_avr.hpp>
+#elif defined( __STM32__) && defined(OPENCM3)
+#include <gpio_stm32_opencm3.hpp>
 #elif defined( __STM32__)
 #include <gpio_stm32.hpp>
 #elif defined( __EFM32__)
