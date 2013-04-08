@@ -48,31 +48,31 @@ public:
 template <typename type_width, class bit0, class bit1, class bit2, class bit3, class bit4, class bit5, class bit6, class bit7>
 class ParBus : public ParBus<type_width, bit1, bit2, bit3, bit4, bit5, bit6, bit7, None>
 {
+    typedef ParBus<type_width, bit1, bit2, bit3, bit4, bit5, bit6, bit7, None> rest;
 public:
     typedef type_width width;
-    typedef ParBus<type_width, bit1, bit2, bit3, bit4, bit5, bit6, bit7, None> base;
 
     static void write(type_width v) {
         bit0::set(v & 0x01);
-        base::write(v >> 1);
+        rest::write(v >> 1);
     }
 
     static type_width read() {
-        return (bool)bit0::value() | base::read();
+        return (bool)bit0::value() | rest::read();
     }
 
     static void enable() {
         bit0::port::enable();
-        base::enable();
+        rest::enable();
     }
 
     static void input() {
         bit0::input();
-        base::input();
+        rest::input();
     }
 
     static void output() {
         bit0::output();
-        base::output();
+        rest::output();
     }
 };
