@@ -26,7 +26,9 @@ template <>
 class Board<STM32VLDiscovery>
 {
 public:
+    // Right, blue LED
     typedef Pin<PC, Bit8> LED;
+    // Left, green LED
     typedef Pin<PC, Bit9> LED2;
     static const long freq = 8 MHZ;
 };
