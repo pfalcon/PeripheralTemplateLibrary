@@ -12,10 +12,8 @@ typedef ParBus<uint8_t, board::LED, board::LED2> leds;
 int main()
 {
     cpu::init(cpu::DEFAULT);
-    board::LED::port::enable();
-    board::LED2::port::enable();
-    board::LED::output();
-    board::LED2::output();
+    leds::enable();
+    leds::output();
     int i = 0;
     while (true) {
         leds::write(i++ % 4);

@@ -38,6 +38,10 @@ class ParBus<type_width,
 public:
     static void write(type_width v) {}
     static type_width read() { return 0; }
+
+    static void enable() {}
+    static void input() {}
+    static void output() {}
 };
 
 // Recursive template definition
@@ -55,5 +59,20 @@ public:
 
     static type_width read() {
         return (bool)bit0::value() | base::read();
+    }
+
+    static void enable() {
+        bit0::port::enable();
+        base::enable();
+    }
+
+    static void input() {
+        bit0::input();
+        base::input();
+    }
+
+    static void output() {
+        bit0::output();
+        base::output();
     }
 };
