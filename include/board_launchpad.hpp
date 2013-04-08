@@ -29,7 +29,10 @@ template <>
 class Board<MSP430Launchpad>
 {
 public:
+    // Left, red LED
     typedef Pin<P1, Bit0> LED;
+    // Right, green LED, conflicts with SPI, I2C
+    typedef Pin<P1, Bit6> LED2;
     // This is HWUART pin mapping. On 1.5, jumpers should be
     // put in perpindicular position wrt other jumpers. Not
     // compatible with Launchpad 1.4
