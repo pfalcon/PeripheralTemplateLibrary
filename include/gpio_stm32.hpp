@@ -58,7 +58,7 @@ typedef Port<GPIOC_BASE, uint16_t> PC;
 typedef Port<GPIOD_BASE, uint16_t> PD;
 
 template <class port_, class bit>
-class Pin : IPin< Pin<port_, bit> >
+class Pin : public IPin< Pin<port_, bit> >
 {
     static void set_mode(int mode)
     {

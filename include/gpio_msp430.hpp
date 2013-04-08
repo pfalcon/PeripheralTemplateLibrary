@@ -39,7 +39,7 @@ typedef Port<P2IN_, P2OUT_, P2DIR_, P2REN_, uint8_t> P2;
 typedef Port<P3IN_, P3OUT_, P3DIR_, P3REN_, uint8_t> P3;
 
 template <class port_, class bit>
-class Pin : IPin< Pin<port_, bit> >
+class Pin : public IPin< Pin<port_, bit> >
 {
 public:
     typedef port_ port;
