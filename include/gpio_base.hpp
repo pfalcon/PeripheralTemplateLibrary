@@ -23,6 +23,7 @@
 #include <stdint.h>
 #include <bits.hpp>
 #include <types.hpp>
+#include <inline.hpp>
 
 class IPort
 {
@@ -53,6 +54,14 @@ public:
     static void pulloff();
     static void pullup();
     static void pulldown();
+};
+
+class NullPin : public IPin<NullPin>
+{
+public:
+    typedef class NullPort {} port;
+    ALWAYS_INLINE static void high() {}
+    ALWAYS_INLINE static void low()  {}
 };
 
 #endif //_GPIO_BASE_HPP
