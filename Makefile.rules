@@ -1,7 +1,7 @@
 PTL_PATH ?= .
 
 ifeq ($(TARGET),)
-$(error You need to define target: $(MAKE) TARGET=(msp430|avr|stm32))
+$(error You need to define target: $(MAKE) TARGET=(msp430|avr|stm32|...))
 endif
 
 TARGETDIR = bin-$(TARGET)
