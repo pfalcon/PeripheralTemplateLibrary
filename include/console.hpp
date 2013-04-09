@@ -21,6 +21,7 @@
 
 #include <stdarg.h>
 #include <inline.hpp>
+#undef putc
 
 #define ENDL "\r\n"
 
