@@ -6,7 +6,7 @@
 
 
 typedef StaticDelay delayer;
-typedef ParBus<uint8_t, board::LED, board::LED2> leds;
+typedef ParBus<board::LED, board::LED2> leds;
 
 
 int main()
