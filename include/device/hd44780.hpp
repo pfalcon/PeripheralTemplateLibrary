@@ -89,6 +89,7 @@ public:
         if (y > 0)
             addr += 0x40;
         write_cmd(HD44780_CMD_SET_DDRAM | addr);
+        set_data_mode();
     }
 
     static void write_cmd(uint8_t val) {
@@ -97,9 +98,12 @@ public:
         write(val);
     }
 
-    static void write_data(uint8_t val) {
+    static void set_data_mode() {
         regsel_sig::assert();
-        rw_sig::deassert();
+    }
+
+    static void write_data(uint8_t val) {
+        set_data_mode();
         write(val);
     }
 
