@@ -26,13 +26,38 @@ template <>
 class Board<Arduino>
 {
 public:
+    static const long freq = 16 MHZ;
+
     // "digital pin 13"
     typedef Pin<PB, Bit5> LED;
     // "digital pin 0"
     typedef Pin<PD, Bit0> pin_uart_rx;
     // "digital pin 1"
     typedef Pin<PD, Bit1> pin_uart_tx;
-    static const long freq = 16 MHZ;
+
+    // Arduino pin naming
+    typedef Pin<PD, Bit0> D0;
+    typedef Pin<PD, Bit1> D1;
+    typedef Pin<PD, Bit2> D2;
+    typedef Pin<PD, Bit3> D3;
+    typedef Pin<PD, Bit4> D4;
+    typedef Pin<PD, Bit5> D5;
+    typedef Pin<PD, Bit6> D6;
+    typedef Pin<PD, Bit7> D7;
+
+    typedef Pin<PB, Bit0> D8;
+    typedef Pin<PB, Bit1> D9;
+    typedef Pin<PB, Bit2> D10;
+    typedef Pin<PB, Bit3> D11;
+    typedef Pin<PB, Bit4> D12;
+    typedef Pin<PB, Bit5> D13;
+
+    typedef Pin<PC, Bit0> A0;
+    typedef Pin<PC, Bit1> A1;
+    typedef Pin<PC, Bit2> A2;
+    typedef Pin<PC, Bit3> A3;
+    typedef Pin<PC, Bit4> A4;
+    typedef Pin<PC, Bit5> A5;
 };
 
 typedef Board<Arduino> board;
