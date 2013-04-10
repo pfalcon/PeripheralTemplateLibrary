@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <gpio.hpp>
 #include <signal.hpp>
 #include <parallel_bus.hpp>
 
@@ -60,7 +61,7 @@
 #define HD44780_FUNC_F5x10     0x04
 
 
-template <class delayer, class data4_bus, class en_sig, class regsel_sig, class rw_sig = None>
+template < class delayer, class data4_bus, class en_sig, class regsel_sig, class rw_sig = Signal<NullPin> >
 class HD44780
 {
 public:
