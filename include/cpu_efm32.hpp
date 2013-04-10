@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <cpu_base.hpp>
-#include <em_chip.h>
+//#include <em_chip.h>
 
 class EFM32CPU {};
 
@@ -27,7 +27,7 @@ class CPU<EFM32CPU> : public ICPU
 public:
     static void init(int flags)
     {
-        CHIP_Init();
+//        CHIP_Init();
     }
 };
 
