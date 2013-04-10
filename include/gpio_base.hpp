@@ -60,6 +60,7 @@ class NullPin : public IPin<NullPin>
 {
 public:
     typedef class NullPort {} port;
+    ALWAYS_INLINE static void output() {}
     ALWAYS_INLINE static void high() {}
     ALWAYS_INLINE static void low()  {}
 };
