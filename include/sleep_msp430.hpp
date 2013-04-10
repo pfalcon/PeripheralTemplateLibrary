@@ -72,7 +72,7 @@ public:
         LPM3;
     }
 
-    // gcc 4.5.3 goes mad when compiling this ar -O2 and produces spaghetti code
+    // gcc 4.5.3 goes mad when compiling this as -O2 and produces spaghetti code
     __attribute__((optimize("O1"))) 
     static interrupt (WDT_VECTOR) watchdog_isr()
     {
