@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _PARALLEL_BUS_HPP
+#define _PARALLEL_BUS_HPP
+
 #include <types.hpp>
 
 // Parallel bus made of individual GPIO signals
@@ -80,3 +83,5 @@ public:
         rest::output();
     }
 };
+
+#endif // _PARALLEL_BUS_HPP
