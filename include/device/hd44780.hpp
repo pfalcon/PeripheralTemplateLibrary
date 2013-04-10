@@ -66,10 +66,54 @@ class HD44780
 {
 public:
     static void init(uint8_t params = HD44780_FUNC_NLINES2 | HD44780_FUNC_F5x8) {
+        en_sig::output();
         en_sig::deassert();
+        regsel_sig::output();
+        // We deassert RS for init, but default state is "Data". Any function
+        // performing command must call set_data_mode() at the end.
+        regsel_sig::deassert();
+        rw_sig::output();
+        // "Write" is default state, any function which performs read, must
+        // reset signal to default state
+        rw_sig::deassert();
         data4_bus::output();
+
+        reset();
         write_cmd(HD44780_CMD_FUNC_SET | HD44780_FUNC_DL4 | params);
         cls();
+        write_cmd(HD44780_CMD_DISP_CTRL | HD44780_CTRL_DISP_ON);
+        write_cmd(HD44780_CMD_ENTRY_MODE | HD44780_ENTRY_CURSOR | HD44780_ENTRY_INC);
+        set_data_mode();
+    }
+
+    static void reset() {
+        // p.39 "When the power is turned on, 8-bit operation is
+        // automatically selected and the first write is performed as
+        // an 8-bit operation."
+
+        // p.39 "Note: When using the internal reset, the electrical
+        // characteristics in the Power Supply Conditions Using Internal
+        // Reset Circuit table must be satisfied. If not, the HD44780U
+        // must be initialized by instructions. See the section, Initializing
+        // by Instruction."
+
+        // As we cannot be sure if "Power Supply Conditions ..." are observed
+        // for particular module, or what module is state before we run at
+        // all, we perform "Initializing by Instruction" aka software reset.
+
+        // p.46
+
+        delayer::delay_ms(40);
+
+        write_4bits((HD44780_CMD_FUNC_SET | HD44780_FUNC_DL8) >> 4);
+        delayer::delay_us(4100);
+        write_4bits((HD44780_CMD_FUNC_SET | HD44780_FUNC_DL8) >> 4);
+        delayer::delay_us(100);
+
+        write_4bits((HD44780_CMD_FUNC_SET | HD44780_FUNC_DL8) >> 4);
+        delayer::delay_us(100);
+        write_4bits((HD44780_CMD_FUNC_SET | HD44780_FUNC_DL4) >> 4);
+        delayer::delay_us(100);
     }
 
     static void cls() {
