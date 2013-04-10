@@ -5,7 +5,7 @@ ALL = blink blink_static blink_dynamic blink_timer \
       uart_echo uart_echo_irq uart_echo_async \
       uart_printf \
       spi i2c_24cxx 1wire adc timer_irq flash \
-      perf_counter
+      perf_counter lcd
 
 .PHONY: $(ALL)
 
@@ -28,6 +28,7 @@ adc: $(TARGETDIR)/adc
 timer_irq: $(TARGETDIR)/timer_irq
 flash: $(TARGETDIR)/flash
 perf_counter: $(TARGETDIR)/perf_counter
+lcd: $(TARGETDIR)/lcd
 
 $(TARGETDIR)/blink: $(TARGETDIR)/blink.o
 $(TARGETDIR)/blink.o: blink.cpp
@@ -58,3 +59,6 @@ $(TARGETDIR)/1wire.o: 1wire.cpp
 
 $(TARGETDIR)/adc: $(TARGETDIR)/adc.o
 $(TARGETDIR)/adc.o: adc.cpp
+
+$(TARGETDIR)/lcd: $(TARGETDIR)/lcd.o
+$(TARGETDIR)/lcd.o: lcd.cpp
