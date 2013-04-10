@@ -18,8 +18,16 @@
  */
 #include <inline.hpp>
 
+#ifdef __NO_INLINE__
+#error Optimization must be enabled, to support inline functions
+#endif
+
+#ifdef __OPTIMIZE_SIZE__
+#error avr-gcc 4.5 -Os breaks this header, use other optimization level
+#endif
+
 // TODO: This is not yet cycle-perfect
-ALWAYS_INLINE void __delay_cycles2(unsigned long delay)
+ALWAYS_INLINE inline static void __delay_cycles2(unsigned long delay)
 {
     if (__builtin_constant_p(delay)) {
         if (delay <= 262140U) {
