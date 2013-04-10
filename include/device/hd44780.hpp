@@ -74,10 +74,14 @@ public:
 
     static void cls() {
         write_cmd(HD44780_CMD_CLS);
+        // p.24
+        delayer::delay_us(1520);
     }
 
     static void home() {
         write_cmd(HD44780_CMD_HOME);
+        // p.24
+        delayer::delay_us(1520);
     }
 
     static void set_pos(uint8_t x, uint8_t y) {
@@ -109,6 +113,8 @@ public:
         data4_bus::write(val);
         // p.49 Data set-up time tDSW min 195ns
         pulse_en();
+        // p.24,25
+        delayer::delay_us(37);
     }
 
     static uint8_t read() {
@@ -124,13 +130,14 @@ public:
         v |= data4_bus::read();
         // Write is default
         rw_sig::deassert();
+        // delay? p.25
     }
 
     static void pulse_en() {
         en_sig::assert();
-        // Enable pulse width (high level) PWEH min 450ns
+        // p.49 Enable pulse width (high level) PWEH min 450ns
         delayer::delay_us(1);
         en_sig::deassert();
-        // Enable cycle time tCycE min 1000ns
+        // p.49 Enable cycle time tCycE min 1000ns
     }
 };
