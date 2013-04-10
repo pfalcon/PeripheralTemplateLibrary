@@ -109,8 +109,10 @@ public:
         // DB4 to DB7) are transferred before the four low order bits (for 8-bit operation, DB0 to DB3).
         write_4bits(val >> 4);
         write_4bits(val);
-        // p.24,25
-        delayer::delay_us(37);
+        // p.24: Any command (including data write) takes 37us,
+        // so we delay here, in write(). For data write, there's
+        // additional 4us delay (tADD, p.25) to update RAM pointer.
+        delayer::delay_us(37 + 4);
     }
 
     static void write_4bits(uint8_t val) {
