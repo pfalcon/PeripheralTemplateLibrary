@@ -107,14 +107,16 @@ public:
         // HD44780U datasheet p.22
         // As for the order of data transfer, the four high order bits (for 8-bit operation,
         // DB4 to DB7) are transferred before the four low order bits (for 8-bit operation, DB0 to DB3).
-        data4_bus::write(val >> 4);
-        // p.49 Data set-up time tDSW min 195ns
-        pulse_en();
+        write_4bits(val >> 4);
+        write_4bits(val);
+        // p.24,25
+        delayer::delay_us(37);
+    }
+
+    static void write_4bits(uint8_t val) {
         data4_bus::write(val);
         // p.49 Data set-up time tDSW min 195ns
         pulse_en();
-        // p.24,25
-        delayer::delay_us(37);
     }
 
     static uint8_t read() {
