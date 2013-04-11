@@ -22,7 +22,7 @@ int main()
     board::LED::output();
     lcd::init();
     lcd_con::putstr("Hello, World!");
-    int c = 0;
+    unsigned c = 0;
     while (true) {
         lcd::set_pos(0, 1);
         lcd_con::putdec(c++);
