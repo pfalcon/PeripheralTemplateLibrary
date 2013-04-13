@@ -44,7 +44,7 @@ public:
 
     static void enable_irq()  { *(volatile uint16_t*)ctrl_reg |= TAIE; }
     static void disable_irq() { *(volatile uint16_t*)ctrl_reg &= ~TAIE; }
-    static uint16_t irq_status() { *(volatile uint16_t*)intr_reg; }
+    static uint16_t irq_status() { return *(volatile uint16_t*)intr_reg; }
 //    __attribute__((interrupt(TIMER0_A1_VECTOR))) static void irq_handler();
     static interrupt(TIMER0_A1_VECTOR) irq_handler();
     static interrupt(TIMER0_A0_VECTOR) irq_handler_cc0();
