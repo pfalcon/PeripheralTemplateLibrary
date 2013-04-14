@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _TIMER_BASE_HPP
+#define _TIMER_BASE_HPP
+
 template <typename width_, class timer_impl>
 class ITimer {
 public:
@@ -49,3 +52,5 @@ public:
         }
     }
 };
+
+#endif // _TIMER_BASE_HPP
