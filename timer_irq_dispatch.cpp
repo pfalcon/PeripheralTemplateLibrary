@@ -11,9 +11,7 @@ struct TimerIrqs : public TimerIrqsBase {
     }
 };
 
-typedef TimerIrqDispatch<timer, TimerIrqs> dispatcher;
-
-IRQ_DISPATCH(timer, dispatcher);
+IRQ_DISPATCH(timer, TimerIrqs);
 
 int main()
 {

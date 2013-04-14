@@ -83,12 +83,14 @@ public:
 };
 
 // Can't get around using macros - see above
-#define IRQ_DISPATCH(timer, dispatcher) \
+// But now that we need to use macros, let's hide TimerIrqDispatch
+// instantiation there too.
+#define IRQ_DISPATCH(timer, irq_handlers) \
     template <> \
     void timer::irq_handler() \
-    { dispatcher::handle_main(); } \
+    { TimerIrqDispatch<timer, irq_handlers>::handle_main(); } \
     template <> \
     void timer::irq_handler_cc0() \
-    { dispatcher::handle_cc0(); }
+    { TimerIrqDispatch<timer, irq_handlers>::handle_cc0(); }
 
 #endif // _TIMER_MSP430_DISPATCH_HPP
