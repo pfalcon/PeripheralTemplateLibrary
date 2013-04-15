@@ -18,6 +18,7 @@
  */
 #ifndef _TIMER_BASE_HPP
 #define _TIMER_BASE_HPP
+#include <meta.hpp>
 
 template <typename width_, class timer_impl>
 class ITimer {
@@ -40,13 +41,19 @@ public:
         delay_since(start, cycles);
     }
 
-    static void delay(uint32_t cycles)
+    // Optimized version for delay width > than timer width
+    // Optimized version uses as much as possible (efficient)
+    // arithmetics on width, and at the same time avoid overflow issues.
+    // Uses metaprogramming to enable this method only for types
+    // with larger width (otherwise, may clash with delay(width) above).
+    template <typename big_width>
+    static void delay(big_width cycles, typename meta::enable_if<(sizeof(big_width) > sizeof(width))>::type* = 0)
     {
         width start = timer_impl::value();
         while (true) {
             width end = timer_impl::value();
             cycles -= end - start;
-            if ((int32_t)cycles < 0)
+            if ((typename meta::signed_t<big_width>::type)cycles < 0)
                 break;
             start = end;
         }
