@@ -3,8 +3,8 @@ CMSIS_PATH = /home/pfalcon/projects-3rdparty/CMSIS/EFM/
 # and "device", supplied by silicon vendor.
 CMSIS_CORE_INCLUDE = -I$(CMSIS_PATH)/CMSIS/Include
 CMSIS_DEVICE_INCLUDE = -I$(CMSIS_PATH)/Device/EnergyMicro/EFM32GG/Include
-#CMSIS_STARTUP = $(CMSIS_PATH)/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_stm32f10x_md_vl.s
-#CMSIS_SYSTEM = $(CMSIS_PATH)/DeviceSupport/ST/STM32F10x/system_stm32f10x.c
+
+JLINK_TOOL = /home/pfalcon/projects-3rdparty/efm32/JLink_Linux_V462a/StartJLinkExe.sh
 
 CORTEX_STARTUP = ../cortex-uni-startup
 STARTUP = $(CORTEX_STARTUP)/startup.c
@@ -27,4 +27,10 @@ $(TARGETDIR)/%.bin: $(TARGETDIR)/%
 	$(OBJCOPY) -O binary $^ $@
 
 deploy-%: $(TARGETDIR)/%.bin
-	est-flash write $^ 0x8000000
+	echo "exec device = EFM32GG990F1024" >$(TARGETDIR)/jlink.script
+	echo "loadbin $^, 0" >>$(TARGETDIR)/jlink.script
+	echo "r" >>$(TARGETDIR)/jlink.script
+	echo "go" >>$(TARGETDIR)/jlink.script
+	echo "q" >>$(TARGETDIR)/jlink.script
+	# Exits with rc=1 even on success
+	$(JLINK_TOOL) $(TARGETDIR)/jlink.script || true
