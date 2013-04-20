@@ -20,10 +20,7 @@
 #define _GPIO_EFM32_HPP
 
 #include <gpio_base.hpp>
-//#include <libopencm3/stm32/f1/rcc.h>
-//#include <libopencm3/EFM32/f1/gpio.h>
-#include <em_cmu.h>
-#include <em_gpio.h>
+#include <efm32gg990f1024.h>
 
 
 template <int port_no_, typename width_>
@@ -34,24 +31,34 @@ public:
     typedef width_ width;
 
     static void enable() {
-        CMU_ClockEnable(cmuClock_HFPER, true);
-        CMU_ClockEnable(cmuClock_GPIO, true);
+        CMU->HFPERCLKDIV |= CMU_HFPERCLKDIV_HFPERCLKEN;
+        CMU->HFPERCLKEN0 |= CMU_HFPERCLKEN0_GPIO;
+//        CMU_ClockEnable(cmuClock_HFPER, true);
+//        CMU_ClockEnable(cmuClock_GPIO, true);
     }
 };
 
-typedef Port<gpioPortA, uint16_t> PA;
-typedef Port<gpioPortB, uint16_t> PB;
-typedef Port<gpioPortC, uint16_t> PC;
-typedef Port<gpioPortD, uint16_t> PD;
-typedef Port<gpioPortE, uint16_t> PE;
-typedef Port<gpioPortF, uint16_t> PF;
+typedef Port<0, uint16_t> PA;
+typedef Port<1, uint16_t> PB;
+typedef Port<2, uint16_t> PC;
+typedef Port<3, uint16_t> PD;
+typedef Port<4, uint16_t> PE;
+typedef Port<5, uint16_t> PF;
 
 template <class port_, class bit>
-class Pin : IPin< Pin<port_, bit> >
+class Pin : public IPin< Pin<port_, bit> >
 {
     static void set_mode(int mode)
     {
-        GPIO_PinModeSet((GPIO_Port_TypeDef)port::port_no, bit::shift, (GPIO_Mode_TypeDef)mode, 0);
+        volatile uint32_t *reg;
+        if (bit::shift < 8)
+            reg  = &GPIO->P[port::port_no].MODEL;
+        else
+            reg  = &GPIO->P[port::port_no].MODEH;
+
+        uint32_t mask = 0xf << ((bit::shift % 8) * 4);
+        uint32_t val  = mode << ((bit::shift % 8) * 4);
+        *reg = (*reg & ~mask) | val;
     }
 
 public:
@@ -72,11 +79,11 @@ public:
 
     static void output()
     {
-        set_mode(gpioModePushPull);
+        set_mode(_GPIO_P_MODEL_MODE0_PUSHPULL);
     }
     static void input()
     {
-        set_mode(gpioModeInput);
+        set_mode(_GPIO_P_MODEL_MODE0_INPUT);
     }
 };
 
