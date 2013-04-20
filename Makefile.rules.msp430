@@ -1,3 +1,5 @@
+#GCC_PATH = /opt/mspgcc-4.7/bin/
+
 MCU = msp430g2553
 TARGET_FLAGS = -mmcu=$(MCU)
 # Can select specific device if multiple connected at the same time,
