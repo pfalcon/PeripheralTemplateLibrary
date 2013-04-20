@@ -1,6 +1,6 @@
 include Makefile.rules
 
-ALL = blink blink_static blink_dynamic blink_timer \
+ALL = blink blink_static blink_dynamic blink_timer blink_ticks \
       blink_sleep blink_bus \
       uart_echo uart_echo_irq uart_echo_async \
       uart_printf \
@@ -16,6 +16,7 @@ blink: $(TARGETDIR)/blink
 blink_static: $(TARGETDIR)/blink_static
 blink_dynamic: $(TARGETDIR)/blink_dynamic
 blink_timer: $(TARGETDIR)/blink_timer
+blink_ticks: $(TARGETDIR)/blink_ticks
 blink_sleep: $(TARGETDIR)/blink_sleep
 blink_bus: $(TARGETDIR)/blink_bus
 uart_echo: $(TARGETDIR)/uart_echo
@@ -43,6 +44,9 @@ $(TARGETDIR)/blink_dynamic.o: blink_dynamic.cpp
 
 $(TARGETDIR)/blink_timer: $(TARGETDIR)/blink_timer.o
 $(TARGETDIR)/blink_timer.o: blink_timer.cpp
+
+$(TARGETDIR)/blink_ticks: $(TARGETDIR)/blink_ticks.o
+$(TARGETDIR)/blink_ticks.o: blink_ticks.cpp
 
 $(TARGETDIR)/blink_bus: $(TARGETDIR)/blink_bus.o
 $(TARGETDIR)/blink_bus.o: blink_bus.cpp
