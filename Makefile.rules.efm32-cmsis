@@ -6,7 +6,7 @@ CMSIS_DEVICE_INCLUDE = -I$(CMSIS_PATH)/Device/EnergyMicro/EFM32GG/Include
 
 JLINK_TOOL = /home/pfalcon/projects-3rdparty/efm32/JLink_Linux_V462a/StartJLinkExe.sh
 
-CORTEX_STARTUP = ../cortex-uni-startup
+CORTEX_STARTUP = $(PTL_PATH)/../cortex-uni-startup
 STARTUP = $(CORTEX_STARTUP)/startup.c
 # No need to specify full path to linker script, will be searched in -L
 LINKSCRIPT = efm32-biggest.ld

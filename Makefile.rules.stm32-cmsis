@@ -6,7 +6,7 @@ CMSIS_DEVICE_INCLUDE = -I$(CMSIS_PATH)/DeviceSupport/ST/STM32F10x
 #CMSIS_STARTUP = $(CMSIS_PATH)/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_stm32f10x_md_vl.s
 #CMSIS_SYSTEM = $(CMSIS_PATH)/DeviceSupport/ST/STM32F10x/system_stm32f10x.c
 
-CORTEX_STARTUP = ../cortex-uni-startup
+CORTEX_STARTUP = $(PTL_PATH)/../cortex-uni-startup
 STARTUP = $(CORTEX_STARTUP)/startup.c
 # No need to specify full path to linker script, will be searched in -L
 LINKSCRIPT = stm32-smallest.ld
