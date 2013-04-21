@@ -20,14 +20,42 @@
 #define _TIMER_BASE_HPP
 #include <meta.hpp>
 
-template <typename width_, class timer_impl>
+template <class timer_impl, typename width_, int bits = sizeof(width_) * 8>
 class ITimer {
 public:
     typedef width_ width;
 
+    // Subtract 2 numbers modulo 1<<bits
+    template <typename width>
+    static width sub_mod(width val1, width val2, typename meta::enable_if<(bits == sizeof(width) * 8)>::type* = 0)
+    {
+        return val1 - val2;
+    }
+
+    // For case of bits == sizeof(width) * 8, addition and "and" should
+    // optimize out. However, C standard undefines shifts for more-or-equal
+    // bits than the type, and particular compilers (mspgcc) provide
+    // really weird values in such case. Trying to work that around using
+    // const-if still produces shift warning, so use metaprogramming if instead
+    template <typename width>
+    static width sub_mod(width val1, width val2, typename meta::enable_if<(bits != sizeof(width) * 8)>::type* = 0)
+    {
+        return (val1 - val2) & ((1U << bits) - 1);
+    }
+
+#if 0
+    ALWAYS_INLINE static width sub_mod(width val1, width val2)
+    {
+        if (bits == sizeof(width) * 8)
+            return val1 - val2;
+        else
+            return (val1 - val2) & ((1U << bits) - 1);
+    }
+#endif
+
     static bool expired(width start, width duration)
     {
-        return timer_impl::value() - start >= duration;
+        return sub_mod(timer_impl::value(), start) >= duration;
     }
 
     static void delay_since(width since, width delay)
@@ -52,7 +80,7 @@ public:
         width start = timer_impl::value();
         while (true) {
             width end = timer_impl::value();
-            cycles -= end - start;
+            cycles -= sub_mod(end, start);
             if ((typename meta::signed_t<big_width>::type)cycles < 0)
                 break;
             start = end;
