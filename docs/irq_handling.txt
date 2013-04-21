@@ -1,0 +1,44 @@
+Interrupt handling is too idiosyncratic across various MCUs. As a basic
+example, in different MCUs peripheral blocks of similar function (timers,
+UARTs, etc.) may have different number of IRQs and their exact semantics.
+More specific example, MSP430 has separate serial interface interrupts for
+RX and TX, but each of them is shared by different serial interface units.
+For timers, MSP430 has a dedicated IRQ for one of compare channels. Another
+IRQ is used for all other timer events - other compare channels, timer
+overflow. Most IRQs in MSP430 are auto-acknowledged, but this second timer
+IRQ requires explicit acknowledgement. Etc., etc.
+
+So, while PTL allows to specify handlers for such MCU-specific IRQs, such
+approach is obviously not portable (but it is the most efficient approach
+of course).
+
+To achieve better cross-platform support, there are 3 other approches:
+
+1. Asynchronous approach with main loop. This approach doesn't use
+interrupt handlers explicitly at all. Instead, interrupt/ready flags
+are manually checked in a main loop with dispatching to appropriate
+handlers/code.
+
+2. Proxy low-level handler approach. MCU-specific IRQ handler would
+dispatch to abstracted, semantically orthoginal user handlers. For example,
+in timer example above, there would be separate PTL handlers for each
+of compare events and timer overflow, and default implementation of
+MSP430 IRQ handlers dispatching to them. This approach also has overhead,
+but at least it is constant (with the previous approach, it would be
+proportional to number of events to handle). Other drawback though is that
+simple low-level IRQ handler implementation will have extra checks even
+for events not used in the code. For example, if we're interested in
+timer overflow only, it makes no sense to dispatch on compare events.
+This issue might be solved using templates though.
+
+3. Mix of the 2 approaches above: make default IRQ handlers produce
+"event number", then main loop to dispatch on the last event. This may
+allow to do constant-time dispatch (at the price of program memory storing
+code pointers).
+
+
+For half-way approach towards p.2, see timer_irq_dispatch_msp430.hpp . This
+allows to define IRQ handlers for all events support by particular MCU, and
+as efficiently as possible to dispatch to them, but not be concerned with
+mapping of specific IRQ vectors to IRQ handlers (including one-to-many cases,
+IRQ acknowledgement, etc).
