@@ -1,4 +1,5 @@
-include Makefile.rules
+PTL_PATH = ..
+include $(PTL_PATH)/Makefile.rules
 
 ALL = blink blink_static blink_dynamic blink_timer blink_ticks \
       blink_sleep blink_bus \
