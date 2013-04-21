@@ -30,7 +30,9 @@ public:
     static void free_run()
     {
         SysTick->LOAD = 0xffffff;
-        SysTick->CTRL |= SysTick_CTRL_ENABLE;
+        // Set CLKSOURCE to get same clock as CPU core. Clock in case
+        // CLKSOURCE unset is implementation-dependent actually.
+        SysTick->CTRL |=  SysTick_CTRL_CLKSOURCE | SysTick_CTRL_ENABLE;
     }
 
     static void enable_irq()  { SysTick->CTRL |= SysTick_CTRL_TICKINT; }
