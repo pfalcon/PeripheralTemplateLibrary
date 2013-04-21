@@ -8,7 +8,7 @@ GPIO, timers, clocks, ADC, etc., then provides API/implementation of
 standard protocols to access peripheral devices, like SPI, I2C, UART,
 1-Wire, etc.
 
-To achieve high-level efficiency, PTL is built using templated static
+To achieve high-level efficiency, PTL is built using (C++) templated static
 types, which allows to apply aggressive compile-time optimizations,
 achieving the efficiency level of the C code purposedly written for
 specific MCU. Using templates also allows to provide optimized protocol
@@ -16,7 +16,7 @@ implementations utilizing specialized MCU hardware blocks like SPI/I2C
 controllers (default implementations provided use bitbanging over GPIO).
 
 The library is currently in proof of concept development phase, APIs
-are not stable, lot of refactoring to do, there's some laughable C++
+are not stable, lot of refactoring to do, there's some non-ideal C++
 code around.
 
 Current targets supported (together with example boards) are:
@@ -35,6 +35,6 @@ Note that different targets have different level of hardware support.
 
 The Peripheral Template Library is licensed under GNU Lesser General Public
 License (LGPL), version 3 or later. Please review detailed terms in the
-included COPYING.LGPL3 file.
+included LICENSE file.
 
 Author: Paul Sokolovsky {pfalcon at users.sourceforge.net}
