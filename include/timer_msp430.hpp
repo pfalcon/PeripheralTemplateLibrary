@@ -24,10 +24,10 @@
 #include <legacymsp430.h>
 
 template <int ctrl_reg_, int val_reg_, int intr_reg_>
-class Timer : public ITimer< uint16_t, Timer<ctrl_reg_, val_reg_, intr_reg_> >
+class Timer : public ITimer< Timer<ctrl_reg_, val_reg_, intr_reg_>, uint16_t >
 {
 public:
-    typedef typename ITimer<uint16_t, Timer>::width width;
+    typedef uint16_t width;
 
     static const int ctrl_reg = ctrl_reg_;
     static const int val_reg = val_reg_;

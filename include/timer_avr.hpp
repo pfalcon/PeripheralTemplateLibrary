@@ -22,7 +22,7 @@
 #include <timer_base.hpp>
 #include <cpu_avr.hpp>
 
-class Timer1 : public ITimer<uint16_t, Timer1>
+class Timer1 : public ITimer<Timer1, uint16_t>
 {
 public:
     static width value() { return _R16(TCNT1); }
