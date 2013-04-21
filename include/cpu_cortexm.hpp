@@ -1,7 +1,7 @@
 /*
  * This file is part of the Peripheral Template Library project.
  *
- * Copyright (c) 2012 Paul Sokolovsky <pfalcon@users.sourceforge.net>
+ * Copyright (c) 2012-2013 Paul Sokolovsky <pfalcon@users.sourceforge.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,19 +16,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <cpu_cortexm.hpp>
-//#include <em_chip.h>
-
-class EFM32CPU {};
-
-template <>
-class CPU<EFM32CPU> : public ICPU
-{
-public:
-    static void init(int flags)
-    {
-//        CHIP_Init();
-    }
-};
-
-typedef CPU<EFM32CPU> cpu;
+#include <cpu_base.hpp>
+// Declare Cortex-M IRQ handlers
+#include <cortexm_irqs.h>
