@@ -7,7 +7,8 @@ ALL = blink blink_static blink_dynamic blink_timer blink_ticks \
       uart_printf \
       spi i2c_24cxx 1wire adc timer_irq timer_irq_dispatch \
       flash \
-      perf_counter lcd
+      perf_counter lcd \
+      msp430_parse_tlv
 
 .PHONY: $(ALL)
 
@@ -33,6 +34,7 @@ timer_irq_dispatch: $(TARGETDIR)/timer_irq_dispatch
 flash: $(TARGETDIR)/flash
 perf_counter: $(TARGETDIR)/perf_counter
 lcd: $(TARGETDIR)/lcd
+msp430_parse_tlv: $(TARGETDIR)/msp430_parse_tlv
 
 $(TARGETDIR)/blink: $(TARGETDIR)/blink.o
 $(TARGETDIR)/blink.o: blink.cpp
