@@ -44,6 +44,7 @@ public:
     static int  value();
     static void high();
     static void low();
+    static void toggle();
     static void set(bool8 val)
     {
         if (val)
