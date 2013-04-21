@@ -87,6 +87,10 @@ public:
     {
         port::ptr()->BRR = bit::value;
     }
+    static void toggle()
+    {
+        port::ptr()->ODR ^= bit::value;
+    }
 
     static void output()
     {
