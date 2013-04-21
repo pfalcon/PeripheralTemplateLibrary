@@ -1,0 +1,15 @@
+PTL tries to stick to C++03 whenever possible, and not use C++11 features.
+That's because many embedded targets did not yet upgrade to recent versions
+of gcc (4.7+).
+
+So, following (very useful) C++11 features are avoided for now:
+
+* Variadic templates
+* constexpr
+* Static assertions
+* etc.
+
+It's expected that these restrictions will be lifted once newer gcc versions
+are better leveraged in embedded community.
+
+
