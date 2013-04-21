@@ -21,7 +21,7 @@
 
 #include <timer_base.hpp>
 
-class CSysTick : public ITimer<CSysTick, uint32_t, 24>
+class CSysTick : public ITimer<CSysTick, COUNT_DOWN, uint32_t, 24>
 {
 public:
     typedef uint32_t width;

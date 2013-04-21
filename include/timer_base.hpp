@@ -20,7 +20,9 @@
 #define _TIMER_BASE_HPP
 #include <meta.hpp>
 
-template <class timer_impl, typename width_, int bits = sizeof(width_) * 8>
+enum { COUNT_UP, COUNT_DOWN };
+
+template <class timer_impl, int count_dir, typename width_, int bits = sizeof(width_) * 8>
 class ITimer {
 public:
     typedef width_ width;
@@ -53,9 +55,17 @@ public:
     }
 #endif
 
+    static width elapsed(width last, width prev)
+    {
+        if (count_dir == COUNT_UP)
+            return sub_mod(last, prev);
+        else
+            return sub_mod(prev, last);
+    }
+
     static bool expired(width start, width duration)
     {
-        return sub_mod(timer_impl::value(), start) >= duration;
+        return elapsed(timer_impl::value(), start) >= duration;
     }
 
     static void delay_since(width since, width delay)
@@ -80,7 +90,7 @@ public:
         width start = timer_impl::value();
         while (true) {
             width end = timer_impl::value();
-            cycles -= sub_mod(end, start);
+            cycles -= elapsed(end, start);
             if ((typename meta::signed_t<big_width>::type)cycles < 0)
                 break;
             start = end;

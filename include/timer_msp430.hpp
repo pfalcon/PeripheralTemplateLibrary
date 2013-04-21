@@ -24,7 +24,7 @@
 #include <legacymsp430.h>
 
 template <int ctrl_reg_, int val_reg_, int intr_reg_>
-class Timer : public ITimer< Timer<ctrl_reg_, val_reg_, intr_reg_>, uint16_t >
+class Timer : public ITimer< Timer<ctrl_reg_, val_reg_, intr_reg_>, COUNT_UP, uint16_t >
 {
 public:
     typedef uint16_t width;
