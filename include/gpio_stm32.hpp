@@ -20,9 +20,7 @@
 #define _GPIO_STM32_HPP
 
 #include <gpio_base.hpp>
-
-// TODO: make target MCU dependent
-#include <stm32f10x.h>
+#include <stm32_includes.hpp>
 
 
 template <int base_, typename width_>
