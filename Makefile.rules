@@ -16,7 +16,7 @@ CXX = $(GCC_PATH)$(CROSS_COMPILE)g++$(GCC_VER)
 OBJDUMP ?= $(GCC_PATH)$(CROSS_COMPILE)objdump
 OBJCOPY ?= $(GCC_PATH)$(CROSS_COMPILE)objcopy
 
-CFLAGS ?= -O1 -g -Wreturn-type
+CFLAGS ?= -O1 -g -Wreturn-type -ffunction-sections -fdata-sections
 ALL_INCLUDE = -I$(PTL_PATH)/include/ $(TARGET_INCLUDE) $(INCLUDE)
 TARGET_CFLAGS  ?= $(TARGET_FLAGS)
 TARGET_LDFLAGS ?= $(TARGET_FLAGS)
