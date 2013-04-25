@@ -4,7 +4,7 @@ GCC_VER = -4.4
 TARGET_INCLUDE = -I$(LIBOPENCM3_PATH)/include
 TARGET_FLAGS = -mthumb -mcpu=cortex-m3
 TARGET_CFLAGS = $(TARGET_FLAGS) -D__STM32__ -DSTM32F1 -DOPENCM3
-TARGET_LDFLAGS = $(TARGET_FLAGS) --static -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld -Wl,--gc-sections \
+TARGET_LDFLAGS = $(TARGET_FLAGS) --static -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld \
     -Wl,--build-id=none
 LDLIBS = -L$(LIBOPENCM3_PATH)/lib -lopencm3_stm32f1
 

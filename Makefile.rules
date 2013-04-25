@@ -22,7 +22,7 @@ TARGET_CFLAGS  ?= $(TARGET_FLAGS)
 TARGET_LDFLAGS ?= $(TARGET_FLAGS)
 ALL_CFLAGS = $(ALL_INCLUDE) $(TARGET_CFLAGS) $(CFLAGS)
 ALL_CXXFLAGS = $(ALL_CFLAGS) -fno-exceptions
-LDFLAGS = $(TARGET_LDFLAGS) -Wl,-Map=$@.map,--cref
+LDFLAGS = $(TARGET_LDFLAGS) -Wl,--gc-sections -Wl,-Map=$@.map,--cref
 
 
 $(TARGETDIR)/%.o: %.cpp

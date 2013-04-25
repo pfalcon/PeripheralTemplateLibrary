@@ -16,7 +16,7 @@ CROSS_COMPILE = arm-none-eabi-
 TARGET_INCLUDE = $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE) -I$(CORTEX_STARTUP)
 TARGET_FLAGS = -mthumb -mcpu=cortex-m3 -DNO_SYSTEMINIT -D__EFM32__ -DEFM32
 TARGET_CFLAGS = $(TARGET_FLAGS)
-TARGET_LDFLAGS = $(TARGET_CFLAGS) $(TARGET_INCLUDE) --static -nostdlib -nostartfiles -T$(LINKSCRIPT) -Wl,--gc-sections \
+TARGET_LDFLAGS = $(TARGET_CFLAGS) $(TARGET_INCLUDE) --static -nostdlib -nostartfiles -T$(LINKSCRIPT) \
     -Wl,--build-id=none $(CMSIS_SYSTEM) $(STARTUP)
 LDLIBS = -L$(CORTEX_STARTUP) -lgcc
 

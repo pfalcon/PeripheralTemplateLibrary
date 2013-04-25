@@ -10,7 +10,7 @@ TARGET_INCLUDE =  -I$(LIBEFM_PATH)/CMSIS/Include \
     -I$(LIBEFM_PATH)/EFM32GG_STK3700/config
 TARGET_FLAGS = -mthumb -mcpu=cortex-m3 -mfix-cortex-m3-ldrd
 TARGET_CFLAGS = $(TARGET_FLAGS) -D__EFM32__ -DEFM32GG990F1024
-#TARGET_LDFLAGS = $(TARGET_FLAGS) --static -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld -Wl,--gc-sections \
+#TARGET_LDFLAGS = $(TARGET_FLAGS) --static -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld \
 #    -Wl,--build-id=none
 TARGET_LDFLAGS = -Xlinker -Map=lst/blink.map $(TARGET_FLAGS) \
     --static -nostdlib -nostartfiles -Wl,--build-id=none \
