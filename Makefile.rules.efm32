@@ -6,19 +6,18 @@ CMSIS_DEVICE_INCLUDE = -I$(CMSIS_PATH)/Device/EnergyMicro/EFM32GG/Include
 
 JLINK_TOOL = /home/pfalcon/projects-3rdparty/efm32/JLink_Linux_V462a/StartJLinkExe.sh
 
-CORTEX_STARTUP = $(PTL_PATH)/../cortex-uni-startup
-STARTUP = $(CORTEX_STARTUP)/startup.c
+STARTUP = $(CORTEX_STARTUP_PATH)/startup.c
 # No need to specify full path to linker script, will be searched in -L
 LINKSCRIPT = efm32-biggest.ld
 
 CROSS_COMPILE = arm-none-eabi-
 #GCC_VER = -4.4
-TARGET_INCLUDE = $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE) -I$(CORTEX_STARTUP)
+TARGET_INCLUDE = $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE) -I$(CORTEX_STARTUP_PATH)
 TARGET_FLAGS = -mthumb -mcpu=cortex-m3 -DNO_SYSTEMINIT -D__EFM32__ -DEFM32
 TARGET_CFLAGS = $(TARGET_FLAGS)
 TARGET_LDFLAGS = $(TARGET_CFLAGS) $(TARGET_INCLUDE) --static -nostdlib -nostartfiles -T$(LINKSCRIPT) \
     -Wl,--build-id=none $(CMSIS_SYSTEM) $(STARTUP)
-LDLIBS = -L$(CORTEX_STARTUP) -lgcc
+LDLIBS = -L$(CORTEX_STARTUP_PATH) -lgcc
 
 
 .PRECIOUS: $(TARGETDIR)/%.bin

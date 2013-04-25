@@ -6,6 +6,7 @@ endif
 
 TARGETDIR = bin-$(TARGET)
 
+include $(PTL_PATH)/Makefile.paths
 include $(PTL_PATH)/Makefile.rules.$(TARGET)
 
 GCC_PATH ?=

@@ -1,0 +1,3 @@
+# Makefile specifying paths to various 3rd-party components
+LIBPERIPHA_PATH = $(PTL_PATH)/../libperipha
+CORTEX_STARTUP_PATH = $(PTL_PATH)/../cortex-uni-startup
