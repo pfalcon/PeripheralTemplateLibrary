@@ -1,22 +1,25 @@
-LIBEFM_PATH = /home/pfalcon/projects-3rdparty/efm32
-#CROSS_COMPILE = arm-linux-gnueabi-
+CMSIS_PATH = /home/pfalcon/projects-3rdparty/CMSIS/EFM/
+# CMSIS includes consist of two sets: "core", supplied by ARM,
+# and "device", supplied by silicon vendor.
+CMSIS_CORE_INCLUDE = -I$(CMSIS_PATH)/CMSIS/Include
+CMSIS_DEVICE_INCLUDE = -I$(CMSIS_PATH)/Device/EnergyMicro/EFM32GG/Include
+
+JLINK_TOOL = /home/pfalcon/projects-3rdparty/efm32/JLink_Linux_V462a/StartJLinkExe.sh
+
+CORTEX_STARTUP = $(PTL_PATH)/../cortex-uni-startup
+STARTUP = $(CORTEX_STARTUP)/startup.c
+# No need to specify full path to linker script, will be searched in -L
+LINKSCRIPT = efm32-biggest.ld
+
+CROSS_COMPILE = arm-none-eabi-
 #GCC_VER = -4.4
-CROSS_COMPILE = ~/toolchain/arm-2010.09/bin/arm-none-eabi-
-GCC_VER =
-TARGET_INCLUDE =  -I$(LIBEFM_PATH)/CMSIS/Include \
-    -I$(LIBEFM_PATH)/Device/EnergyMicro/EFM32GG/Include \
-    -I$(LIBEFM_PATH)/emlib/inc \
-    -I$(LIBEFM_PATH)/kits/common/bsp \
-    -I$(LIBEFM_PATH)/EFM32GG_STK3700/config
-TARGET_FLAGS = -mthumb -mcpu=cortex-m3 -mfix-cortex-m3-ldrd
-TARGET_CFLAGS = $(TARGET_FLAGS) -D__EFM32__ -DEFM32GG990F1024
-#TARGET_LDFLAGS = $(TARGET_FLAGS) --static -nostdlib -nostartfiles -Tstm32/f1/stm32f100x6.ld -Wl,--gc-sections \
-#    -Wl,--build-id=none
-TARGET_LDFLAGS = -Xlinker -Map=lst/blink.map $(TARGET_FLAGS) \
-    --static -nostdlib -nostartfiles -Wl,--build-id=none \
-    -T$(LIBEFM_PATH)/Device/EnergyMicro/EFM32GG/Source/G++/efm32gg.ld \
-    $(LIBEFM_PATH)/Device/EnergyMicro/EFM32GG/Source/G++/startup_efm32gg.s
-LDLIBS = -Wl,--start-group -lgcc -lc -lcs3 -lcs3unhosted -Wl,--end-group
+TARGET_INCLUDE = $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE) -I$(CORTEX_STARTUP)
+TARGET_FLAGS = -mthumb -mcpu=cortex-m3 -DNO_SYSTEMINIT -D__EFM32__ -DEFM32
+TARGET_CFLAGS = $(TARGET_FLAGS)
+TARGET_LDFLAGS = $(TARGET_CFLAGS) $(TARGET_INCLUDE) --static -nostdlib -nostartfiles -T$(LINKSCRIPT) -Wl,--gc-sections \
+    -Wl,--build-id=none $(CMSIS_SYSTEM) $(STARTUP)
+LDLIBS = -L$(CORTEX_STARTUP) -lgcc
+
 
 .PRECIOUS: $(TARGETDIR)/%.bin
 
@@ -24,4 +27,10 @@ $(TARGETDIR)/%.bin: $(TARGETDIR)/%
 	$(OBJCOPY) -O binary $^ $@
 
 deploy-%: $(TARGETDIR)/%.bin
-	st-flash write $^ 0x8000000
+	echo "exec device = EFM32GG990F1024" >$(TARGETDIR)/jlink.script
+	echo "loadbin $^, 0" >>$(TARGETDIR)/jlink.script
+	echo "r" >>$(TARGETDIR)/jlink.script
+	echo "go" >>$(TARGETDIR)/jlink.script
+	echo "q" >>$(TARGETDIR)/jlink.script
+	# Exits with rc=1 even on success
+	$(JLINK_TOOL) $(TARGETDIR)/jlink.script || true
