@@ -34,6 +34,14 @@ $(TARGETDIR)/%.o: %.c
 	mkdir -p $(TARGETDIR)
 	$(CXX) $(ALL_CXXFLAGS) -c $^ -o $@
 
+$(TARGETDIR)/%.s: %.cpp
+	mkdir -p $(TARGETDIR)
+	$(CXX) $(ALL_CXXFLAGS) -S $^ -o $@
+
+$(TARGETDIR)/%.s: %.c
+	mkdir -p $(TARGETDIR)
+	$(CXX) $(ALL_CXXFLAGS) -S $^ -o $@
+
 disasm-%: $(TARGETDIR)/%
 	$(OBJDUMP) -dSt --demangle $^ >$^.disasm
 
