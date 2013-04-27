@@ -18,6 +18,8 @@
  */
 #if defined(__MSP430__)
 #include <delay_msp430.hpp>
+#elif defined(__thumb__) || defined(__thumb2__)
+#include <delay_cortexm.hpp>
 #else
 #error Unknown platform in delay.hpp
 #endif
