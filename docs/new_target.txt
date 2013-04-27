@@ -1,0 +1,22 @@
+Adding new target
+=================
+
+To add new target, following areas should be covered:
+
+1. CPU initialization (in most cases this is simple or null).
+2. GPIO
+3. Timer
+
+With this, it should be possible to use most of bitbanging
+protocols, if CPU provides enough speed. For more fine-grained
+bitbang protocol support, following is useful:
+
+4. StaticDelay
+
+Having hardware UART is quite helpful for debugging and host
+communication overall.
+
+5. Hardware UART
+
+Further hardware features can be added on-demand depending on
+particular application.
