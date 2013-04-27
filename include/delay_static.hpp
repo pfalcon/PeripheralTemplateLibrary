@@ -20,10 +20,8 @@
 #include <delay_static_msp430.hpp>
 #elif defined(__AVR__)
 #include <delay_static_avr.hpp>
-#elif defined(__STM32__)
-#include <delay_static_stm32.hpp>
-#elif defined(__EFM32__)
-#include <delay_static_efm32.hpp>
+#elif defined(__thumb__) || defined(__thumb2__)
+#include <delay_static_cortexm.hpp>
 #else
 #error Unknown platform in delay_static.hpp
 #endif
