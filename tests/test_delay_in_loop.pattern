@@ -1,0 +1,8 @@
+movw (?P<reg>r\d+), #\d+
+movt (?P<reg>r\d+), \d+
+.L2:
+mov (?P<another_reg>r\d+), (?P<reg>r\d+)
+1:
+subs (?P<another_reg>r\d+), #1
+bne 1b
+b .L2
