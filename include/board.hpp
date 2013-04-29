@@ -18,7 +18,7 @@
  */
 // TODO: Selecting board based on CPU is very rough
 #if defined(__MSP430__)
-#include <board_launchpad.hpp>
+#include <board_launchpad_msp430.hpp>
 #elif defined(__AVR__)
 #include <board_arduino.hpp>
 #elif defined(__STM32__)

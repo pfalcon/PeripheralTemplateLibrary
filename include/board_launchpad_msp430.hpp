@@ -16,8 +16,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _BOARD_LAUNCHPAD_HPP
-#define _BOARD_LAUNCHPAD_HPP
+#ifndef _BOARD_LAUNCHPAD_MSP430_HPP
+#define _BOARD_LAUNCHPAD_MSP430_HPP
 
 #include <board_base.hpp>
 #include <gpio.hpp>
@@ -43,4 +43,4 @@ public:
 
 typedef Board<MSP430Launchpad> board;
 
-#endif // _BOARD_LAUNCHPAD_HPP
+#endif // _BOARD_LAUNCHPAD_MSP430_HPP
