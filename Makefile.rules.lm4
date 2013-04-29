@@ -1,0 +1,24 @@
+STARTUP = $(CORTEX_STARTUP_PATH)/startup.c
+# No need to specify full path to linker script, will be searched in -L
+LINKSCRIPT = lm4f120h5qr.ld
+
+#DEVICE_INCLUDE = $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE)
+DEVICE_INCLUDE = -I$(LIBPERIPHA_PATH) -DLIBPERIPHA
+
+CROSS_COMPILE = arm-none-eabi-
+#GCC_VER = -4.4
+TARGET_INCLUDE = $(DEVICE_INCLUDE) -I$(CORTEX_STARTUP_PATH)
+TARGET_FLAGS = -mthumb -mcpu=cortex-m3 -DNO_SYSTEMINIT -D__LM4__
+TARGET_CFLAGS = $(TARGET_FLAGS)
+TARGET_LDFLAGS = $(TARGET_CFLAGS) $(TARGET_INCLUDE) --static -nostdlib -nostartfiles -T$(LINKSCRIPT) \
+    -Wl,--build-id=none $(CMSIS_SYSTEM) $(STARTUP)
+LDLIBS = -L$(CORTEX_STARTUP_PATH) -lgcc
+
+
+.PRECIOUS: $(TARGETDIR)/%.bin
+
+$(TARGETDIR)/%.bin: $(TARGETDIR)/%
+	$(OBJCOPY) -O binary $^ $@
+
+deploy-%: $(TARGETDIR)/%.bin
+	lm4flash $^
