@@ -26,6 +26,8 @@
 #include <gpio_stm32.hpp>
 #elif defined( __EFM32__)
 #include <gpio_efm32.hpp>
+#elif defined( __LM4__)
+#include <gpio_lm4.hpp>
 #else
 #error Unknown platform in gpio.hpp
 #endif
