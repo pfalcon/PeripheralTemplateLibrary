@@ -20,7 +20,7 @@
 #define _GPIO_STM32_HPP
 
 #include <gpio_base.hpp>
-#include <stm32_includes.hpp>
+#include <includes_stm32.hpp>
 
 
 template <int base_, typename width_>
