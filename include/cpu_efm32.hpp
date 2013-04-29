@@ -17,18 +17,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <cpu_cortexm.hpp>
-//#include <em_chip.h>
 
 class EFM32CPU {};
 
 template <>
-class CPU<EFM32CPU> : public ICPU
+class CPU<EFM32CPU> : public CPU<CortexMCPU>
 {
-public:
-    static void init(int flags)
-    {
-//        CHIP_Init();
-    }
 };
 
 typedef CPU<EFM32CPU> cpu;

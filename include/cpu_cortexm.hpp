@@ -19,3 +19,16 @@
 #include <cpu_base.hpp>
 // Declare Cortex-M IRQ handlers
 #include <cortexm_irqs.h>
+
+class CortexMCPU {};
+
+template <>
+class CPU<CortexMCPU> : public ICPU
+{
+public:
+    static void init(int flags)
+    {
+        // CMSIS: The Startup File startup_<device>.s is executed
+        // after reset and calls SystemInit().
+    }
+};

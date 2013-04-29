@@ -21,14 +21,8 @@
 class STM32CPU {};
 
 template <>
-class CPU<STM32CPU> : public ICPU
+class CPU<STM32CPU> : public CPU<CortexMCPU>
 {
-public:
-    static void init(int flags)
-    {
-        // CMSIS: The Startup File startup_<device>.s is executed
-        // after reset and calls SystemInit().
-    }
 };
 
 typedef CPU<STM32CPU> cpu;
