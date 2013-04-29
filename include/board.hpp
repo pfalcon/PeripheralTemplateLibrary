@@ -25,6 +25,8 @@
 #include <board_stm32vldiscovery.hpp>
 #elif defined(__EFM32__)
 #include <board_efm32gg_stk3700.hpp>
+#elif defined(__LM4__)
+#include <board_launchpad_stellaris.hpp>
 #else
 #error Unknown platform in board.hpp
 #endif
