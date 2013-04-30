@@ -35,6 +35,8 @@ Current targets supported (together with example boards) are:
 
 Note that different targets have different level of hardware support.
 
+More documentation is available in docs/ directory.
+
 The Peripheral Template Library is licensed under GNU Lesser General Public
 License (LGPL), version 3 or later. Please review detailed terms in the
 included LICENSE file.
