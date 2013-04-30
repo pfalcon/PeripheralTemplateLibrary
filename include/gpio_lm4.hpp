@@ -90,12 +90,27 @@ public:
     static void output()
     {
         port::ptr()->DIR |= bit::value;
-        port::ptr()->DEN |= bit::value;
+        enable();
     }
     static void input()
     {
         port::ptr()->DIR &= ~bit::value;
+        enable();
+    }
+    static void enable()
+    {
         port::ptr()->DEN |= bit::value;
+    }
+    static void disable()
+    {
+        port::ptr()->DEN &= ~bit::value;
+    }
+
+    static void altfunc(uint32_t func)
+    {
+        port::ptr()->AFSEL |= bit::value;
+        uint32_t mask = 0xf << (bit::shift * 4);
+        port::ptr()->PCTL = (port::ptr()->PCTL & ~mask) | (func << (bit::shift * 4));
     }
 };
 
