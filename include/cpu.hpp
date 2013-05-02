@@ -23,7 +23,7 @@
 #elif defined(__STM32__)
 #include <stm32/cpu_stm32.hpp>
 #elif defined(__EFM32__)
-#include <cpu_efm32.hpp>
+#include <efm32/cpu_efm32.hpp>
 #elif defined(__thumb__) || defined(__thumb2__)
 #include <cortex-m/cpu_cortexm.hpp>
 typedef CPU<CortexMCPU> cpu;

@@ -23,7 +23,7 @@
 #elif defined( __STM32__)
 #include <stm32/gpio_stm32.hpp>
 #elif defined( __EFM32__)
-#include <gpio_efm32.hpp>
+#include <efm32/gpio_efm32.hpp>
 #elif defined( __LM4__)
 #include <tm4/gpio_tm4.hpp>
 #else
