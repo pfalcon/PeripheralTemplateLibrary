@@ -25,23 +25,6 @@
 #include <types.hpp>
 #include <inline.hpp>
 
-// Port is a collection of related pins
-template <typename width_>
-class IPort
-{
-public:
-    typedef width_ width;
-
-    // Enable port for access (power on, set up clocks, etc.)
-    static void enable() {}
-    // Disable port (power off)
-    static void disable() {}
-
-    static width value();
-    static void set(width val);
-    static void set_masked(width val, width mask) { set(value() & mask); }
-};
-
 // Pin is abstraction of basic I/O signal
 template <class pin_impl>
 class IPin
@@ -64,6 +47,23 @@ public:
     static void pulloff();
     static void pullup();
     static void pulldown();
+};
+
+// Port is a collection of related pins
+template <typename width_>
+class IPort
+{
+public:
+    typedef width_ width;
+
+    // Enable port for access (power on, set up clocks, etc.)
+    static void enable() {}
+    // Disable port (power off)
+    static void disable() {}
+
+    static width value();
+    static void set(width val);
+    static void set_masked(width val, width mask) { set(value() & mask); }
 };
 
 // Pin which belongs to a port
