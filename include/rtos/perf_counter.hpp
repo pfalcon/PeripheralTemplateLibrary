@@ -21,13 +21,20 @@
 
 #include <timer.hpp>
 
+#ifdef __MSP430__
+#define PERF_COUNTER_CORRECTION 6
+#else
+#define PERF_COUNTER_CORRECTION 0
+#endif
+
 template <class timer>
 class PerfCounter
 {
     typename timer::width counter;
 public:
     void start() { counter = timer::value(); }
-    typename timer::width stop()  { return counter = timer::elapsed(timer::value(), counter) - 3 /*MSP430*/; }
+    typename timer::width stop()
+      { return counter = timer::elapsed(timer::value(), counter) - PERF_COUNTER_CORRECTION; }
     typename timer::width value()  { return counter; }
 };
 
