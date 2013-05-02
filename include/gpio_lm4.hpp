@@ -64,12 +64,10 @@ typedef Port<GPIOD_BASE, uint8_t> PD;
 typedef Port<GPIOE_BASE, uint8_t> PE;
 typedef Port<GPIOF_BASE, uint8_t> PF;
 
-template <class port_, class bit>
-class Pin : public IPin< Pin<port_, bit> >
+template <class port, class bit>
+class Pin : public PortPin< Pin<port, bit>, port, bit >
 {
 public:
-    typedef port_ port;
-
     static typename port::width value()
     {
         return port::ptr()->DATA & bit::value;

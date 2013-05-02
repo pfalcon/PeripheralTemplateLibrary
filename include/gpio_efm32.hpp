@@ -45,8 +45,8 @@ typedef Port<3, uint16_t> PD;
 typedef Port<4, uint16_t> PE;
 typedef Port<5, uint16_t> PF;
 
-template <class port_, class bit>
-class Pin : public IPin< Pin<port_, bit> >
+template <class port, class bit>
+class Pin : public PortPin< Pin<port, bit>, port, bit >
 {
     static void set_mode(int mode)
     {
@@ -62,8 +62,6 @@ class Pin : public IPin< Pin<port_, bit> >
     }
 
 public:
-    typedef port_ port;
-
     static typename port::width value()
     {
         return GPIO->P[port::port_no].DIN & bit::value;

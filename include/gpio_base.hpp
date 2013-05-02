@@ -25,6 +25,7 @@
 #include <types.hpp>
 #include <inline.hpp>
 
+// Port is a collection of related pins
 class IPort
 {
 public:
@@ -34,6 +35,7 @@ public:
     static void disable() {}
 };
 
+// Pin is abstraction of basic I/O signal
 template <class pin_impl>
 class IPin
 {
@@ -57,6 +59,17 @@ public:
     static void pulldown();
 };
 
+// Pin which belongs to a port
+template <class pin_impl, class port_, class bit_>
+class PortPin: public IPin<pin_impl>
+{
+public:
+    typedef port_ port;
+    typedef bit_ bit;
+};
+
+// Non-existent pin, can be used when a pin in some design is optional.
+// All access will be optimized out by compiler.
 class NullPin : public IPin<NullPin>
 {
 public:

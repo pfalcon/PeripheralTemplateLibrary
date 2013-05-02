@@ -48,12 +48,10 @@ typedef Port<PINC, PORTC, DDRC, uint8_t> PC;
 typedef Port<PIND, PORTD, DDRD, uint8_t> PD;
 #endif
 
-template <class port_, class bit>
-class Pin : public IPin< Pin<port_, bit> >
+template <class port, class bit>
+class Pin : public PortPin< Pin<port, bit>, port, bit >
 {
 public:
-    typedef port_ port;
-
     static uint8_t value()
     {
         return *(volatile uint8_t*)port::in_reg & bit::value;
