@@ -22,7 +22,7 @@
 #include <types.hpp>
 #include <gpio.hpp>
 
-template <unsigned long freq, unsigned baud, class tx, class rx = None, class timer = None>
+template <unsigned long freq, unsigned long baud, class tx, class rx = None, class timer = None>
 class UART
 {
     static const int bit_time = freq / baud;
@@ -38,7 +38,7 @@ public:
     static void write(uint8_t b);
 };
 
-template <unsigned long freq, unsigned baud, class tx, class rx, class timer>
+template <unsigned long freq, unsigned long baud, class tx, class rx, class timer>
 void UART<freq, baud, tx, rx, timer>::write(uint8_t val)
 {
     typename timer::width start;
@@ -70,7 +70,7 @@ void UART<freq, baud, tx, rx, timer>::write(uint8_t val)
     timer::delay_since(start, bit_time);
 }
 
-template <unsigned long freq, unsigned baud, class tx, class rx, class timer>
+template <unsigned long freq, unsigned long baud, class tx, class rx, class timer>
 uint8_t UART<freq, baud, tx, rx, timer>::read()
 {
     typename timer::width start;

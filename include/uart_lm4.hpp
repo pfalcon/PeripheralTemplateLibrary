@@ -26,7 +26,7 @@ class UART0_ {};
 #define FRACT_PART(x) ((x) - ((long)(x)))
 
 
-template <unsigned long freq, unsigned baud>
+template <unsigned long freq, unsigned long baud>
 class UART<freq, baud, UART0_>
 {
     typedef Pin<PA, Bit0> rxpin;

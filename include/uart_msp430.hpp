@@ -21,7 +21,7 @@
 
 #include <cpu_msp430.hpp>
 
-template <unsigned long freq, unsigned baud>
+template <unsigned long freq, unsigned long baud>
 class UART<freq, baud, USCI>
 {
 public:
