@@ -22,5 +22,5 @@
 #elif defined(__AVR__)
 #include <avr/uart_avr.hpp>
 #elif defined( __LM4__)
-#include <uart_lm4.hpp>
+#include <tm4/uart_tm4.hpp>
 #endif
