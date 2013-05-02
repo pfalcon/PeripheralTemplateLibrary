@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #ifdef __MSP430__
-#include <timer_irq_dispatch_msp430.hpp>
+#include <msp430/timer_irq_dispatch_msp430.hpp>
 #else
 #error Unknown platform in timer_dispatch.hpp
 #endif

@@ -21,7 +21,7 @@
 #define MHZ *1000000
 
 #if defined(__MSP430__)
-#include <clock_msp430.hpp>
+#include <msp430/clock_msp430.hpp>
 #else
 //#error Unknown platform in clock.hpp
 #endif

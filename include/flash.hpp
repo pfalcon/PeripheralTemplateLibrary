@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #if defined(__MSP430__)
-#include <flash_msp430.hpp>
+#include <msp430/flash_msp430.hpp>
 #else
 #error Unknown platform in flash.hpp
 #endif

@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #ifdef __MSP430__
-#include <gpio_msp430.hpp>
+#include <msp430/gpio_msp430.hpp>
 #elif defined( __AVR__)
 #include <gpio_avr.hpp>
 #elif defined( __STM32__) && defined(OPENCM3)

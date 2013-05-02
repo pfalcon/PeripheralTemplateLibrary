@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #if defined(__MSP430__)
-#include <cpu_msp430.hpp>
+#include <msp430/cpu_msp430.hpp>
 #elif defined(__AVR__)
 #include <cpu_avr.hpp>
 #elif defined(__STM32__)

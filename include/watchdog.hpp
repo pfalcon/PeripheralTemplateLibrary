@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #ifdef __MSP430__
-#include <watchdog_msp430.hpp>
+#include <msp430/watchdog_msp430.hpp>
 #else
 #error Unknown platform in watchdog.hpp
 #endif

@@ -18,7 +18,7 @@
  */
 #include <uart_base.hpp>
 #ifdef __MSP430__
-#include <uart_msp430.hpp>
+#include <msp430/uart_msp430.hpp>
 #elif defined(__AVR__)
 #include <uart_avr.hpp>
 #elif defined( __LM4__)

@@ -18,5 +18,5 @@
  */
 #include <spi_base.hpp>
 #ifdef __MSP430__
-#include <spi_msp430.hpp>
+#include <msp430/spi_msp430.hpp>
 #endif

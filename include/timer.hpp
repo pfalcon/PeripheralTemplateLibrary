@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #ifdef __MSP430__
-#include <timer_msp430.hpp>
+#include <msp430/timer_msp430.hpp>
 #elif defined( __AVR__)
 #include <timer_avr.hpp>
 #elif defined(__ARM_ARCH_7M__)

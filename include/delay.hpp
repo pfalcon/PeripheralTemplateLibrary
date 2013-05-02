@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 #if defined(__MSP430__)
-#include <delay_msp430.hpp>
+#include <msp430/delay_msp430.hpp>
 #elif defined(__thumb__) || defined(__thumb2__)
 #include <delay_cortexm.hpp>
 #else
