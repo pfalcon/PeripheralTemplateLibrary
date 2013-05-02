@@ -21,6 +21,7 @@
 #include <types.hpp>
 #include <cpu_base.hpp>
 #include <avr/wdt.h>
+#include <avr/interrupt.h>
 
 class AVRCPU {};
 
@@ -43,6 +44,9 @@ public:
         }
 #endif
     }
+
+    static void enable_irq()  { sei(); }
+    static void disable_irq() { cli(); }
 };
 
 typedef CPU<AVRCPU> cpu;
