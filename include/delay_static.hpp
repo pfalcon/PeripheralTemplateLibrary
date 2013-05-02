@@ -21,7 +21,7 @@
 #elif defined(__AVR__)
 #include <avr/delay_static_avr.hpp>
 #elif defined(__thumb__) || defined(__thumb2__)
-#include <delay_static_cortexm.hpp>
+#include <cortex-m/delay_static_cortexm.hpp>
 #else
 #error Unknown platform in delay_static.hpp
 #endif

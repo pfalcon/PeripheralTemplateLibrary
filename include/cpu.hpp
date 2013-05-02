@@ -25,7 +25,7 @@
 #elif defined(__EFM32__)
 #include <cpu_efm32.hpp>
 #elif defined(__thumb__) || defined(__thumb2__)
-#include <cpu_cortexm.hpp>
+#include <cortex-m/cpu_cortexm.hpp>
 typedef CPU<CortexMCPU> cpu;
 #else
 #error Unknown platform in cpu.hpp
