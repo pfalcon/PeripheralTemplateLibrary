@@ -21,7 +21,7 @@
 #elif defined(__AVR__)
 #include <avr/cpu_avr.hpp>
 #elif defined(__STM32__)
-#include <cpu_stm32.hpp>
+#include <stm32/cpu_stm32.hpp>
 #elif defined(__EFM32__)
 #include <cpu_efm32.hpp>
 #elif defined(__thumb__) || defined(__thumb2__)
