@@ -94,7 +94,7 @@ public:
         return ack;
     }
 
-    static typename sda::port::width write_bit(uint8_t val)
+    static void write_bit(uint8_t val)
     {
         if (val)
             sda_high();
