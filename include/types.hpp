@@ -28,9 +28,9 @@ class None {};
 typedef void (*IrqHandler)();
 
 // Helpers to access iomem registers
-#define _REG8(addr) (*(volatile uint8_t*)addr)
-#define _REG16(addr) (*(volatile uint16_t*)addr)
-#define _REG32(addr) (*(volatile uint32_t*)addr)
+#define _REG8(addr) (*(volatile uint8_t*)(addr))
+#define _REG16(addr) (*(volatile uint16_t*)(addr))
+#define _REG32(addr) (*(volatile uint32_t*)(addr))
 // AVR compat. TODO: get rid of these?
 #ifndef _R8
 #define _R8(addr) _REG8(addr)
