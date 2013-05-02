@@ -20,7 +20,7 @@
 #define _GPIO_STM32_HPP
 
 #include <gpio_base.hpp>
-#include <includes_stm32.hpp>
+#include <stm32/includes_stm32.hpp>
 
 
 template <int base_, typename width_>
@@ -70,8 +70,6 @@ class Pin : public PortPin< Pin<port, bit>, port, bit >
     }
 
 public:
-    typedef port_ port;
-
     static typename port::width value()
     {
         return port::ptr()->IDR & bit::value;

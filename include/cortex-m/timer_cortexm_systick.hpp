@@ -19,7 +19,7 @@
 #ifndef _TIMER_CORTEXM_SYSTICK_HPP
 #define _TIMER_CORTEXM_SYSTICK_HPP
 
-#include <includes_cortexm.hpp>
+#include <cortex-m/includes_cortexm.hpp>
 #include <timer_base.hpp>
 
 class CSysTick : public ITimer<CSysTick, COUNT_DOWN, uint32_t, 24>

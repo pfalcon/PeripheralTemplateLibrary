@@ -20,7 +20,7 @@
 #define _TIMER_AVR_HPP
 
 #include <timer_base.hpp>
-#include <cpu_avr.hpp>
+#include <avr/cpu_avr.hpp>
 
 class Timer1 : public ITimer<Timer1, COUNT_UP, uint16_t>
 {

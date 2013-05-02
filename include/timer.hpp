@@ -21,7 +21,7 @@
 #elif defined( __AVR__)
 #include <avr/timer_avr.hpp>
 #elif defined(__ARM_ARCH_7M__)
-#include <timer_cortexm_systick.hpp>
+#include <cortex-m/timer_cortexm_systick.hpp>
 #else
 #error Unknown platform in timer.hpp
 #endif

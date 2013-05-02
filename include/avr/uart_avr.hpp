@@ -19,7 +19,7 @@
 #ifndef _UART_AVR_HPP
 #define _UART_AVR_HPP
 
-#include <cpu_avr.hpp>
+#include <avr/cpu_avr.hpp>
 
 #define DIVISOR(freq, baud, div) ((freq) / (div * (baud)) - 1)
 

@@ -23,7 +23,7 @@
 #include <legacymsp430.h>
 #include <cpu.hpp>
 #include <clock.hpp>
-#include <watchdog_msp430.hpp>
+#include <msp430/watchdog_msp430.hpp>
 #include <adc.hpp>
 
 #define strong_cast(type, lval) (*(type*)&lval)

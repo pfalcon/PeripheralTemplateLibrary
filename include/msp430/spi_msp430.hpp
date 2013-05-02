@@ -20,7 +20,7 @@
 #define _SPI_MSP430_HPP
 
 #include <spi.hpp>
-#include <cpu_msp430.hpp>
+#include <msp430/cpu_msp430.hpp>
 
 // Hardware USCI SPI pins (P1)
 #define SCLK    BIT5
