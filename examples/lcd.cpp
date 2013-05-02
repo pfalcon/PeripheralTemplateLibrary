@@ -7,12 +7,10 @@
 #include <console.hpp>
 #include <device/hd44780.hpp>
 
+#include HW_CONFIG
 
 typedef TimeDelay<board::freq, StaticDelay> delayer;
-typedef ParBus<board::D5, board::D4, board::D3, board::D2> lcd_data;
-typedef Signal<board::D6> en_sig;
-typedef Signal<board::D7> regsel_sig;
-typedef HD44780<delayer, lcd_data, en_sig, regsel_sig> lcd;
+typedef HD44780<delayer, hd44780_data, hd44780_en_sig, hd44780_regsel_sig> lcd;
 typedef Console<lcd> lcd_con;
 
 int main()
