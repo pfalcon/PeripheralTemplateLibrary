@@ -4,11 +4,16 @@
 #include <uart.hpp>
 #include <console.hpp>
 #include <delay_static.hpp>
-#include <perf_counter.hpp>
+#include <rtos/perf_counter.hpp>
+#include <rtos/perf_counter_acu.hpp>
 
+#include HW_CONFIG
 
-typedef UART<1 MHZ, 9600, Pin<P1, Bit2>, Pin<P1, Bit1>, timer> uart;
 typedef Console<uart> con;
+
+PerfCounter<timer> counter;
+PerfCounterAcu<timer> accu;
+
 
 int main()
 {
@@ -18,8 +23,6 @@ int main()
 
     while (1) {
         uart::read();
-
-        PerfCounter<timer> counter;
 
         counter.start();
         counter.stop();
@@ -39,6 +42,13 @@ int main()
         counter.stop();
         con::putstr("Measuring StaticDelay::delay(1000): ");
         con::putdec(counter.value());
+        con::newline();
+
+        accu.start();
+        StaticDelay::delay(10000);
+        accu.update();
+        con::putstr("PerfAcu after delay(10000): ");
+        con::putdec(accu.value());
         con::newline();
     }
 }
