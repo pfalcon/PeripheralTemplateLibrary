@@ -1,0 +1,1 @@
+typedef board::uart uart;
