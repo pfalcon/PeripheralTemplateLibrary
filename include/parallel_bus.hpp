@@ -25,7 +25,7 @@
 // Widths 1-8 are supported, if wider bus required, just use this class
 // several times. (Note that wide bus constructed from arbitrary GPIOs
 // would be pretty inefficient, better to base it on ordered range of
-// GPIOs and Port class).
+// GPIOs and Port class - ParBusAligned below).
 
 template <class bit0 = None,
           class bit1 = None,
@@ -83,5 +83,34 @@ public:
         rest::output();
     }
 };
+
+// Parallel bus which is aligned to properly ordered subrange
+// of port pins
+// TODO: incomplete
+template <class lsb, class msb, typename width_>
+class ParBusAligned
+{
+//    static_assert(lsb::port == msb::port);
+public:
+    typedef width_ width;
+
+protected:
+    const static int bus_width = msb::bit::shift - lsb::bit::shift + 1;
+    const static width bus_mask = (1 << bus_width) - 1;
+
+public:
+    static void enable() {
+        lsb::port::enable();
+    }
+
+    static void write(width v) {
+        lsb::port::set_masked(v << lsb::bit::shift, bus_mask << lsb::bit::shift);
+    }
+
+    static width read() {
+        return (lsb::port::value() >> lsb::bit::shift) & bus_mask;
+    }
+};
+
 
 #endif // _PARALLEL_BUS_HPP
