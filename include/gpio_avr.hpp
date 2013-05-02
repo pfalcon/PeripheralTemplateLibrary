@@ -19,6 +19,7 @@
 #ifndef _GPIO_AVR_HPP
 #define _GPIO_AVR_HPP
 
+#include <types.hpp>
 #include <gpio_base.hpp>
 // Make register defines be just integer addresses
 #define _SFR_ASM_COMPAT 1
@@ -53,27 +54,27 @@ class Pin : public PortPin< Pin<port, bit>, port, bit >
 public:
     static uint8_t value()
     {
-        return *(volatile uint8_t*)port::in_reg & bit::value;
+        return _REG8(port::in_reg) & bit::value;
     }
     static void high()
     {
-        *(volatile uint8_t*)port::out_reg |= bit::value;
+        _REG8(port::out_reg) |= bit::value;
     }
     static void low()
     {
-        *(volatile uint8_t*)port::out_reg &= ~bit::value;
+        _REG8(port::out_reg) &= ~bit::value;
     }
     static void toggle()
     {
-        *(volatile uint8_t*)port::out_reg ^= bit::value;
+        _REG8(port::out_reg) ^= bit::value;
     }
     static void output()
     {
-        *(volatile uint8_t*)port::dir_reg |= bit::value;
+        _REG8(port::dir_reg) |= bit::value;
     }
     static void input()
     {
-        *(volatile uint8_t*)port::dir_reg &= ~bit::value;
+        _REG8(port::dir_reg) &= ~bit::value;
     }
 };
 
