@@ -19,7 +19,7 @@
 #if defined(__MSP430__)
 #include <msp430/delay_static_msp430.hpp>
 #elif defined(__AVR__)
-#include <delay_static_avr.hpp>
+#include <avr/delay_static_avr.hpp>
 #elif defined(__thumb__) || defined(__thumb2__)
 #include <delay_static_cortexm.hpp>
 #else

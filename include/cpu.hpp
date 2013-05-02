@@ -19,7 +19,7 @@
 #if defined(__MSP430__)
 #include <msp430/cpu_msp430.hpp>
 #elif defined(__AVR__)
-#include <cpu_avr.hpp>
+#include <avr/cpu_avr.hpp>
 #elif defined(__STM32__)
 #include <cpu_stm32.hpp>
 #elif defined(__EFM32__)

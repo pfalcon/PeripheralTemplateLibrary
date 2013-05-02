@@ -19,7 +19,7 @@
 #ifdef __MSP430__
 #include <msp430/timer_msp430.hpp>
 #elif defined( __AVR__)
-#include <timer_avr.hpp>
+#include <avr/timer_avr.hpp>
 #elif defined(__ARM_ARCH_7M__)
 #include <timer_cortexm_systick.hpp>
 #else
