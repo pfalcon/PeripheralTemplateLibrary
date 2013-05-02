@@ -1,7 +1,7 @@
 /*
  * This file is part of the Peripheral Template Library project.
  *
- * Copyright (c) 2012 Paul Sokolovsky <pfalcon@users.sourceforge.net>
+ * Copyright (c) 2012-2013 Paul Sokolovsky <pfalcon@users.sourceforge.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,12 +16,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#if defined(__MSP430__)
-#include <msp430/delay_msp430.hpp>
-#elif defined(__AVR__)
-#include <avr/delay_avr.hpp>
-#elif defined(__thumb__) || defined(__thumb2__)
-#include <cortex-m/delay_cortexm.hpp>
-#else
-#error Unknown platform in delay.hpp
-#endif
+
+class Delay
+{
+public:
+    typedef uint32_t width;
+
+    static void delay(width cycles)
+    {
+        uint32_t d = cycles / 6;
+        asm(
+            "ldi    r24, %0 \n"
+            "ldi    r25, %1 \n"
+            "ldi    r26, %2 \n"
+            "ldi    r27, %3 \n"
+            "1: \n"
+            "subi   r24, 1 \n" //1
+            "sbci   r25, 0 \n" //1
+            "sbci   r26, 0 \n" //1
+            "sbci   r27, 0 \n" //1
+            "brcc   1b \n"     //2
+            : : "M" (d & 0xff), "M" ((d >> 8) & 0xff), "M" ((d >> 16) & 0xff), "M" ((d >> 24) & 0xff) : "r24", "r25", "r26", "r27"
+        );
+    }
+};
