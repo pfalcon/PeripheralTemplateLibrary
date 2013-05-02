@@ -24,11 +24,10 @@
 
 
 template <int base_, typename width_>
-class Port : IPort
+class Port : public IPort<width_>
 {
 public:
     static const int base = base_;
-    typedef width_ width;
 
     static GPIO_TypeDef *ptr() { return (GPIO_TypeDef*)base; }
 

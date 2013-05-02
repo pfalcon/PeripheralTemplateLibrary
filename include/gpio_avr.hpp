@@ -26,13 +26,12 @@
 
 
 template <int in_reg_, int out_reg_, int dir_reg_, typename width_>
-class Port : public IPort
+class Port : public IPort<width_>
 {
 public:
     static const int in_reg = in_reg_;
     static const int out_reg = out_reg_;
     static const int dir_reg = dir_reg_;
-    typedef width_ width;
 };
 
 #ifdef PINA

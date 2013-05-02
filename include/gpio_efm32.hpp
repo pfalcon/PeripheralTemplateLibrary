@@ -24,11 +24,10 @@
 
 
 template <int port_no_, typename width_>
-class Port : IPort
+class Port : public IPort<width_>
 {
 public:
     static const int port_no = port_no_;
-    typedef width_ width;
 
     static void enable() {
         CMU->HFPERCLKDIV |= CMU_HFPERCLKDIV_HFPERCLKEN;
