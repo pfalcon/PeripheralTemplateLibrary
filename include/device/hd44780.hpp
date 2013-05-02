@@ -183,6 +183,7 @@ public:
         // Write is default
         rw_sig::deassert();
         // delay? p.25
+        return v;
     }
 
     static void pulse_en() {
