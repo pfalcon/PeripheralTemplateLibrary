@@ -30,7 +30,7 @@ Current targets supported (together with example boards) are:
             * STM32VLDISCOVERY
         * Energy Micro EFM32
             * EFM32GG-STK3700
-        * TI Tiva (former Stellaris LM4)
+        * TI Tiva C TM4 (former Stellaris LM4)
             * Stellaris/Tiva Launchpad
 
 Note that different targets have different level of hardware support.
