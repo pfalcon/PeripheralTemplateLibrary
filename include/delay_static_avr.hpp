@@ -27,7 +27,7 @@
 #endif
 
 // TODO: This is not yet cycle-perfect
-ALWAYS_INLINE inline static void __delay_cycles2(unsigned long delay)
+ALWAYS_INLINE static void __delay_cycles2(unsigned long delay)
 {
     if (__builtin_constant_p(delay)) {
         if (delay <= 262140U) {
