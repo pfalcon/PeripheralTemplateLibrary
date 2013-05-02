@@ -22,7 +22,7 @@
 #include <timer_irq_dispatch.hpp>
 
 template <typename width = uint32_t>
-class Ticks : public ITimer< width, Ticks<width> >
+class Ticks : public ITimer< Ticks<width>, COUNT_UP, width >
 {
 protected:
     volatile static width ticks;
