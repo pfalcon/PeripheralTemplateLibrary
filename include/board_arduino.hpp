@@ -19,6 +19,8 @@
 #include <board_base.hpp>
 #include <gpio.hpp>
 #include <clock.hpp>
+#include <timer.hpp>
+#include <uart.hpp>
 
 class Arduino {};
 
@@ -34,6 +36,8 @@ public:
     typedef Pin<PD, Bit0> pin_uart_rx;
     // "digital pin 1"
     typedef Pin<PD, Bit1> pin_uart_tx;
+    //typedef UART<freq, 9600, pin_uart_tx, pin_uart_rx, timer> uart;
+    typedef UART<freq, 115200, USART0> uart;
 
     // Arduino pin naming
     typedef Pin<PD, Bit0> D0;
