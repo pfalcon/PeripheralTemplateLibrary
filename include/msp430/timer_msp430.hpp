@@ -27,6 +27,7 @@ template <int ctrl_reg_, int val_reg_, int intr_reg_>
 class Timer : public ITimer< Timer<ctrl_reg_, val_reg_, intr_reg_>, COUNT_UP, uint16_t >
 {
 public:
+    const static int block_type = MSP430_TIMER;
     typedef uint16_t width;
 
     static const int ctrl_reg = ctrl_reg_;
@@ -48,6 +49,11 @@ public:
 //    __attribute__((interrupt(TIMER0_A1_VECTOR))) static void irq_handler();
     static interrupt(TIMER0_A1_VECTOR) irq_handler();
     static interrupt(TIMER0_A0_VECTOR) irq_handler_cc0();
+
+    static void irq_reset() {}
+    static void irq_capture_compare0() {}
+    static void irq_capture_compare1() {}
+    static void irq_capture_compare2() {}
 };
 
 

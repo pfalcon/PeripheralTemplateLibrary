@@ -22,9 +22,12 @@
 #include <msp430/cpu_msp430.hpp>
 
 template <unsigned long freq, unsigned long baud>
-class UART<freq, baud, USCI>
+class UART<freq, baud, USCI_A> : public MSP430Block
 {
 public:
+    typedef USCI_A usci;
+    const static int block_type = MSP430_USCI;
+
     static void init()
     {
         /*
@@ -91,6 +94,9 @@ The recommended USCI initialization/re-configuration process is:
 
     static interrupt(USCIAB0RX_VECTOR) uart_rx_irq_handler();
     static interrupt(USCIAB0TX_VECTOR) uart_tx_irq_handler();
+
+    static void irq_rx() {}
+    static void irq_tx() {}
 };
 
 #endif //_UART_MSP430_HPP

@@ -28,9 +28,12 @@
 #define SDO     BIT6
 
 template <>
-class SPI<USCI> : public ISPI, public SPIBlockXfer< SPI<USCI> >
+class SPI<USCI_B> : public ISPI, public SPIBlockXfer< SPI<USCI_B> >, public MSP430Block
 {
 public:
+    typedef USCI_B usci;
+    const static int block_type = MSP430_USCI;
+
     static void init()
     {
         UCB0CTL1 = UCSWRST;
@@ -74,6 +77,8 @@ public:
 
     static void write(uint8_t b) { transfer(b); }
 
+    static void irq_rx() {}
+    static void irq_tx() {}
 };
 
 #endif //_SPI_MSP430_HPP
