@@ -17,6 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace PTL {
+
 // Based on http://en.wikipedia.org/wiki/I%C2%B2C
 
 template <class sda, class scl, class delayer, unsigned delay_>
@@ -127,3 +129,5 @@ public:
         return b;
     }
 };
+
+} // namespace

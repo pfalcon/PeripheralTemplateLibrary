@@ -8,6 +8,8 @@
 #include <console.hpp>
 #include <1wire.hpp>
 
+using namespace PTL;
+
 #define READ_ROM 0x33
 #define SKIP_ROM 0xCC
 #define READ_POWER_SUPPLY 0xB4

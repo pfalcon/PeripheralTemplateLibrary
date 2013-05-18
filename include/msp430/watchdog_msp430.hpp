@@ -19,6 +19,8 @@
 #ifndef _WATCHDOG_MSP430_HPP
 #define _WATCHDOG_MSP430_HPP
 
+namespace PTL {
+
 class Watchdog
 {
 public:
@@ -62,5 +64,7 @@ public:
     static void enable_irq()  { IE1 |= WDTIE; }
     static void disable_irq() { IE1 &= ~WDTIE; }
 };
+
+} // namespace
 
 #endif //_WATCHDOG_MSP430_HPP

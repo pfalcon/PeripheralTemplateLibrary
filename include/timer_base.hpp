@@ -20,6 +20,8 @@
 #define _TIMER_BASE_HPP
 #include <meta.hpp>
 
+namespace PTL {
+
 enum { COUNT_UP, COUNT_DOWN };
 
 template <class timer_impl, int count_dir, typename width_, int bits = sizeof(width_) * 8>
@@ -97,5 +99,7 @@ public:
         }
     }
 };
+
+} // namespace
 
 #endif // _TIMER_BASE_HPP

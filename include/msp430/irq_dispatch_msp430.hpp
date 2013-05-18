@@ -23,6 +23,8 @@
 // interrupt(X) define. TODO: get rid of?
 #include <legacymsp430.h>
 
+namespace PTL {
+
 class NullBlock
 {
 public:
@@ -118,5 +120,7 @@ public:
     HANDLER_CACHE_REG(USCIAB0RX_VECTOR, do_usci_rx, IFG2);
     HANDLER_CACHE_REG(USCIAB0TX_VECTOR, do_usci_tx, IFG2);
 };
+
+} // namespace
 
 #endif // _IRQ_DISPATCH_MSP430_HPP

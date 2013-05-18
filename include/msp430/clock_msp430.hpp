@@ -22,6 +22,8 @@
 #include <msp430.h>
 #include <legacymsp430.h>
 
+namespace PTL {
+
 #define SELS_0          0
 #define SELS_1          SELS
 #define XTS_0           0
@@ -209,5 +211,7 @@ struct INCLK
         return TASSEL_3;
     }
 };
+
+} // namespace
 
 #endif //_CLOCK_MSP430_HPP

@@ -3,6 +3,7 @@
 #include <board.hpp>
 #include <delay.hpp>
 
+using namespace PTL;
 
 typedef Delay delayer;
 

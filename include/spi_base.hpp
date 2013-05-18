@@ -22,6 +22,8 @@
 #include <types.hpp>
 #include <gpio.hpp>
 
+namespace PTL {
+
 class ISPI
 {
 public:
@@ -119,5 +121,7 @@ uint8_t SPI<sclk, miso, mosi>::read()
     // TODO: optimize
     return transfer(0xFF);
 }
+
+} // namespace
 
 #endif //_SPI_BASE_HPP

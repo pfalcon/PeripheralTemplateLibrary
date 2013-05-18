@@ -26,7 +26,9 @@
 #include <efm32/cpu_efm32.hpp>
 #elif defined(__thumb__) || defined(__thumb2__)
 #include <cortex-m/cpu_cortexm.hpp>
+namespace PTL {
 typedef CPU<CortexMCPU> cpu;
+} // namespace
 #else
 #error Unknown platform in cpu.hpp
 #endif

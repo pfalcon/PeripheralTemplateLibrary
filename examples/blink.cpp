@@ -4,6 +4,7 @@
 #include <delay_static.hpp>
 #include <delay_time.hpp>
 
+using namespace PTL;
 
 typedef TimeDelay<board::freq, StaticDelay> delayer;
 

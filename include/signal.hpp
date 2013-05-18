@@ -19,6 +19,8 @@
 #ifndef _SIGNAL_HPP
 #define _SIGNAL_HPP
 
+namespace PTL {
+
 template <class pin>
 class Signal
 {
@@ -48,6 +50,8 @@ public:
     static bool value()    { return !pin::value(); }
     static bool is_asserted()    { return value(); }
 };
+
+} // namespace
 
 #endif //_SIGNAL_HPP
 

@@ -21,6 +21,8 @@
 
 #include <gpio.hpp>
 
+namespace PTL {
+
 class UART0_ {};
 
 #define FRACT_PART(x) ((x) - ((long)(x)))
@@ -86,5 +88,7 @@ public:
     }
 
 };
+
+} // namespace
 
 #endif //_UART_LM4_HPP

@@ -3,6 +3,9 @@
 #include <board.hpp>
 #include <timer.hpp>
 
+using namespace PTL;
+
+namespace PTL {
 
 template <>
 void timer::irq_handler()
@@ -10,6 +13,8 @@ void timer::irq_handler()
     // Ack IRQ
     timer::irq_status();
     board::LED::toggle();
+}
+
 }
 
 int main()

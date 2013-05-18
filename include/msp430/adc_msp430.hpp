@@ -20,6 +20,8 @@
 #ifndef _ADC_MSP430_HPP
 #define _ADC_MSP430_HPP
 
+namespace PTL {
+
 struct ADCDefaultConfig
 {
     enum Reference {
@@ -213,5 +215,7 @@ public:
         ADC10CTL1 = (ADC10CTL1 & (INCH_15 | ADC10DIV_7)) | ctl1<config_>();
     }
 };
+
+} // namespace
 
 #endif //_ADC_MSP430_HPP

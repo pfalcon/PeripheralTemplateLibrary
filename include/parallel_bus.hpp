@@ -21,6 +21,8 @@
 
 #include <types.hpp>
 
+namespace PTL {
+
 // Parallel bus made of individual GPIO signals
 // Widths 1-8 are supported, if wider bus required, just use this class
 // several times. (Note that wide bus constructed from arbitrary GPIOs
@@ -112,5 +114,6 @@ public:
     }
 };
 
+} // namespace
 
 #endif // _PARALLEL_BUS_HPP

@@ -6,6 +6,7 @@
 #include <console.hpp>
 #include <adc.hpp>
 
+using namespace PTL;
 
 typedef UART<1 MHZ, 9600, Pin<P1, Bit2>, Pin<P1, Bit1>, timer> uart;
 typedef Console<uart> con;

@@ -19,6 +19,8 @@
 
 #include <msp430.h>
 
+namespace PTL {
+
 // 1MHz / 3 = 333KHz
 #define FLASH_CLOCK_DIV 3
 
@@ -64,3 +66,5 @@ public:
             FCTL3 = FWKEY | LOCK;
         }
 };
+
+} // namespace

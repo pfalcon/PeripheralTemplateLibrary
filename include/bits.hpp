@@ -19,6 +19,8 @@
 #ifndef _BITS_HPP
 #define _BITS_HPP
 
+namespace PTL {
+
 template <int bit>
 class Bit
 {
@@ -48,5 +50,7 @@ typedef Bit<15> Bit15;
 // to correspond to physical bit positions.
 #define GET_BITFIELD(lval, mask)  ((lval) & (mask))
 #define SET_BITFIELD(lval, mask, field_val)  (lval = (((lval) & (mask)) | (field_val)))
+
+} // namespace
 
 #endif //_BITS_HPP

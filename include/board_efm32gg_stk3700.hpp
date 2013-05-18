@@ -20,6 +20,8 @@
 #include <gpio.hpp>
 #include <clock.hpp>
 
+namespace PTL {
+
 class EFM32GGSTK3700 {};
 
 template <>
@@ -32,3 +34,5 @@ public:
 };
 
 typedef Board<EFM32GGSTK3700> board;
+
+} // namespace

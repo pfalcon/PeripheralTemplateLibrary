@@ -18,6 +18,8 @@
  */
 #include "gpio.hpp"
 
+namespace PTL {
+
 // Reference: DS18B20 datasheet
 
 template <class pin, class delayer>
@@ -145,3 +147,5 @@ void OneWire<pin, delayer>::read_block(uint8_t *buf, uint8_t len)
         *buf++ = read();
     }
 }
+
+} // namespace

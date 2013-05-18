@@ -21,6 +21,8 @@
 
 #include <msp430/cpu_msp430.hpp>
 
+namespace PTL {
+
 template <unsigned long freq, unsigned long baud>
 class UART<freq, baud, USCI_A> : public MSP430Block
 {
@@ -98,5 +100,7 @@ The recommended USCI initialization/re-configuration process is:
     static void irq_rx() {}
     static void irq_tx() {}
 };
+
+} // namespace
 
 #endif //_UART_MSP430_HPP

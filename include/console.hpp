@@ -23,6 +23,8 @@
 #include <inline.hpp>
 #undef putc
 
+namespace PTL {
+
 #define ENDL "\r\n"
 
 template <class byte_writer>
@@ -223,5 +225,7 @@ putc:
         return p - buf;
     }
 };
+
+} // namespace
 
 #endif // _CONSOLE_HPP

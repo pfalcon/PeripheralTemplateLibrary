@@ -17,6 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace PTL {
+
 template <unsigned long freq, class cycle_delayer>
 class TimeDelay
 {
@@ -31,3 +33,5 @@ public:
         cycle_delayer::delay((uint32_t)((unsigned long long)freq * ms / 1000UL));
     }
 };
+
+} // namespace

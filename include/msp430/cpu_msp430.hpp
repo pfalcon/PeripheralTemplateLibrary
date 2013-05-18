@@ -23,6 +23,8 @@
 #include <msp430.h>
 #include <legacymsp430.h>
 
+namespace PTL {
+
 class MSP430CPU {};
 
 // Various blocks of CPU
@@ -84,5 +86,7 @@ public:
 };
 
 typedef CPU<MSP430CPU> cpu;
+
+} // namespace
 
 #endif //_CPU_MSP430_HPP

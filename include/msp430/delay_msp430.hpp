@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+namespace PTL {
+
 class Delay
 {
 public:
@@ -23,3 +25,5 @@ public:
         // ret: 3 cycles
     }
 };
+
+} // namespace

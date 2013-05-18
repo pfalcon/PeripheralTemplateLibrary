@@ -19,5 +19,9 @@
 #include <sleep.hpp>
 
 #ifdef __MSP430__
+namespace PTL {
+
 uint32_t Sleep::_interval;
+
+} // namespace
 #endif

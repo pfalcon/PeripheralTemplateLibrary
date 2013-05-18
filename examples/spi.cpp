@@ -6,6 +6,7 @@
 #include <uart.hpp>
 #include <console.hpp>
 
+using namespace PTL;
 
 typedef UART<1 MHZ, 9600, Pin<P1, Bit1>, Pin<P1, Bit2>, timer> uart;
 typedef SPI< Pin<P1, Bit5>, Pin<P1, Bit6>, Pin<P1, Bit7> > spi;

@@ -23,6 +23,7 @@
 #include <gpio_base.hpp>
 #include <msp430.h>
 
+namespace PTL {
 
 template <int in_reg_, int out_reg_, int dir_reg_, int resistor_reg_, typename width_>
 class Port : public IPort<width_>
@@ -81,5 +82,7 @@ public:
         _REG8(port::out_reg) &= ~bit::value;
     }
 };
+
+} // namespace
 
 #endif //_GPIO_MSP430_HPP

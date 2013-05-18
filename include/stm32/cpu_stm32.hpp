@@ -18,6 +18,8 @@
  */
 #include <cortex-m/cpu_cortexm.hpp>
 
+namespace PTL {
+
 class STM32CPU {};
 
 template <>
@@ -26,3 +28,5 @@ class CPU<STM32CPU> : public CPU<CortexMCPU>
 };
 
 typedef CPU<STM32CPU> cpu;
+
+} // namespace

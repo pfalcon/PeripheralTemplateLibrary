@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+namespace PTL {
+
 class Delay
 {
 public:
@@ -18,3 +20,5 @@ public:
         );
     }
 };
+
+} // namespace

@@ -20,6 +20,8 @@
 #include <gpio.hpp>
 #include <clock.hpp>
 
+namespace PTL {
+
 class STM32VLDiscovery {};
 
 template <>
@@ -34,3 +36,5 @@ public:
 };
 
 typedef Board<STM32VLDiscovery> board;
+
+} // namespace

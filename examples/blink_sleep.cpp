@@ -5,6 +5,7 @@
 #include <sleep.hpp>
 #include <sleep_impl.hpp>
 
+using namespace PTL;
 
 int main()
 {

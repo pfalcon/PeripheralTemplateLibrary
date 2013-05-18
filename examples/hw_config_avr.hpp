@@ -1,3 +1,5 @@
+using namespace PTL;
+
 typedef board::uart uart;
 
 typedef ParBus<board::D5, board::D4, board::D3, board::D2> hd44780_data;

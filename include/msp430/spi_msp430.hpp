@@ -22,6 +22,8 @@
 #include <spi.hpp>
 #include <msp430/cpu_msp430.hpp>
 
+namespace PTL {
+
 // Hardware USCI SPI pins (P1)
 #define SCLK    BIT5
 #define SDI     BIT7
@@ -80,5 +82,7 @@ public:
     static void irq_rx() {}
     static void irq_tx() {}
 };
+
+} // namespace
 
 #endif //_SPI_MSP430_HPP

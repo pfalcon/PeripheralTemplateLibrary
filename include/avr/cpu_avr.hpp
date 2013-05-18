@@ -23,6 +23,8 @@
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
 
+namespace PTL {
+
 class AVRCPU {};
 
 // Various blocks of MCU
@@ -50,5 +52,7 @@ public:
 };
 
 typedef CPU<AVRCPU> cpu;
+
+} // namespace
 
 #endif //_CPU_AVR_HPP

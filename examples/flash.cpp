@@ -6,6 +6,8 @@
 #include <console.hpp>
 #include <flash.hpp>
 
+using namespace PTL;
+
 typedef UART<1 MHZ, 9600, Pin<P1, Bit2>, Pin<P1, Bit1>, timer> uart;
 //typedef UART<1 MHZ, 9600, USCI> uart;
 typedef Console<uart> con;

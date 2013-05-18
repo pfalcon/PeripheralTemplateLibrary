@@ -19,6 +19,8 @@
 #include <stdint.h>
 #include <inline.hpp>
 
+namespace PTL {
+
 inline void __delay_cycles2(uint32_t cycles)
 {
     if (cycles == 0) {
@@ -66,3 +68,5 @@ public:
         __delay_cycles2(cycles);
     }
 };
+
+} // namespace

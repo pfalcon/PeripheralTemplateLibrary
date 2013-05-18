@@ -23,6 +23,8 @@
 // interrupt(X) define. TODO: get rid of?
 #include <legacymsp430.h>
 
+namespace PTL {
+
 // We use approach of grouping IRQ handlers into struct TimerIrqsBase
 // because this allows easier method inlining for pre-C+11 compiers,
 // and (arguably?) less tricky (but multi-level) empty handler usage.
@@ -92,5 +94,7 @@ public:
     template <> \
     void timer::irq_handler_cc0() \
     { TimerIrqDispatch<timer, irq_handlers>::handle_cc0(); }
+
+} // namespace
 
 #endif // _TIMER_MSP430_DISPATCH_HPP

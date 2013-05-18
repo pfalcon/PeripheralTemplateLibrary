@@ -22,6 +22,8 @@
 #include <timer_base.hpp>
 #include <avr/cpu_avr.hpp>
 
+namespace PTL {
+
 class Timer1 : public ITimer<Timer1, COUNT_UP, uint16_t>
 {
 public:
@@ -35,5 +37,7 @@ public:
 };
 
 typedef Timer1 timer;
+
+} // namespace
 
 #endif // _TIMER_AVR_HPP

@@ -19,6 +19,8 @@
 #ifndef _CPU_BASE_HPP
 #define _CPU_BASE_HPP
 
+namespace PTL {
+
 class ICPU
 {
 public:
@@ -30,5 +32,7 @@ template <class cpu>
 class CPU : public ICPU
 {
 };
+
+} // namespace
 
 #endif //_CPU_BASE_HPP

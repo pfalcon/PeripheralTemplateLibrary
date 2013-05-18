@@ -20,6 +20,8 @@
 // Declare Cortex-M IRQ handlers
 #include <cortexm_irqs.h>
 
+namespace PTL {
+
 class CortexMCPU {};
 
 template <>
@@ -32,3 +34,5 @@ public:
         // after reset and calls SystemInit().
     }
 };
+
+} // namespace

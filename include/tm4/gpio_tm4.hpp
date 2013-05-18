@@ -23,6 +23,7 @@
 #include <bits.hpp>
 #include <tm4/includes_tm4.hpp>
 
+namespace PTL {
 
 template <int base_, typename width_>
 class Port : public IPort<width_>
@@ -110,5 +111,7 @@ public:
         port::ptr()->PCTL = (port::ptr()->PCTL & ~mask) | (func << (bit::shift * 4));
     }
 };
+
+} // namespace
 
 #endif //_GPIO_LM4_HPP

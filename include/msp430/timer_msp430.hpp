@@ -23,6 +23,8 @@
 // interrupt(X) define. TODO: get rid of?
 #include <legacymsp430.h>
 
+namespace PTL {
+
 template <int ctrl_reg_, int val_reg_, int intr_reg_>
 class Timer : public ITimer< Timer<ctrl_reg_, val_reg_, intr_reg_>, COUNT_UP, uint16_t >
 {
@@ -62,5 +64,7 @@ typedef Timer<TACTL_, TAR_, TAIV_> Timer0_A;
 typedef Timer<TA1CTL_, TA1R_, TA1IV_> Timer1_A;
 #endif
 typedef Timer0_A timer;
+
+} // namespace
 
 #endif // _TIMER_MSP430_HPP

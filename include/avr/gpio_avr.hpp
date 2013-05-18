@@ -25,6 +25,7 @@
 #define _SFR_ASM_COMPAT 1
 #include <avr/io.h>
 
+namespace PTL {
 
 template <int in_reg_, int out_reg_, int dir_reg_, typename width_>
 class Port : public IPort<width_>
@@ -77,5 +78,7 @@ public:
         _REG8(port::dir_reg) &= ~bit::value;
     }
 };
+
+} // namespace
 
 #endif //_GPIO_AVR_HPP

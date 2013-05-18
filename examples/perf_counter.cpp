@@ -9,6 +9,8 @@
 
 #include HW_CONFIG
 
+using namespace PTL;
+
 typedef Console<uart> con;
 
 PerfCounter<timer> counter;

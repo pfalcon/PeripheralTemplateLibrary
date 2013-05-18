@@ -21,6 +21,8 @@
 
 #include <stdint.h>
 
+namespace PTL {
+
 typedef uint8_t bool8;
 
 class None {};
@@ -37,5 +39,7 @@ typedef void (*IrqHandler)();
 #define _R16(addr) _REG16(addr)
 #define _R32(addr) _REG32(addr)
 #endif
+
+} // namespace
 
 #endif //_TYPES_HPP

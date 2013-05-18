@@ -19,9 +19,13 @@
 #ifndef _BOARD_BASE_HPP
 #define _BOARD_BASE_HPP
 
+namespace PTL {
+
 template <class board>
 class Board
 {
 };
+
+} // namespace
 
 #endif // _BOARD_BASE_HPP

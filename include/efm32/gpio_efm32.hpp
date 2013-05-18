@@ -22,6 +22,7 @@
 #include <gpio_base.hpp>
 #include <efm32gg990f1024.h>
 
+namespace PTL {
 
 template <int port_no_, typename width_>
 class Port : public IPort<width_>
@@ -83,5 +84,7 @@ public:
         set_mode(_GPIO_P_MODEL_MODE0_INPUT);
     }
 };
+
+} // namespace
 
 #endif //_GPIO_EFM32_HPP

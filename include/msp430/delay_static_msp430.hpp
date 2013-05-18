@@ -20,6 +20,8 @@
 #include <stdint.h>
 #include <inline.hpp>
 
+namespace PTL {
+
 static ALWAYS_INLINE void __delay_cycles2(long delay)
 {
 //  if (__builtin_constant_p(delay)) {
@@ -117,3 +119,5 @@ public:
         __delay_cycles2(cycles);
     }
 };
+
+} // namespace

@@ -22,6 +22,8 @@
 #include <types.hpp>
 #include <gpio.hpp>
 
+namespace PTL {
+
 template <unsigned long freq, unsigned long baud, class tx, class rx = None, class timer = None>
 class UART
 {
@@ -99,5 +101,7 @@ uint8_t UART<freq, baud, tx, rx, timer>::read()
 
     return b;
 }
+
+} // namespace
 
 #endif //_UART_HPP

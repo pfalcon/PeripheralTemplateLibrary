@@ -22,6 +22,8 @@
 #include <timer.hpp>
 #include <uart.hpp>
 
+namespace PTL {
+
 class Arduino {};
 
 template <>
@@ -65,3 +67,5 @@ public:
 };
 
 typedef Board<Arduino> board;
+
+} // namespace

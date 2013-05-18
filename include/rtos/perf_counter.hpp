@@ -21,6 +21,8 @@
 
 #include <timer.hpp>
 
+namespace PTL {
+
 #ifdef __MSP430__
 #define PERF_COUNTER_CORRECTION 6
 #else
@@ -43,5 +45,7 @@ public:
 };
 
 typedef PerfCounter<timer> Perf;
+
+} // namespace
 
 #endif //_PERF_COUNTER_HPP

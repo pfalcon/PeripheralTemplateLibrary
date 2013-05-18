@@ -26,6 +26,8 @@
 #include <msp430/watchdog_msp430.hpp>
 #include <adc.hpp>
 
+namespace PTL {
+
 #define strong_cast(type, lval) (*(type*)&lval)
 #define HIWORD(v32) ((uint16_t)((v32) >> 16))
 #define LOWORD(v32) ((uint16_t)(v32))
@@ -101,5 +103,7 @@ public:
         LPM4;
     }
 };
+
+} // namespace
 
 #endif //_SLEEP_MSP430_HPP

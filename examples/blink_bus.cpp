@@ -4,10 +4,10 @@
 #include <delay_static.hpp>
 #include <parallel_bus.hpp>
 
+using namespace PTL;
 
 typedef StaticDelay delayer;
 typedef ParBus<board::LED, board::LED2> leds;
-
 
 int main()
 {

@@ -21,6 +21,8 @@
 #include <timer.hpp>
 #include <timer_irq_dispatch.hpp>
 
+namespace PTL {
+
 template <typename width = uint32_t>
 class Ticks : public ITimer< Ticks<width>, COUNT_UP, width >
 {
@@ -45,5 +47,7 @@ template <typename width> volatile width Ticks<width>::ticks;
 
 // Client must bind Ticks::Irqs to a specific timer object using IRQ_DISPATCH:
 //IRQ_DISPATCH(timer, Ticks<>::Irqs);
+
+} // namespace
 
 #endif // _TIMER_TICK_HPP

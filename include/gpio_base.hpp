@@ -25,6 +25,8 @@
 #include <types.hpp>
 #include <inline.hpp>
 
+namespace PTL {
+
 // Pin is abstraction of basic I/O signal
 template <class pin_impl>
 class IPin
@@ -85,5 +87,7 @@ public:
     ALWAYS_INLINE static void high() {}
     ALWAYS_INLINE static void low()  {}
 };
+
+} // namespace
 
 #endif //_GPIO_BASE_HPP

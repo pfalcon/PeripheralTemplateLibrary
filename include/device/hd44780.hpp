@@ -60,6 +60,7 @@
 #define HD44780_FUNC_F5x8      0x00
 #define HD44780_FUNC_F5x10     0x04
 
+namespace PTL {
 
 template < class delayer, class data4_bus, class en_sig, class regsel_sig, class rw_sig = Signal<NullPin> >
 class HD44780
@@ -194,3 +195,5 @@ public:
         // p.49 Enable cycle time tCycE min 1000ns
     }
 };
+
+} // namespace

@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+namespace PTL {
+
 class byteptr
 {
 public:
@@ -31,3 +33,5 @@ public:
         t[3] = val >> 24;
     }
 };
+
+} // namespace

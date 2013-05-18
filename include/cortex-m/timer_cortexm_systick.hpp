@@ -22,6 +22,8 @@
 #include <cortex-m/includes_cortexm.hpp>
 #include <timer_base.hpp>
 
+namespace PTL {
+
 class CSysTick : public ITimer<CSysTick, COUNT_DOWN, uint32_t, 24>
 {
 public:
@@ -41,5 +43,7 @@ public:
 };
 
 typedef CSysTick timer;
+
+} // namespace
 
 #endif // _TIMER_CORTEXM_SYSTICK_HPP

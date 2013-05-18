@@ -23,6 +23,8 @@
 #include <gpio.hpp>
 #include <clock.hpp>
 
+namespace PTL {
+
 class MSP430Launchpad {};
 
 template <>
@@ -42,5 +44,7 @@ public:
 };
 
 typedef Board<MSP430Launchpad> board;
+
+} // namespace
 
 #endif // _BOARD_LAUNCHPAD_MSP430_HPP

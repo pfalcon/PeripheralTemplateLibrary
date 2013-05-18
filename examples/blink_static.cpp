@@ -3,6 +3,7 @@
 #include <board.hpp>
 #include <delay_static.hpp>
 
+using namespace PTL;
 
 typedef StaticDelay delayer;
 typedef board::LED led;

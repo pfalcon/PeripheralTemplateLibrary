@@ -23,6 +23,8 @@
 #include <gpio.hpp>
 #include <clock.hpp>
 
+namespace PTL {
+
 class StellarisLaunchpad {};
 
 template <>
@@ -42,5 +44,7 @@ public:
 };
 
 typedef Board<StellarisLaunchpad> board;
+
+} // namespace
 
 #endif // _BOARD_LAUNCHPAD_STELLARIS_HPP

@@ -21,6 +21,8 @@
 
 #include <avr/cpu_avr.hpp>
 
+namespace PTL {
+
 #define DIVISOR(freq, baud, div) ((freq) / (div * (baud)) - 1)
 
 template <unsigned long freq, unsigned long baud>
@@ -80,5 +82,7 @@ public:
 //    static interrupt(USCIAB0RX_VECTOR) irq_handler_rx();
 //    static interrupt(USCIAB0TX_VECTOR) irq_handler_tx();
 };
+
+} // namespace
 
 #endif //_UART_AVR_HPP

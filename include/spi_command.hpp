@@ -22,6 +22,8 @@
 #include <stdint.h>
 #include <spi.hpp>
 
+namespace PTL {
+
 template <class spi, class cs>
 class SPICommandMixIn
 {
@@ -75,5 +77,7 @@ public:
         cs::deassert();
     }
 };
+
+} // namespace
 
 #endif //_SPI_COMMAND_HPP

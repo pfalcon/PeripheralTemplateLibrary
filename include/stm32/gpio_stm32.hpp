@@ -22,6 +22,7 @@
 #include <gpio_base.hpp>
 #include <stm32/includes_stm32.hpp>
 
+namespace PTL {
 
 template <int base_, typename width_>
 class Port : public IPort<width_>
@@ -96,5 +97,7 @@ public:
         set_mode(0x04);
     }
 };
+
+} // namespace
 
 #endif //_GPIO_STM32_HPP

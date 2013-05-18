@@ -3,6 +3,7 @@
 #include <board.hpp>
 #include <timer.hpp>
 
+using namespace PTL;
 
 typedef timer delayer;
 typedef board::LED led;

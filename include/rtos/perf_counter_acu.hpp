@@ -21,6 +21,8 @@
 
 #include <timer.hpp>
 
+namespace PTL {
+
 template <class timer, typename width_ = uint32_t>
 class PerfCounterAcu
 {
@@ -42,5 +44,7 @@ public:
 };
 
 typedef PerfCounterAcu<timer> PerfAcu;
+
+} // namespace
 
 #endif //_PERF_COUNTER_ACU_HPP

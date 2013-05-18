@@ -18,6 +18,8 @@
  */
 #include <inline.hpp>
 
+namespace PTL {
+
 #ifdef __NO_INLINE__
 #error Optimization must be enabled, to support inline functions
 #endif
@@ -73,3 +75,5 @@ public:
         __delay_cycles2(cycles);
     }
 };
+
+} // namespace
