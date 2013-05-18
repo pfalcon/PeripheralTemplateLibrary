@@ -27,6 +27,8 @@ class PerfCounterAcu
     width_ counter;
     typename timer::width last_val;
 public:
+    typedef width_ width;
+
     PerfCounterAcu() : counter(0) {}
     void reset() { counter = 0; }
     void start() { last_val = timer::value(); }

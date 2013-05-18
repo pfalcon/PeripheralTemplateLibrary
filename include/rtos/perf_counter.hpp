@@ -33,8 +33,12 @@ class PerfCounter
     typename timer::width counter;
 public:
     void start() { counter = timer::value(); }
+
+    typename timer::width elapsed()
+      { return timer::elapsed(timer::value(), counter) - PERF_COUNTER_CORRECTION; }
+
     typename timer::width stop()
-      { return counter = timer::elapsed(timer::value(), counter) - PERF_COUNTER_CORRECTION; }
+      { return counter = elapsed(); }
     typename timer::width value()  { return counter; }
 };
 
