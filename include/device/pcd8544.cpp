@@ -22,17 +22,7 @@
  * THE SOFTWARE.
  */
 
-
-#include "PCD8544.h"
-
-#if ARDUINO < 100
-#include <WProgram.h>
-#else
-#include <Arduino.h>
-#endif
-
-#include <avr/pgmspace.h>
-
+#include <string.h>
 
 #define PCD8544_CMD  LOW
 #define PCD8544_DATA HIGH
@@ -42,21 +32,11 @@
  * If this was a ".h", it would get added to sketches when using
  * the "Sketch -> Import Library..." menu on the Arduino IDE...
  */
-#include "charset.cpp"
+#include "device/charset_6x8.cpp"
 
 
-PCD8544::PCD8544(unsigned char sclk, unsigned char sdin,
-                 unsigned char dc, unsigned char reset,
-                 unsigned char sce):
-    pin_sclk(sclk),
-    pin_sdin(sdin),
-    pin_dc(dc),
-    pin_reset(reset),
-    pin_sce(sce)
-{}
-
-
-void PCD8544::begin(unsigned char width, unsigned char height, unsigned char model)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::begin(unsigned char width, unsigned char height, unsigned char model)
 {
     this->width = width;
     this->height = height;
@@ -68,18 +48,18 @@ void PCD8544::begin(unsigned char width, unsigned char height, unsigned char mod
     memset(this->custom, 0, sizeof(this->custom));
 
     // All pins are outputs (these displays cannot be read)...
-    pinMode(this->pin_sclk, OUTPUT);
-    pinMode(this->pin_sdin, OUTPUT);
-    pinMode(this->pin_dc, OUTPUT);
-    pinMode(this->pin_reset, OUTPUT);
-    pinMode(this->pin_sce, OUTPUT);
+    pinMode(pin_sclk, OUTPUT);
+    pinMode(pin_sdin, OUTPUT);
+    pinMode(pin_dc, OUTPUT);
+    pinMode(pin_reset, OUTPUT);
+    pinMode(pin_sce, OUTPUT);
 
     // Reset the controller state...
-    digitalWrite(this->pin_reset, HIGH);
-    digitalWrite(this->pin_sce, HIGH);
-    digitalWrite(this->pin_reset, LOW);
+    digitalWrite(pin_reset, HIGH);
+    digitalWrite(pin_sce, HIGH);
+    digitalWrite(pin_reset, LOW);
     delay(100);  
-    digitalWrite(this->pin_reset, HIGH);
+    digitalWrite(pin_reset, HIGH);
 
     // Set the LCD parameters...
     this->send(PCD8544_CMD, 0x21);  // extended instruction set control (H=1)
@@ -109,14 +89,16 @@ void PCD8544::begin(unsigned char width, unsigned char height, unsigned char mod
 }
 
 
-void PCD8544::stop()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::stop()
 {
     this->clear();
     this->setPower(false);
 }
 
 
-void PCD8544::clear()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::clear()
 {
     this->setCursor(0, 0);
 
@@ -128,7 +110,8 @@ void PCD8544::clear()
 }
 
 
-void PCD8544::clearLine()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::clearLine()
 {
     this->setCursor(0, this->line);
 
@@ -140,37 +123,43 @@ void PCD8544::clearLine()
 }
 
 
-void PCD8544::setPower(bool on)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setPower(bool on)
 {
     this->send(PCD8544_CMD, on ? 0x20 : 0x24);
 }
 
 
-inline void PCD8544::display()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::display()
 {
     this->setPower(true);
 }
 
 
-inline void PCD8544::noDisplay()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::noDisplay()
 {
     this->setPower(false);
 }
 
 
-void PCD8544::setInverse(bool inverse)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setInverse(bool inverse)
 {
     this->send(PCD8544_CMD, inverse ? 0x0d : 0x0c);
 }
 
 
-void PCD8544::home()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::home()
 {
     this->setCursor(0, this->line);
 }
 
 
-void PCD8544::setCursor(unsigned char column, unsigned char line)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setCursor(unsigned char column, unsigned char line)
 {
     this->column = (column % this->width);
     this->line = (line % (this->height/9 + 1));
@@ -180,7 +169,8 @@ void PCD8544::setCursor(unsigned char column, unsigned char line)
 }
 
 
-void PCD8544::createChar(unsigned char chr, const unsigned char *glyph)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::createChar(unsigned char chr, const unsigned char *glyph)
 {
     // ASCII 0-31 only...
     if (chr >= ' ') {
@@ -191,10 +181,11 @@ void PCD8544::createChar(unsigned char chr, const unsigned char *glyph)
 }
 
 
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
 #if ARDUINO < 100
-void PCD8544::write(uint8_t chr)
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::write(uint8_t chr)
 #else
-size_t PCD8544::write(uint8_t chr)
+size_t PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::write(uint8_t chr)
 #endif
 {
     // ASCII 7-bit only...
@@ -245,7 +236,8 @@ size_t PCD8544::write(uint8_t chr)
 }
 
 
-void PCD8544::drawBitmap(const unsigned char *data, unsigned char columns, unsigned char lines)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::drawBitmap(const unsigned char *data, unsigned char columns, unsigned char lines)
 {
     unsigned char scolumn = this->column;
     unsigned char sline = this->line;
@@ -267,7 +259,8 @@ void PCD8544::drawBitmap(const unsigned char *data, unsigned char columns, unsig
 }
 
 
-void PCD8544::drawColumn(unsigned char lines, unsigned char value)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::drawColumn(unsigned char lines, unsigned char value)
 {
     unsigned char scolumn = this->column;
     unsigned char sline = this->line;
@@ -306,13 +299,14 @@ void PCD8544::drawColumn(unsigned char lines, unsigned char value)
 }
 
 
-void PCD8544::send(unsigned char type, unsigned char data)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::send(unsigned char type, unsigned char data)
 {
-    digitalWrite(this->pin_dc, type);
+    digitalWrite(pin_dc, type);
   
-    digitalWrite(this->pin_sce, LOW);
-    shiftOut(this->pin_sdin, this->pin_sclk, MSBFIRST, data);
-    digitalWrite(this->pin_sce, HIGH);
+    digitalWrite(pin_sce, LOW);
+    shiftOut(pin_sdin, pin_sclk, MSBFIRST, data);
+    digitalWrite(pin_sce, HIGH);
 }
 
 
