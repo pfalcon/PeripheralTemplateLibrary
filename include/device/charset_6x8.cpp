@@ -26,8 +26,13 @@
 #include <avr/pgmspace.h>
 
 
+// Due to bug in avr-gcc we need to pre-declare PROGMEM array
+// See http://www.avrfreaks.net/index.php?name=PNphpBB2&file=viewtopic&t=57011&postdays=0&postorder=asc&highlight=warning+initialized&start=20
+// http://gcc.gnu.org/bugzilla/show_bug.cgi?id=34734
+extern const PROGMEM unsigned char charset[][5];
+
 // The 7-bit ASCII character set...
-const PROGMEM unsigned char charset[][5] = {
+const unsigned char charset[][5] = {
   { 0x00, 0x00, 0x00, 0x00, 0x00 },  // 20 space
   { 0x00, 0x00, 0x5f, 0x00, 0x00 },  // 21 !
   { 0x00, 0x07, 0x00, 0x07, 0x00 },  // 22 "
