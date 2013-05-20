@@ -48,14 +48,14 @@ class PCD8544 : public Printer {
         void clearLine();  // ...or just the current line
         
         // Control the display's power state...
-        void setPower(bool on);
+        static void setPower(bool on);
 
         // For compatibility with the LiquidCrystal library...
-        void display();
-        void noDisplay();
+        static void display();
+        static void noDisplay();
 
         // Activate white-on-black mode (whole display)...
-        void setInverse(bool inverse);
+        static void setInverse(bool inverse);
 
         // Place the cursor at the start of the current line...
         void home();

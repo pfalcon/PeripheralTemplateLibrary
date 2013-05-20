@@ -126,28 +126,28 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::clearLine
 template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
 void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setPower(bool on)
 {
-    this->send(PCD8544_CMD, on ? 0x20 : 0x24);
+    send(PCD8544_CMD, on ? 0x20 : 0x24);
 }
 
 
 template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
 inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::display()
 {
-    this->setPower(true);
+    setPower(true);
 }
 
 
 template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
 inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::noDisplay()
 {
-    this->setPower(false);
+    setPower(false);
 }
 
 
 template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
 void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setInverse(bool inverse)
 {
-    this->send(PCD8544_CMD, inverse ? 0x0d : 0x0c);
+    send(PCD8544_CMD, inverse ? 0x0d : 0x0c);
 }
 
 
