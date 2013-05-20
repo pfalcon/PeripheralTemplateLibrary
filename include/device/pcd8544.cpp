@@ -182,19 +182,11 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::createCha
 
 
 template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-#if ARDUINO < 100
 void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::write(uint8_t chr)
-#else
-size_t PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::write(uint8_t chr)
-#endif
 {
     // ASCII 7-bit only...
     if (chr >= 0x80) {
-#if ARDUINO < 100
         return;
-#else
-        return 0;
-#endif
     }
 
     const unsigned char *glyph;
@@ -229,10 +221,6 @@ size_t PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::write(u
     if (this->column == 0) {
         this->line = (this->line + 1) % (this->height/9 + 1);
     }
-
-#if ARDUINO >= 100
-    return 1;
-#endif
 }
 
 
@@ -308,6 +296,3 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::send(unsi
     shiftOut(pin_sdin, pin_sclk, MSBFIRST, data);
     digitalWrite(pin_sce, HIGH);
 }
-
-
-/* vim: set expandtab ts=4 sw=4: */
