@@ -1,4 +1,31 @@
 /*
+ * This file is part of the Peripheral Template Library project.
+ *
+ * Copyright (c) 2012-2013 Paul Sokolovsky <pfalcon@users.sourceforge.net>
+ *
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// This code is based on http://code.google.com/p/pcd8544/
+// Original copyright and licensing are provided below.
+// Please note that they are no longer apply to the version
+// in Peripheral Template Library, which undergone changes.
+// Terms below are provided only to comply with wording of the
+// license (and the wording also allows to relicense derivative
+// product under another license).
+
+/*
  * PCD8544 - Interface with Philips PCD8544 (or compatible) LCDs.
  *
  * Copyright (c) 2010 Carlos Rodrigues <cefrodrigues@gmail.com>
