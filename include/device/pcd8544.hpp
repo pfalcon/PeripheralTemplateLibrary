@@ -28,14 +28,16 @@
 
 
 #include <compat/arduino.hpp>
+#include <console.hpp>
 
+namespace PTL {
 
 // Chip variants supported...
 #define CHIP_PCD8544 0
 #define CHIP_ST7576  1
 
 template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-class PCD8544 {
+class PCD8544 : public Printer {
     public:
 #if 0
         // All the pins can be changed from the default values...
@@ -111,6 +113,8 @@ class PCD8544 {
 };
 
 #include <device/pcd8544.cpp>
+
+} // namespace
 
 #endif  /* PCD8544_H */
 
