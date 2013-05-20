@@ -36,11 +36,13 @@ namespace PTL {
 #define CHIP_PCD8544 0
 #define CHIP_ST7576  1
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
+template <class delayer,
+          class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width = 84, unsigned height = 48>
 class PCD8544 : public Printer {
     public:
         // Display initialization (dimensions in pixels)...
-        void begin(unsigned char width=84, unsigned char height=48, unsigned char model=CHIP_PCD8544);
+        void begin(unsigned char model=CHIP_PCD8544);
         void stop();
 
         // Erase everything on the display...
@@ -76,10 +78,6 @@ class PCD8544 : public Printer {
         void drawColumn(unsigned char lines, unsigned char value);
 
     private:
-        // The size of the display, in pixels...
-        unsigned char width;
-        unsigned char height;
-
         // Current cursor position...
         unsigned char column;
         unsigned char line;

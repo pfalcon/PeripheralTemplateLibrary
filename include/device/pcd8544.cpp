@@ -35,12 +35,10 @@
 #include "device/charset_6x8.cpp"
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::begin(unsigned char width, unsigned char height, unsigned char model)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::begin(unsigned char model)
 {
-    this->width = width;
-    this->height = height;
-
     this->column = 0;
     this->line = 0;
 
@@ -89,20 +87,22 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::begin(uns
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::stop()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::stop()
 {
     this->clear();
     this->setPower(false);
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::clear()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::clear()
 {
     this->setCursor(0, 0);
 
-    for (unsigned short i = 0; i < this->width * (this->height/8); i++) {
+    for (unsigned short i = 0; i < width * (height/8); i++) {
         this->send(PCD8544_DATA, 0x00);
     }
 
@@ -110,12 +110,13 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::clear()
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::clearLine()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::clearLine()
 {
     this->setCursor(0, this->line);
 
-    for (unsigned char i = 0; i < this->width; i++) {
+    for (unsigned char i = 0; i < width; i++) {
         this->send(PCD8544_DATA, 0x00);
     }
 
@@ -123,54 +124,61 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::clearLine
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setPower(bool on)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::setPower(bool on)
 {
     send(PCD8544_CMD, on ? 0x20 : 0x24);
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::display()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::display()
 {
     setPower(true);
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::noDisplay()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+inline void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::noDisplay()
 {
     setPower(false);
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setInverse(bool inverse)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::setInverse(bool inverse)
 {
     send(PCD8544_CMD, inverse ? 0x0d : 0x0c);
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::home()
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::home()
 {
     this->setCursor(0, this->line);
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::setCursor(unsigned char column, unsigned char line)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::setCursor(unsigned char column, unsigned char line)
 {
-    this->column = (column % this->width);
-    this->line = (line % (this->height/9 + 1));
+    this->column = (column % width);
+    this->line = (line % (height/9 + 1));
 
     this->send(PCD8544_CMD, 0x80 | this->column);
     this->send(PCD8544_CMD, 0x40 | this->line); 
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::createChar(unsigned char chr, const unsigned char *glyph)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::createChar(unsigned char chr, const unsigned char *glyph)
 {
     // ASCII 0-31 only...
     if (chr >= ' ') {
@@ -181,8 +189,9 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::createCha
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::write(uint8_t chr)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::write(uint8_t chr)
 {
     // ASCII 7-bit only...
     if (chr >= 0x80) {
@@ -216,23 +225,24 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::write(uin
     this->send(PCD8544_DATA, 0x00);
 
     // Update the cursor position...
-    this->column = (this->column + 6) % this->width;
+    this->column = (this->column + 6) % width;
 
     if (this->column == 0) {
-        this->line = (this->line + 1) % (this->height/9 + 1);
+        this->line = (this->line + 1) % (height/9 + 1);
     }
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::drawBitmap(const unsigned char *data, unsigned char columns, unsigned char lines)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::drawBitmap(const unsigned char *data, unsigned char columns, unsigned char lines)
 {
     unsigned char scolumn = this->column;
     unsigned char sline = this->line;
 
     // The bitmap will be clipped at the right/bottom edge of the display...
-    unsigned char mx = (scolumn + columns > this->width) ? (this->width - scolumn) : columns;
-    unsigned char my = (sline + lines > this->height/8) ? (this->height/8 - sline) : lines;
+    unsigned char mx = (scolumn + columns > width) ? (width - scolumn) : columns;
+    unsigned char my = (sline + lines > height/8) ? (height/8 - sline) : lines;
 
     for (unsigned char y = 0; y < my; y++) {
         this->setCursor(scolumn, sline + y);
@@ -247,8 +257,9 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::drawBitma
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::drawColumn(unsigned char lines, unsigned char value)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::drawColumn(unsigned char lines, unsigned char value)
 {
     unsigned char scolumn = this->column;
     unsigned char sline = this->line;
@@ -287,8 +298,9 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::drawColum
 }
 
 
-template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce>
-void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce>::send(unsigned char type, unsigned char data)
+template <class delayer, class pin_sclk, class pin_sdin, class pin_dc, class pin_reset, class pin_sce,
+          unsigned width, unsigned height>
+void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, height>::send(unsigned char type, unsigned char data)
 {
     digitalWrite(pin_dc, type);
   
