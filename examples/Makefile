@@ -8,7 +8,7 @@ ALL = blink blink_static blink_dynamic blink_timer blink_ticks \
       spi i2c_24cxx 1wire adc \
       timer_irq timer_irq_dispatch irq_dispatch \
       flash \
-      perf_counter lcd \
+      perf_counter lcd lcd_nokia \
       msp430_parse_tlv
 
 .PHONY: $(ALL)
@@ -36,6 +36,7 @@ irq_dispatch: $(TARGETDIR)/irq_dispatch
 flash: $(TARGETDIR)/flash
 perf_counter: $(TARGETDIR)/perf_counter
 lcd: $(TARGETDIR)/lcd
+lcd_nokia: $(TARGETDIR)/lcd_nokia
 msp430_parse_tlv: $(TARGETDIR)/msp430_parse_tlv
 
 $(TARGETDIR)/blink: $(TARGETDIR)/blink.o
