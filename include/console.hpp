@@ -226,6 +226,48 @@ putc:
     }
 };
 
+// Class name is kinda compatibility with Arduino API
+class Printer
+{
+public:
+    void write(uint8_t c);
+    uint8_t read();
+};
+
+/*
+ * Class to wrap object implementing Printer interface above into
+ * a static type which can be passed to Console. Usage example:
+ *
+ * WriterClass writer; // defines write() non-static method; must be in
+ *                     // global scope due to C++03 limitations
+ * Console< WriterWrapper<writer> >::putstr("It works!");
+ */
+
+#if 0
+// In C++, template arguments are not covariant,
+// i.e. we cannot pass a subclass of Printer here,
+// so have to pass complete pair of <type, object>
+// instead
+// See http://stackoverflow.com/questions/13606483/c-nontype-template-argument-taking-inherited-class
+template <Printer& byte_writer>
+#else
+template <typename T, T& byte_writer>
+#endif
+class WriterWrapper
+{
+public:
+    static void write(uint8_t c)
+    {
+        byte_writer.write(c);
+    }
+
+    static uint8_t read()
+    {
+        return byte_writer.read();
+    }
+};
+
+
 } // namespace
 
 #endif // _CONSOLE_HPP
