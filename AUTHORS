@@ -1,0 +1,5 @@
+Paul Sokolovsky
+    Core library and other files unless explicitly stated otherwise.
+
+Carlos Rodrigues <cefrodrigues@gmail.com>
+    Author of Arduino PCD8544 library, on which PCD8544 is based.
