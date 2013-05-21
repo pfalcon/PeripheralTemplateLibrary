@@ -13,3 +13,9 @@ typedef SPI<USCI_B> spi;
 typedef ParBus< Pin<P1, Bit5>, Pin<P1, Bit4>, Pin<P1, Bit3>, Pin<P1, Bit2> > hd44780_data;
 typedef Signal< Pin<P1, Bit6> > hd44780_en_sig;
 typedef Signal< Pin<P1, Bit7> > hd44780_regsel_sig;
+
+typedef Pin<P1, Bit3> pcd8544_sclk;
+typedef Pin<P1, Bit4> pcd8544_sdin;
+typedef Pin<P1, Bit5> pcd8544_dc;
+typedef Pin<P1, Bit6> pcd8544_reset;
+typedef Pin<P1, Bit7> pcd8544_sce;
