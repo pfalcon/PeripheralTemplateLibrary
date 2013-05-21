@@ -49,7 +49,10 @@
  * THE SOFTWARE.
  */
 
+extern "C" {
 #include <string.h>
+}
+#include <progmem.hpp>
 
 #define PCD8544_CMD  LOW
 #define PCD8544_DATA HIGH
@@ -230,7 +233,7 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, hei
 
     if (chr >= ' ') {
         // Regular ASCII characters are kept in flash to save RAM...
-        memcpy_P(pgm_buffer, &charset[chr - ' '], sizeof(pgm_buffer));
+        memcpy_progmem(pgm_buffer, &charset[chr - ' '], sizeof(pgm_buffer));
         glyph = pgm_buffer;
     } else {
         // Custom glyphs, on the other hand, are stored in RAM...
@@ -238,7 +241,7 @@ void PCD8544<delayer, pin_sclk, pin_sdin, pin_dc, pin_reset, pin_sce, width, hei
             glyph = this->custom[chr];
         } else {
             // Default to a space character if unset...
-            memcpy_P(pgm_buffer, &charset[0], sizeof(pgm_buffer));
+            memcpy_progmem(pgm_buffer, &charset[0], sizeof(pgm_buffer));
             glyph = pgm_buffer;
         }
     }
