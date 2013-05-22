@@ -26,11 +26,14 @@ namespace PTL {
 template <class timer, typename width_ = uint32_t>
 class PerfCounterAcu
 {
-    width_ counter;
-    typename timer::width last_val;
 public:
     typedef width_ width;
 
+private:
+    width counter;
+    typename timer::width last_val;
+
+public:
     PerfCounterAcu() : counter(0) {}
     void reset() { counter = 0; }
     void start() { last_val = timer::value(); }
@@ -40,7 +43,8 @@ public:
         counter += timer::elapsed(t, last_val);
         last_val = t;
     }
-    width_ value() { return counter; }
+    width value() { return counter; }
+    width elapsed() { update(); return value(); }
 };
 
 typedef PerfCounterAcu<timer> PerfAcu;
