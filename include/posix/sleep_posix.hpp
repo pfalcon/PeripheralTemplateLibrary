@@ -16,10 +16,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef __MSP430__
-#include <msp430/sleep_msp430.hpp>
-#elif defined(__linux__)
-#include <posix/sleep_posix.hpp>
-#else
-#error Unknown platform in sleep.hpp
-#endif
+#ifndef _SLEEP_MSP430_HPP
+#define _SLEEP_MSP430_HPP
+
+#include <stdlib.h>
+#include <stdio.h>
+
+namespace PTL {
+
+class Sleep
+{
+public:
+    static void sleep(uint32_t interval)
+    {
+        usleep(interval);
+    }
+
+    static void powerdown()
+    {
+        fprintf(stderr, "System powered down\n");
+        exit(99);
+    }
+};
+
+} // namespace
+
+#endif //_SLEEP_MSP430_HPP
