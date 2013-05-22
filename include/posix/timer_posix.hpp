@@ -1,7 +1,7 @@
 /*
  * This file is part of the Peripheral Template Library project.
  *
- * Copyright (c) 2012 Paul Sokolovsky <pfalcon@users.sourceforge.net>
+ * Copyright (c) 2012-2013 Paul Sokolovsky <pfalcon@users.sourceforge.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,14 +16,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef __MSP430__
-#include <msp430/timer_msp430.hpp>
-#elif defined( __AVR__)
-#include <avr/timer_avr.hpp>
-#elif defined(__ARM_ARCH_7M__)
-#include <cortex-m/timer_cortexm_systick.hpp>
-#elif defined(__linux__)
-#include <posix/timer_posix.hpp>
-#else
-#error Unknown platform in timer.hpp
-#endif
+#ifndef _TIMER_POSIX_HPP
+#define _TIMER_POSIX_HPP
+
+#include <sys/time.h>
+
+#include <timer_base.hpp>
+
+namespace PTL {
+
+class Timer : public ITimer<Timer, COUNT_UP, uint32_t>
+{
+public:
+
+    static width value()
+    {
+        struct timeval t;
+        gettimeofday(&t, NULL);
+        return t.tv_sec * 1000000 + t.tv_usec;
+    }
+
+    static void free_run()
+    {
+        // Always running
+    }
+};
+
+typedef Timer timer;
+
+} // namespace
+
+#endif // _TIMER_POSIX_HPP
