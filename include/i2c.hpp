@@ -91,7 +91,7 @@ public:
         sda_high();
         scl_high();
         delay();
-        uint8_t ack = sda::value();
+        typename sda::port::width ack = sda::value();
         scl_low();
         return ack;
     }
