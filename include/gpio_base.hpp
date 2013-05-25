@@ -32,6 +32,7 @@ template <class pin_impl>
 class IPin
 {
 public:
+    static void enable();
     static void output();
     static void input();
     // TODO: need better type
@@ -75,6 +76,8 @@ class PortPin: public IPin<pin_impl>
 public:
     typedef port_ port;
     typedef bit_ bit;
+
+    static void enable() { port::enable(); }
 };
 
 // Non-existent pin, can be used when a pin in some design is optional.
