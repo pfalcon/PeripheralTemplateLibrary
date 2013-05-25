@@ -1,7 +1,7 @@
 CMSIS_PATH = /home/pfalcon/projects-3rdparty/CMSIS/STM/CMSIS/CM3
 # CMSIS includes consist of two sets: "core", supplied by ARM,
 # and "device", supplied by silicon vendor.
-CMSIS_CORE_INCLUDE = -I$(CMSIS_PATH)/CoreSupport
+CMSIS_CORE_INCLUDE = -I$(LIBPERIPHA_PATH)/arm/cortex-m/arm-cmsis/CMSIS/Include
 CMSIS_DEVICE_INCLUDE = -I$(CMSIS_PATH)/DeviceSupport/ST/STM32F10x
 #CMSIS_STARTUP = $(CMSIS_PATH)/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_stm32f10x_md_vl.s
 #CMSIS_SYSTEM = $(CMSIS_PATH)/DeviceSupport/ST/STM32F10x/system_stm32f10x.c
@@ -11,7 +11,7 @@ STARTUP = $(CORTEX_STARTUP_PATH)/startup.c
 LINKSCRIPT = stm32-smallest.ld
 
 #DEVICE_INCLUDE = $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE)
-DEVICE_INCLUDE = -I$(LIBPERIPHA_PATH) -DLIBPERIPHA
+DEVICE_INCLUDE = -I$(LIBPERIPHA_PATH) $(CMSIS_CORE_INCLUDE) -DLIBPERIPHA -DCORTEX_M3
 
 CROSS_COMPILE = arm-none-eabi-
 #GCC_VER = -4.4

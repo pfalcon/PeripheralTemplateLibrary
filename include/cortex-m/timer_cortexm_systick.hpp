@@ -35,11 +35,11 @@ public:
         SysTick->LOAD = 0xffffff;
         // Set CLKSOURCE to get same clock as CPU core. Clock in case
         // CLKSOURCE unset is implementation-dependent actually.
-        SysTick->CTRL |=  SysTick_CTRL_CLKSOURCE | SysTick_CTRL_ENABLE;
+        SysTick->CTRL |=  SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk;
     }
 
-    static void enable_irq()  { SysTick->CTRL |= SysTick_CTRL_TICKINT; }
-    static void disable_irq() { SysTick->CTRL &= ~SysTick_CTRL_TICKINT; }
+    static void enable_irq()  { SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk; }
+    static void disable_irq() { SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; }
 };
 
 typedef CSysTick timer;
