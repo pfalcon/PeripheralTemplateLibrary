@@ -28,10 +28,15 @@ class ISPI
 {
 public:
     static void init();
+    // Basic SPI - output outgoing value to the bust and at the same time read
+    // incoming value from the bus.
     static uint8_t transfer(uint8_t b);
-    // Optimized version of transfer which uses arbitrary write value
+    // Optimized version of transfer() which uses arbitrary write value
+    // The optmization is provided because bitbanging SPI implementation
+    // is rather slow, and using separate read()/write() methods allows
+    // to gain 20-30% more performance.
     static uint8_t read();
-    // Optimized version of transfer which ignores read value
+    // Optimized version of transfer() which ignores read value
     static void write(uint8_t b);
 };
 
@@ -44,7 +49,8 @@ public:
     // and instead separate read/write transactions
     // are used. Functions below allow for efficient
     // implementation of such, with basic default
-    // implementation provided.
+    // implementation provided. See also comments
+    // for ISPI::read()/write().
     static void read_block(uint8_t *buf, uint8_t len)
     {
         while (len--) {
