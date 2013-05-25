@@ -89,6 +89,8 @@ public:
     ALWAYS_INLINE static void output() {}
     ALWAYS_INLINE static void high() {}
     ALWAYS_INLINE static void low()  {}
+    ALWAYS_INLINE static void toggle() {}
+    ALWAYS_INLINE static void set(bool8 val) {}
 };
 
 } // namespace
