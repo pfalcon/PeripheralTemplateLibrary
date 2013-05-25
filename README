@@ -15,9 +15,9 @@ specific MCU. Using templates also allows to provide optimized protocol
 implementations utilizing specialized MCU hardware blocks like SPI/I2C
 controllers (default implementations provided use bitbanging over GPIO).
 
-The library is currently in proof of concept development phase, APIs
-are not stable, lot of refactoring to do, there's some non-ideal C++
-code around.
+The library is currently achieving inital code stabilization, though APIs
+are still not stable, there're lot of refactoring to do, and there may be
+some non-ideal C++ code around.
 
 Current targets supported (together with example boards) are:
 
