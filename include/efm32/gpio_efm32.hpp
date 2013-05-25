@@ -20,7 +20,7 @@
 #define _GPIO_EFM32_HPP
 
 #include <gpio_base.hpp>
-#include <efm32gg990f1024.h>
+#include <efm32/includes_efm32.hpp>
 
 namespace PTL {
 
