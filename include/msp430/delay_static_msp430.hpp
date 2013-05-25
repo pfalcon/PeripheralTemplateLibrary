@@ -18,7 +18,7 @@
  */
 
 #include <stdint.h>
-#include <inline.hpp>
+#include <types.hpp>
 
 namespace PTL {
 

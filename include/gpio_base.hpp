@@ -23,7 +23,6 @@
 #include <stdint.h>
 #include <bits.hpp>
 #include <types.hpp>
-#include <inline.hpp>
 
 namespace PTL {
 

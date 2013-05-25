@@ -40,6 +40,9 @@ typedef void (*IrqHandler)();
 #define _R32(addr) _REG32(addr)
 #endif
 
+#define ALWAYS_INLINE __attribute__((__always_inline__)) inline
+#define NOINLINE __attribute__((noinline))
+
 } // namespace
 
 #endif //_TYPES_HPP

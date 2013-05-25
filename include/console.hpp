@@ -20,7 +20,7 @@
 #define _CONSOLE_HPP
 
 #include <stdarg.h>
-#include <inline.hpp>
+#include <types.hpp>
 #undef putc
 
 namespace PTL {
