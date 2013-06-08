@@ -37,7 +37,8 @@ public:
     typedef Pin<P1, Bit6> LED2;
     // This is HWUART pin mapping. On 1.5, jumpers should be
     // put in perpindicular position wrt other jumpers. Not
-    // compatible with Launchpad 1.4
+    // compatible with Launchpad 1.4, where tx & rx should be
+    // swapped.
     typedef Pin<P1, Bit2> pin_uart_tx;
     typedef Pin<P1, Bit1> pin_uart_rx;
     static const long freq = 1 MHZ;
