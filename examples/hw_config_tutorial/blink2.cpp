@@ -10,7 +10,7 @@
  * Pin<PA, Bit3> or whatever.
  *
  * However, what if our application is not such simple, consists
- * of many modules, or targetted to completely different boards?
+ * of many modules, or targetted several completely different boards?
  * Proceed to blink3.
  */
 
