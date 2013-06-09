@@ -100,7 +100,7 @@ All of PTL, libperipha, and cortex-uni-startup are by default expected to
 reside on the same directory level, i.e. in $PARENT dir. So to get
 Cortex-M support libs, change directory to $PARENT and run following commands:
 
-    git clone https://github.com/pfalcon/libperipha.git
+    git clone --recursive https://github.com/pfalcon/libperipha.git
     git clone https://github.com/pfalcon/cortex-uni-startup.git
 
 Building first PTL example application
