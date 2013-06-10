@@ -19,9 +19,11 @@
 #ifndef _TIMER_MSP430_HPP
 #define _TIMER_MSP430_HPP
 
+#include <types.hpp>
 #include <timer_base.hpp>
 // interrupt(X) define. TODO: get rid of?
 #include <legacymsp430.h>
+#include <msp430/cpu_msp430.hpp>
 
 namespace PTL {
 
