@@ -35,6 +35,8 @@ public:
     typedef Pin<P1, Bit0> LED;
     // Right, green LED, conflicts with SPI, I2C
     typedef Pin<P1, Bit6> LED2;
+    // Button
+    typedef IntPin<P1, Bit3> BUTTON;
     // This is HWUART pin mapping. On 1.5, jumpers should be
     // put in perpindicular position wrt other jumpers. Not
     // compatible with Launchpad 1.4, where tx & rx should be
