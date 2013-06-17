@@ -8,7 +8,7 @@ JLINK_TOOL = /home/pfalcon/projects-3rdparty/efm32/JLink_Linux_V462a/StartJLinkE
 
 STARTUP = $(CORTEX_STARTUP_PATH)/startup.c
 # No need to specify full path to linker script, will be searched in -L
-LINKSCRIPT = efm32-biggest.ld
+LINKSCRIPT = efm32/efm32-biggest.ld
 
 DEVICE_INCLUDE = -I$(LIBPERIPHA_PATH) $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE) -DCORTEX_M3
 

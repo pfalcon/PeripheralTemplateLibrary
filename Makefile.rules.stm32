@@ -8,7 +8,7 @@ CMSIS_DEVICE_INCLUDE = -I$(CMSIS_PATH)/DeviceSupport/ST/STM32F10x
 
 STARTUP = $(CORTEX_STARTUP_PATH)/startup.c
 # No need to specify full path to linker script, will be searched in -L
-LINKSCRIPT = stm32-smallest.ld
+LINKSCRIPT = stm32/stm32-smallest.ld
 
 #DEVICE_INCLUDE = $(CMSIS_CORE_INCLUDE) $(CMSIS_DEVICE_INCLUDE)
 DEVICE_INCLUDE = -I$(LIBPERIPHA_PATH) $(CMSIS_CORE_INCLUDE) -DLIBPERIPHA -DCORTEX_M3

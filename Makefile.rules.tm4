@@ -1,7 +1,7 @@
 CMSIS_CORE_INCLUDE = -I$(LIBPERIPHA_PATH)/arm/cortex-m/arm-cmsis/CMSIS/Include
 STARTUP = $(CORTEX_STARTUP_PATH)/startup.c
 # No need to specify full path to linker script, will be searched in -L
-LINKSCRIPT = lm4f120h5qr.ld
+LINKSCRIPT = tm4/lm4f120h5qr.ld
 
 DEVICE_INCLUDE = -I$(LIBPERIPHA_PATH) $(CMSIS_CORE_INCLUDE) -DLIBPERIPHA -DCORTEX_M3
 
