@@ -1,3 +1,4 @@
+// Test modular (2^N) arithmetics
 #include <cassert>
 #include <timer_base.hpp>
 
@@ -19,4 +20,6 @@ int main()
     assert((test_timer::sub_mod(v0x20, v0x10) == 0x10));
     assert((test_timer::sub_mod(v0x10, v0xffffff) == 0x11));
     assert((test_timer::sub_mod(v0x10, v0x20) == 0xfffff0));
+
+    return 0;
 }
