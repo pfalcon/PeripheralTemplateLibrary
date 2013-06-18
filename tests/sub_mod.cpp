@@ -1,6 +1,8 @@
 #include <cassert>
 #include <timer_base.hpp>
 
+using namespace PTL;
+
 class Dummy {};
 
 uint32_t v0x10 = 0x10;
