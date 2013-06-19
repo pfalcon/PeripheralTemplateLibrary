@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _CPU_CORTEXM_HPP
+#define _CPU_CORTEXM_HPP
+
 #include <cortex-m/includes_cortexm.hpp>
 #include <cpu_base.hpp>
 // Declare Cortex-M IRQ handlers
@@ -24,6 +27,9 @@
 namespace PTL {
 
 class CortexMCPU {};
+
+// Various blocks of MCU
+enum { CORTEXM_NONE, CORTEXM_SYSTICK };
 
 template <>
 class CPU<CortexMCPU> : public ICPU
@@ -40,3 +46,5 @@ public:
 };
 
 } // namespace
+
+#endif // _CPU_CORTEXM_HPP
