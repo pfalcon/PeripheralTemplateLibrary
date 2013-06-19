@@ -33,8 +33,8 @@ public:
     static void free_run()
     {
         SysTick->LOAD = 0xffffff;
-        // Set CLKSOURCE to get same clock as CPU core. Clock in case
-        // CLKSOURCE unset is implementation-dependent actually.
+        // Set CLKSOURCE to get same clock as CPU core. In case CLKSOURCE
+        // is unset, the clock used is implementation-dependent.
         SysTick->CTRL |=  SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk;
     }
 
