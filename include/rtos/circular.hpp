@@ -102,6 +102,11 @@ public:
             return 0;
         return pop();
     }
+
+    /* Read/write interface */
+    void write(elem b) { push_checked(b); }
+    // Checking that buffer contains enough elements is on the caller
+    elem read() { return pop(); }
 };
 
 } // namespace
