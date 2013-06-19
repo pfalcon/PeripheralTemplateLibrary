@@ -76,6 +76,11 @@ public:
         return _size == max_size_;
     }
 
+    bool has_free_size(unsigned size)
+    {
+        return free_size() >= size;
+    }
+
     void push(const elem *p, uint8_t len)
     {
         while (len--) {
