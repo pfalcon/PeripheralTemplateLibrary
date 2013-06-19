@@ -35,18 +35,17 @@ public:
     static const int resistor_reg = resistor_reg_;
 };
 
-template <int in_reg_, int out_reg_, int dir_reg_, int resistor_reg_, int ifg_reg_, int ies_reg_, int ie_reg_, int int_vector_, typename width_>
+template <int in_reg_, int out_reg_, int dir_reg_, int resistor_reg_, int ifg_reg_, int ies_reg_, int ie_reg_, typename width_>
 class IntPort : public Port<in_reg_, out_reg_, dir_reg_, resistor_reg_, width_>
 {
 public:
     static const int ifg_reg = ifg_reg_;
     static const int ies_reg = ies_reg_;
     static const int ie_reg = ie_reg_;
-    static interrupt(int_vector_) irq_handler();
 };
 
-typedef IntPort<P1IN_, P1OUT_, P1DIR_, P1REN_, P1IFG_, P1IES_, P1IE_, PORT1_VECTOR, uint8_t> P1;
-typedef IntPort<P2IN_, P2OUT_, P2DIR_, P2REN_, P2IFG_, P2IES_, P2IE_, PORT2_VECTOR, uint8_t> P2;
+typedef IntPort<P1IN_, P1OUT_, P1DIR_, P1REN_, P1IFG_, P1IES_, P1IE_, uint8_t> P1;
+typedef IntPort<P2IN_, P2OUT_, P2DIR_, P2REN_, P2IFG_, P2IES_, P2IE_, uint8_t> P2;
 typedef Port<P3IN_, P3OUT_, P3DIR_, P3REN_, uint8_t> P3;
 
 template <class port, class bit>
