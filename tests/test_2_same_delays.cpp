@@ -1,5 +1,7 @@
 #include <delay_static.hpp>
 
+using namespace PTL;
+
 extern "C" {
 
 void test_2_same_delays()

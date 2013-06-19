@@ -18,73 +18,95 @@
  */
 namespace PTL {
 
-template <int max_size_>
+template <typename elem, int max_size_>
 class CircularBuffer
 {
-    uint8_t buf[max_size_];
-    uint8_t *head, *tail;
+    elem buf[max_size_];
+    elem *head, *tail;
     uint8_t _size;
 public:
     CircularBuffer() : head(buf), tail(buf), _size(0) {}
 
-    int size()
+    /* std:queue compliant methods */
+
+    int size() const
     {
         return _size;
     }
 
-    int free_size()
-    {
-        return max_size_ - _size;
-    }
-
-    bool is_empty()
+    bool empty() const
     {
         return _size == 0;
     }
 
-    bool is_full()
+    void push(elem e)
     {
-        return _size == max_size_;
-    }
-
-    void push(uint8_t b)
-    {
-        *tail++ = b;
+        *tail++ = e;
         if (tail >= buf + max_size_)
             tail = buf;
         _size++;
     }
 
-    void push(const uint8_t *p, uint8_t len)
+    elem pop()
+    {
+        elem e = *head++;
+        if (head >= buf + max_size_)
+            head = buf;
+        _size--;
+        return e;
+    }
+
+    elem front() const
+    {
+        return *head;
+    }
+
+    // No back, sorry
+    //elem back() const;
+
+    /* extended methods */
+
+    int free_size() const
+    {
+        return max_size_ - _size;
+    }
+
+    bool full() const
+    {
+        return _size == max_size_;
+    }
+
+    bool has_free_size(unsigned size)
+    {
+        return free_size() >= size;
+    }
+
+    void push(const elem *p, uint8_t len)
     {
         while (len--) {
             push(*p++);
         }
     }
 
-    bool push_checked(uint8_t b)
+    bool push_checked(elem b)
     {
-        if (is_full())
+        if (full())
             return false;
         push(b);
         return true;
     }
 
-    uint8_t pop()
+    elem pop_checked()
     {
-        uint8_t b = *head++;
-        if (head >= buf + max_size_)
-            head = buf;
-        _size--;
-        return b;
-    }
-
-    uint8_t pop_checked()
-    {
-        if (is_empty())
+        if (empty())
             return 0;
         return pop();
     }
+
+    /* Read/write interface */
+    void write(elem b) { push_checked(b); }
+    // Checking that buffer contains enough elements is on the caller
+    elem read() { return pop(); }
 };
 
 } // namespace
