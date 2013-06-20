@@ -16,21 +16,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#if defined(__MSP430__)
-#include <msp430/cpu_msp430.hpp>
-#elif defined(__AVR__)
-#include <avr/cpu_avr.hpp>
-#elif defined(__STM32__)
-#include <stm32/cpu_stm32.hpp>
-#elif defined(__EFM32__)
-#include <efm32/cpu_efm32.hpp>
-#elif defined(__TM4__)
-#include <tm4/cpu_tm4.hpp>
-#elif defined(__thumb__) || defined(__thumb2__)
+#pragma once
 #include <cortex-m/cpu_cortexm.hpp>
+
 namespace PTL {
-typedef CPU<CortexMCPU> cpu;
+
+class TM4CPU {};
+
+enum { TM4_UART };
+
+template <>
+class CPU<TM4CPU> : public CPU<CortexMCPU>
+{
+};
+
+typedef CPU<TM4CPU> cpu;
+
 } // namespace
-#else
-#error Unknown platform in cpu.hpp
-#endif
