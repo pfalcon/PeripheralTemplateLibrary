@@ -22,32 +22,12 @@
 #include <msp430.h>
 // interrupt(X) define. TODO: get rid of?
 #include <legacymsp430.h>
+#include <irq_dispatch_base.hpp>
 
 namespace PTL {
 
-class NullBlock
-{
-public:
-    const static int block_type = 0;
-};
-
-/*
- * We want to declare a function here whose body will be executed only
- * when condition is true. We have to use metaprog conditionals here,
- * because if condition is false, func body may not compile at all
- * (for example because class it opeartes on lacks specific methods).
- * So, we use 2 complementary implementations of func: one with empty
- * body for case of condition == false, and one with the given body
- * in case it's true. All is wrapped with macros for readability.
- */
-
-#define IRQ_DISPATCH_HELPER(func_name, cond) \
-template <class block> \
-inline void func_name(uint8_t val = 0, typename meta::enable_if<(!(cond))>::type* = 0) {} \
-\
-template <class block> \
-inline void func_name(uint8_t val = 0, typename meta::enable_if<(cond)>::type* = 0) \
-
+/* Functions to dispatch specific hardware IRQ down to a specific 
+   MCU block and its PTL irq events. */
 
 IRQ_DISPATCH_HELPER(do_timer_main, block::block_type == MSP430_TIMER)
 {
@@ -94,23 +74,8 @@ IRQ_DISPATCH_HELPER(do_usci_tx, block::block_type == MSP430_USCI)
         block::irq_tx();
 }
 
-
-#define APPLY_TO_ALL(func, b1, b2, b3) { func<b1>(); func<b2>(); func<b3>(); }
-#define APPLY_TO_ALL_ARG(func, arg, b1, b2, b3) { func<b1>(arg); func<b2>(arg); func<b3>(arg); }
-
-#define HANDLER(vector, dispatch_func) \
-    static interrupt(vector) vector##_handler() \
-    { \
-        APPLY_TO_ALL(dispatch_func, b1, b2, b3); \
-    }
-
-#define HANDLER_CACHE_REG(vector, dispatch_func, reg) \
-    static interrupt(vector) vector##_handler() \
-    { \
-        uint8_t cache = reg; \
-        APPLY_TO_ALL_ARG(dispatch_func, cache, b1, b2, b3); \
-    }
-
+/* Class which encapsulates all hardware -> PTL dispatchers. Mostly
+   used to allow variable list of blocks to dispatch to. */
 template <class b1, class b2 = NullBlock, class b3 = NullBlock>
 class IrqDispatch
 {
@@ -120,6 +85,30 @@ public:
     HANDLER_CACHE_REG(USCIAB0RX_VECTOR, do_usci_rx, IFG2);
     HANDLER_CACHE_REG(USCIAB0TX_VECTOR, do_usci_tx, IFG2);
 };
+
+
+/* Dispatch IRQ from MCU and compiler specific "IRQ vector" function. This
+   is expected to be fully optimized out by inlining.
+   What to change when porting: name/attributes of function defined. */
+#define CALL_HANDLER(dispatcher, vector) \
+    interrupt(vector) vector##Handler() \
+    { \
+        dispatcher::vector##Handler(); \
+    }
+
+/* Global IRQ dispatch declaration macro - that's what user uses in the
+   application code. Note that there can be at most one IRQ_DISPATCH
+   per application. Specifying all irq-receiving classes at once allows
+   to suffle/sort/group irq handlers to produce optimal code - that's
+   what all fucntions/classes/macros above do actually.
+   What to change when porting: list of CALL_HANDLER calls. */
+#define IRQ_DISPATCH(blocks...) \
+    template class IrqDispatch<blocks>; \
+    typedef IrqDispatch<blocks> _irq_dispatch; \
+    CALL_HANDLER(_irq_dispatch, TIMER0_A1_VECTOR); \
+    CALL_HANDLER(_irq_dispatch, TIMER0_A0_VECTOR); \
+    CALL_HANDLER(_irq_dispatch, USCIAB0RX_VECTOR); \
+    CALL_HANDLER(_irq_dispatch, USCIAB0TX_VECTOR);
 
 } // namespace
 
