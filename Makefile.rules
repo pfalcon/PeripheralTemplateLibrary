@@ -28,6 +28,8 @@ ALL_CXXFLAGS = $(ALL_CFLAGS) -fno-exceptions
 LDFLAGS = $(TARGET_LDFLAGS) -Wl,--gc-sections -Wl,-Map=$@.map,--cref
 
 
+.PRECIOUS: $(TARGETDIR)/%.o
+
 $(TARGETDIR)/%.o: %.cpp
 	mkdir -p $(TARGETDIR)
 	$(CXX) $(ALL_CXXFLAGS) -c $^ -o $@
