@@ -6,7 +6,7 @@ ALL = blink blink_static blink_dynamic blink_timer blink_ticks \
       uart_echo uart_echo_irq uart_echo_async \
       uart_printf \
       spi i2c_24cxx 1wire adc \
-      timer_irq timer_irq_dispatch irq_dispatch \
+      timer_irq timer_irq_dispatch irq_dispatch irq_dispatch_simple \
       flash \
       perf_counter lcd lcd_nokia \
       msp430_parse_tlv
@@ -32,6 +32,7 @@ i2c_24cxx: $(TARGETDIR)/i2c_24cxx
 adc: $(TARGETDIR)/adc
 timer_irq: $(TARGETDIR)/timer_irq
 timer_irq_dispatch: $(TARGETDIR)/timer_irq_dispatch
+irq_dispatch_simple: $(TARGETDIR)/irq_dispatch_simple
 irq_dispatch: $(TARGETDIR)/irq_dispatch
 flash: $(TARGETDIR)/flash
 perf_counter: $(TARGETDIR)/perf_counter
@@ -74,3 +75,6 @@ $(TARGETDIR)/adc.o: adc.cpp
 
 $(TARGETDIR)/lcd: $(TARGETDIR)/lcd.o
 $(TARGETDIR)/lcd.o: lcd.cpp
+
+$(TARGETDIR)/irq_dispatch: $(TARGETDIR)/irq_dispatch.o
+$(TARGETDIR)/irq_dispatch_simple: $(TARGETDIR)/irq_dispatch_simple.o
