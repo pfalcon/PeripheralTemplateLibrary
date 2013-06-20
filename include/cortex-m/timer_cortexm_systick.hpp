@@ -20,6 +20,7 @@
 #define _TIMER_CORTEXM_SYSTICK_HPP
 
 #include <cortex-m/includes_cortexm.hpp>
+#include <cortex-m/cpu_cortexm.hpp>
 #include <timer_base.hpp>
 
 namespace PTL {
@@ -27,6 +28,7 @@ namespace PTL {
 class CSysTick : public ITimer<CSysTick, COUNT_DOWN, uint32_t, 24>
 {
 public:
+    const static int block_type = CORTEXM_SYSTICK;
     typedef uint32_t width;
 
     static width value() { return SysTick->VAL; }
@@ -40,6 +42,8 @@ public:
 
     static void enable_irq()  { SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk; }
     static void disable_irq() { SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; }
+
+    static void irq_reset() {}
 };
 
 typedef CSysTick timer;
