@@ -20,6 +20,7 @@
 #define _UART_LM4_HPP
 
 #include <gpio.hpp>
+#include <tm4/cpu_tm4.hpp>
 
 namespace PTL {
 
@@ -35,6 +36,8 @@ class UART<freq, baud, UART0_>
     typedef Pin<PA, Bit1> txpin;
 
 public:
+    const static int block_type = TM4_UART;
+
     static void init()
     {
         SYSCTL->RCGCUART |= Bit0::value;
