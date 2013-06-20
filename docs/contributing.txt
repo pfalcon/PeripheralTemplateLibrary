@@ -1,5 +1,9 @@
 Peripheral Template Library is currently licensed under the terms of LGPLv3,
-though it's consider to either add linking exception clause or switch to
+though it's considered to either add linking exception clause or switch to
 BSD-like license. To facilitate such change in the future, only BSD/MIT
-licensed third-party code is merged. If you have suggestion regarding
-licensing, please feel free to bring them up.
+licensed third-party code is merged, and contributors are asked to license
+their patches under dual LGPL3/BSD license (or alternatively, just under BSD
+license).
+
+If you have suggestions regarding licensing, please feel free to bring them
+up.
