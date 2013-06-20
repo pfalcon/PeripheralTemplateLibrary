@@ -4,7 +4,7 @@
 #include <timer.hpp>
 #include <uart.hpp>
 #include <spi.hpp>
-#include <msp430/irq_dispatch_msp430.hpp>
+#include <irq_dispatch.hpp>
 
 #include HW_CONFIG
 
@@ -35,9 +35,7 @@ public:
     }
 };
 
-// Explicit instantiation of IRQ dispatcher class
-template class IrqDispatch<mytimer, myuart, myspi>;
-
+IRQ_DISPATCH(mytimer, myuart, myspi);
 
 int main()
 {
