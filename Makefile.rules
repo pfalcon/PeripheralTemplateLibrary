@@ -30,6 +30,7 @@ LDFLAGS = $(TARGET_LDFLAGS) -Wl,--gc-sections -Wl,-Map=$@.map,--cref
 
 .PRECIOUS: $(TARGETDIR)/%.o
 
+ifneq ($(OVERRIDE_RULES),1)
 $(TARGETDIR)/%.o: %.cpp
 	mkdir -p $(TARGETDIR)
 	$(CXX) $(ALL_CXXFLAGS) -c $^ -o $@
@@ -37,6 +38,7 @@ $(TARGETDIR)/%.o: %.cpp
 $(TARGETDIR)/%.o: %.c
 	mkdir -p $(TARGETDIR)
 	$(CXX) $(ALL_CXXFLAGS) -c $^ -o $@
+endif
 
 $(TARGETDIR)/%.s: %.cpp
 	mkdir -p $(TARGETDIR)
