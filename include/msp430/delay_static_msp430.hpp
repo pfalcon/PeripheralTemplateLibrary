@@ -72,6 +72,7 @@ static ALWAYS_INLINE void __delay_cycles2(long delay)
         quot = (delay - 4) / 4 - 1; // cycles stops on 0 -> -1 transition, i.e. 1 extra iteration
         rem = (delay - 4) % 4;
 
+#ifndef __clang__
         asm(
             "mov    %A0, r14 \n"
             "mov    %B0, r15 \n"
@@ -81,7 +82,17 @@ static ALWAYS_INLINE void __delay_cycles2(long delay)
             "jc    1b \n" // 2 cycles, msp430 has weird C flag value for substracts
             : : "ir" (quot) : "r14", "r15"
         );
-
+#else
+        asm(
+            "mov    %0, r14 \n"
+            "mov    %1, r15 \n"
+            "1: \n"
+            "sub    #1, r14 \n" // 1 cycle
+            "subc   #0, r15 \n" // 1 cycle
+            "jc    1b \n" // 2 cycles, msp430 has weird C flag value for substracts
+            : : "ir" ((uint16_t)(quot & 0xffff)), "ir" ((uint16_t)(quot >> 16)) : "r14", "r15"
+        );
+#endif
         // It might be possible to optimize these, but it's boring
         uint16_t low = (uint16_t)quot;
         uint16_t hiw = quot >> 16;
