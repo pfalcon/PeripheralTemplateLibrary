@@ -1,4 +1,7 @@
-#GCC_PATH = /opt/mspgcc-4.7/bin/
+LLVM_PATH = /home/pfalcon/projects-3rdparty/llvm-3.0.src/Debug/bin
+OPT = $(LLVM_PATH)/opt
+LLC = $(LLVM_PATH)/llc
+CROSS_COMPILE = msp430-
 
 MCU = msp430g2553
 TARGET_FLAGS = -mmcu=$(MCU)
@@ -6,21 +9,19 @@ TARGET_FLAGS = -mmcu=$(MCU)
 # format "-s <device_serial>" or "-U <usb_port_id>", see mspdebug --help
 DEVICE_SELECT ?=
 
-OPT = opt-3.0
-LLC = llc-3.0
-CROSS_COMPILE = msp430-
-
-LOPS = -D__MSP430__ -D__MSP430G2553__ -I/usr/msp430/include -m32 -emit-llvm
-OOPS = -std-compile-opts -strip-debug -disable-simplify-libcalls
-LLCOPS = -march=msp430
+CLANGFLAGS = -ccc-host-triple msp430 -D__MSP430G2553__ -I/usr/msp430/include -m32 -emit-llvm
+OPTFLAGS = -std-compile-opts -strip-debug -disable-simplify-libcalls
+LLCFLAGS = -march=msp430
 
 OVERRIDE_RULES = 1
 
 $(TARGETDIR)/%.o: %.cpp
 	mkdir -p $(TARGETDIR)
-	clang $(ALL_CXXFLAGS) $(LOPS) -c $^ -o $@.bc
-	$(OPT) $(OOPS) $@.bc -f -o $@.opt.bc
-	$(LLC) $(LLCOPS) $@.opt.bc -o $@.opt.s_
+	clang $(ALL_CXXFLAGS) $(CLANGFLAGS) -S -c $^ -o $@.ll
+	$(OPT) $(OPTFLAGS) -S $@.ll -f -o $@.opt.ll
+	
+	$(LLC) $(LLCFLAGS) $@.opt.ll -o $@.opt.s_
+	
 	awk '/.globl\tmain/      { print "\t.section\t.init9,\"ax\",@progbits"; } \
 	                         { print }' $@.opt.s_ > $@.opt.s
 	msp430-as $@.opt.s -o $@
