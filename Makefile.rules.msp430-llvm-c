@@ -21,7 +21,7 @@ $(TARGETDIR)/%.o: %.cpp
 	$(OPT) $(OPTFLAGS) -S $@.ll -f -o $@.opt.ll
 	
 	$(LLC) -march=c $@.opt.ll -o $@.cbackend.c
-	clang $(ALL_CXXFLAGS) $(CLANGFLAGS) -c $@.cbackend.c -o $@.cbackend.ll
+	clang $(ALL_CXXFLAGS) $(CLANGFLAGS) -S -c $@.cbackend.c -o $@.cbackend.ll
 	$(OPT) $(OPTFLAGS) $@.cbackend.ll -f -S -o $@.cbackend.opt.ll
 	$(LLC) $(LLCFLAGS) $@.cbackend.opt.ll -o $@.opt.s_
 	
