@@ -1,2 +1,4 @@
 OBJDUMP = objdump
 #TARGET_CFLAGS = -S
+GCC_VER = -4.8
+TARGET_CFLAGS = -std=c++11
