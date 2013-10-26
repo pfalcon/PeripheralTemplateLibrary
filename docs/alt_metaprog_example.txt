@@ -1,0 +1,35 @@
+ParBus<[Pin<PA, Bit1>, Pin<PA, Bit0>]> bus;
+
+def pins_same_port(pins):
+    port = pins[0].port
+    for p in pins[1:]:
+        if p.port != port:
+            return False
+    return True
+
+def consecutive_pins(pins):
+    if not pins_same_port(pins):
+        return False
+    bit = pins[0].bit.shift
+    for p in pins[1:]:
+        bit -= 1
+        if p.bit.shift != bit:
+            return False
+    return True
+
+@constraint(pins_same_port, consecutive_pins)
+@let shift = bus.pins[-1].bit.shift
+@let mask = (1 << len(bus.pins)) - 1
+void bus::set(int val)
+{
+    bus::port::set_masked(val << shift, mask << shift);
+}
+
+@default
+void bus::write(int val)
+{
+@for p in reverse(bus::pins):
+    p::set(v & 1);
+    v >>= 1;
+@endfor
+}
