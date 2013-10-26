@@ -5,5 +5,12 @@ licensed third-party code is merged, and contributors are asked to license
 their patches under dual LGPL3/BSD license (or alternatively, just under BSD
 license).
 
+The rationale of this request is that, if such licensing change is carried
+out in the future, all contributors will need to be contacted to ask their
+permissions to relicense, with possible complications that some contributors
+won't respond, or will be against such change. So, instead I'm asking all
+potential contributors about BSD licensing right away. I hope this makes
+sense and reasonably fair.
+
 If you have suggestions regarding licensing, please feel free to bring them
 up.
