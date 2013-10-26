@@ -9,7 +9,7 @@ standard protocols to access peripheral devices, like SPI, I2C, UART,
 1-Wire, etc.
 
 To achieve high-level efficiency, PTL is built using (C++) templated static
-types, which allows to apply aggressive compile-time optimizations,
+types, allowing to apply aggressive compile-time optimizations,
 achieving the efficiency level of the C code purposedly written for
 specific MCU. Using templates also allows to provide optimized protocol
 implementations utilizing specialized MCU hardware blocks like SPI/I2C
