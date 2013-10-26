@@ -50,6 +50,7 @@ public:
         UCB0BR0 = 1;
         UCB0BR1 = 0;
 
+        // Set SPI altfuncs for pins
         P1SEL |= SCLK | SDI | SDO;
         P1SEL2 |= SCLK | SDI | SDO;
         // Per MSP430 manual, direction of SCLK/MOSI/MISO is controlled
@@ -60,6 +61,7 @@ public:
     static void disable()
     {
         UCB0CTL1 = UCSWRST;
+        // Unset SPI altfuncs, back to GPIO mode
         P1SEL &= ~(SCLK | SDI | SDO);
         P1SEL2 &= ~(SCLK | SDI | SDO);
     }
