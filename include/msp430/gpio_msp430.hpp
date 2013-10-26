@@ -29,6 +29,7 @@ template <int in_reg_, int out_reg_, int dir_reg_, int resistor_reg_, typename w
 class Port : public IPort<width_>
 {
 public:
+    static const int base = in_reg_;
     static const int in_reg = in_reg_;
     static const int out_reg = out_reg_;
     static const int dir_reg = dir_reg_;
