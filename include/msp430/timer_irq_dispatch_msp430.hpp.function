@@ -1,0 +1,87 @@
+/*
+ * This file is part of the Peripheral Template Library project.
+ *
+ * Copyright (c) 2012 Paul Sokolovsky <pfalcon@users.sourceforge.net>
+ *
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#ifndef _TIMER_MSP430_DISPATCH_HPP
+#define _TIMER_MSP430_DISPATCH_HPP
+
+#include <timer_base.hpp>
+// interrupt(X) define. TODO: get rid of?
+#include <legacymsp430.h>
+
+//template <IrqHandler overflow, void *cc0 = 0, IrqHandler cc1 = NULL, IrqHandler cc2 = NULL>
+template <IrqHandler overflow>
+class TimerIrqDispatch
+{
+
+public:
+    ALWAYS_INLINE static void handle_main() {
+        overflow();
+        // Ack IRQ
+        switch (timer::irq_status()) {
+        // MSP headers define TAIV bits per-timer, but they are actually
+        // the same for all timers (hopefully for all MCUs!)
+        case TA0IV_TAIFG:
+            overflow();
+            break;
+#if 0
+        case TA0IV_TACCR1:
+            if (cc1) cc1();
+            break;
+        case TA0IV_TACCR2:
+            if (cc2) cc2();
+            break;
+#endif
+        }
+    }
+
+    ALWAYS_INLINE static void handle_cc0() {
+#if 0
+        if (cc0) cc0();
+#endif
+    }
+
+    // The idea would be to *define* *Timer's* irq_handler*() here (as a friend
+    // method). Unfortunately that's not supported by C++. So, we'll define
+    // irq handlers as ours, at least Timer::irq_no_* allows us to avoid duplication
+    // and abstract it a bit.
+
+    // Unfortunately, this doesn't work with gcc 4.5 either
+
+#if 0
+    static interrupt(Timer::irq_no_main) irq_handler()
+    {
+        handle_main();
+    }
+
+    static interrupt(Timer::irq_no_cc0) irq_handler_cc0()
+    }
+        if (cc0) cc0();
+    }
+#endif
+};
+
+#define irq_dispatch(timer, dispatcher) \
+    template <> \
+    void timer::irq_handler() \
+    { dispatcher::handle_main(); } \
+    template <> \
+    void timer::irq_handler_cc0() \
+    { dispatcher::handle_cc0(); }
+
+
+#endif // _TIMER_MSP430_DISPATCH_HPP
