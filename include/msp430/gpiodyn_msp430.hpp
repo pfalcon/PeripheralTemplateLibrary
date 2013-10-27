@@ -26,29 +26,59 @@
 namespace PTL {
 
 struct DynaPort_Store {
-    int base;
+    // msp430 SFR (including port) registers are located in
+    // first 256 bytes of address space, plus there's movzx
+    // instruction. So, we can optimize port base addres
+    // storage to byte w/o any overhead.
+    uint8_t base;
+
+    DynaPort_Store(uint8_t port_no) {
+        set(port_no);
+    }
+
+    void set(uint8_t port_no) {
+        switch (port_no) {
+        case 0:
+            base = P1::base;
+            break;
+        case 1:
+            base = P2::base;
+            break;
+        case 2:
+            base = P3::base;
+            break;
+        }
+    }
 };
 
-struct DynaPin_Store {
-    int base;
+struct DynaPin_Store : DynaPort_Store {
+    // Pin mask, named for consistency with Bit<>::value
     uint8_t value;
+
+    DynaPin_Store(uint8_t port_no, uint8_t pin_no) {
+        set(port_no, pin_no);
+    }
+
+    void set(uint8_t port_no, uint8_t pin_no) {
+        DynaPort_Store::set(port_no);
+        value = 1 << pin_no;
+    }
 };
 
-template <DynaPin_Store& store>
-class DynaPort {
+template <DynaPort_Store& store>
+class DynaPort : public IPort<uint8_t> {
 public:
     static void enable() { store.base; }
 };
 
 template <DynaPin_Store& store>
-class DynaPin {
+class DynaPin : public IPin<DynaPin<store>, uint8_t> {
     static int in_reg(int base) { return base; }
     static int out_reg(int base) { return base + 1; }
     static int dir_reg(int base) { return base + 2; }
     static int ren_reg(int base) { return base == P3::base ? P3REN_ : base + 7; }
 
 public:
-    typedef uint8_t width;
     typedef DynaPort<store> port;
 
     static width value()
