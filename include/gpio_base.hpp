@@ -72,7 +72,12 @@ public:
     static void set_masked(width val, width mask) { set(value() & mask); }
 };
 
-// Pin which belongs to a port
+// Pin which belongs to a (static) port
+// Most GPIO pins in MCUs are grouped into ports,
+// and this class captures pin's port and bit position
+// within port. But note that all pins don't have
+// to use this class (when there's no underlying "port",
+// if such port is not static) and can use IPin directly.
 template <class pin_impl, class port_, class bit_>
 class PortPin: public IPin<pin_impl>
 {
@@ -84,7 +89,10 @@ public:
 };
 
 // Non-existent pin, can be used when a pin in some design is optional.
-// All access will be optimized out by compiler.
+// All access will be optimized out by compiler. Typical example
+// is a LED - boards which have it, can define it to a specific pin,
+// and boards which lack - to NullPin, and code will still compile
+// (though indication obviously won't be present in second case).
 class NullPin : public IPin<NullPin>
 {
 public:
