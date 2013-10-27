@@ -27,15 +27,16 @@
 namespace PTL {
 
 // Pin is abstraction of basic I/O signal
-template <class pin_impl>
+template <class pin_impl, typename width_ = int>
 class IPin
 {
 public:
+    typedef width_ width;
+
     static void enable();
     static void output();
     static void input();
-    // TODO: need better type
-    static int  value();
+    static width value();
     static void high();
     static void low();
     static void toggle();
