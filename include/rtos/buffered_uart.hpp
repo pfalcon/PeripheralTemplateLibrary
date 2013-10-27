@@ -21,34 +21,37 @@
 
 namespace PTL {
 
-template <class uart, int read_buf_sz, int write_buf_sz, template<typename, int> class buffer = PTL::CircularBuffer>
-class BufferedUart
-{
-    typedef BufferedUart<uart, read_buf_sz, write_buf_sz, buffer> self;
+template <int read_buf_sz, int write_buf_sz, template<typename, int> class buffer = PTL::CircularBuffer>
+class BufferedUart_Store {
     //typename 
     buffer<uint8_t, read_buf_sz> read_buf;
     //typename 
     buffer<uint8_t, write_buf_sz> write_buf;
+};
 
-    template <self& me>
+template <class uart, BufferedUart_Store<int, int, template<typename, int> class>& store>
+class BufferedUart
+{
+    typedef BufferedUart<uart, read_buf_sz, write_buf_sz, buffer> self;
+
     class uart_handlers : public uart
     {
     public:
         static void irq_rx()
         {
-            if (me.read_buf.full())
+            if (store.read_buf.full())
                 overrun();
             else
-                me.read_buf.push(uart::read_async());
+                store.read_buf.push(uart::read_async());
         }
         static void irq_tx()
         {
-            assert(!me.write_buf.empty());
-            uint8_t c = me.write_buf.pop();
+            assert(!store.write_buf.empty());
+            uint8_t c = store.write_buf.pop();
             uart::write_async(c);
             // If there's nothing more to send, disable TX IRQ
             // (really "TX Buffer Empty IRQ")
-            if (me.write_buf.empty())
+            if (store.write_buf.empty())
                 uart::disable_tx_irq();
         }
     };
@@ -64,13 +67,18 @@ public:
     }
     uint8_t read()
     {
-        while (read_buf.empty());
-        return read_buf.pop();
+        while (store.read_buf.empty());
+        uart::disable_rx_irq();
+        uint8_t c = store.read_buf.pop();
+        uart::enable_rx_irq();
+        return c;
     }
     void write(uint8_t c)
     {
-        while (write_buf.full());
-        write_buf.push(c);
+        while (store.write_buf.full());
+        uart::disable_tx_irq();
+        store.write_buf.push(c);
+        // We added new char, so there's something to send - enable TX IRQ
         uart::enable_tx_irq();
     }
 
