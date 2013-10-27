@@ -53,11 +53,14 @@ public:
 };
 
 // Port is a collection of related pins
-template <typename width_>
+// no_ is thru-numbered relative port number (0 - very first GPIO port, etc.)
+// Used mostly for defining numbering for dynapins.
+template <typename width_, int no_ = -1>
 class IPort
 {
 public:
     typedef width_ width;
+    static const int no = no_;
 
     // Enable port for access (power on, set up clocks, etc.)
     static void enable() {}
