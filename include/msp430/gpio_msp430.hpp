@@ -25,8 +25,8 @@
 
 namespace PTL {
 
-template <int in_reg_, int out_reg_, int dir_reg_, int resistor_reg_, typename width_>
-class Port : public IPort<width_>
+template <int in_reg_, int out_reg_, int dir_reg_, int resistor_reg_, typename width_, int no_>
+class Port : public IPort<width_, no_>
 {
 public:
     static const int base = in_reg_;
@@ -36,9 +36,9 @@ public:
     static const int resistor_reg = resistor_reg_;
 };
 
-typedef Port<P1IN_, P1OUT_, P1DIR_, P1REN_, uint8_t> P1;
-typedef Port<P2IN_, P2OUT_, P2DIR_, P2REN_, uint8_t> P2;
-typedef Port<P3IN_, P3OUT_, P3DIR_, P3REN_, uint8_t> P3;
+typedef Port<P1IN_, P1OUT_, P1DIR_, P1REN_, uint8_t, 0> P1;
+typedef Port<P2IN_, P2OUT_, P2DIR_, P2REN_, uint8_t, 1> P2;
+typedef Port<P3IN_, P3OUT_, P3DIR_, P3REN_, uint8_t, 2> P3;
 
 template <class port, class bit>
 class Pin : public PortPin< Pin<port, bit>, port, bit >
