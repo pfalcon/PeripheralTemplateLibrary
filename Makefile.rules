@@ -37,7 +37,7 @@ $(TARGETDIR)/%.o: %.cpp
 
 $(TARGETDIR)/%.o: %.c
 	mkdir -p $(TARGETDIR)
-	$(CXX) $(ALL_CXXFLAGS) -c $^ -o $@
+	$(CC) $(ALL_CXXFLAGS) -c $^ -o $@
 endif
 
 $(TARGETDIR)/%.s: %.cpp
