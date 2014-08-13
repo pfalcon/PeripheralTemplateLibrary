@@ -2,7 +2,7 @@ PTL_PATH = ..
 include $(PTL_PATH)/Makefile.rules
 
 ALL = blink blink_static blink_dynamic blink_timer blink_ticks \
-      blink_sleep blink_bus \
+      blink_sleep blink_bus blink_c \
       uart_echo uart_echo_irq uart_echo_async \
       uart_printf \
       spi i2c_24cxx 1wire adc \
@@ -22,6 +22,7 @@ blink_timer: $(TARGETDIR)/blink_timer
 blink_ticks: $(TARGETDIR)/blink_ticks
 blink_sleep: $(TARGETDIR)/blink_sleep
 blink_bus: $(TARGETDIR)/blink_bus
+blink_c: $(TARGETDIR)/blink_c
 uart_echo: $(TARGETDIR)/uart_echo
 uart_echo_irq: $(TARGETDIR)/uart_echo_irq
 uart_echo_async: $(TARGETDIR)/uart_echo_async
@@ -57,6 +58,8 @@ $(TARGETDIR)/blink_ticks.o: blink_ticks.cpp
 
 $(TARGETDIR)/blink_bus: $(TARGETDIR)/blink_bus.o
 $(TARGETDIR)/blink_bus.o: blink_bus.cpp
+
+$(TARGETDIR)/blink_c: $(TARGETDIR)/blink_c.o $(TARGETDIR)/blink_c_api.o
 
 $(TARGETDIR)/uart_echo: $(TARGETDIR)/uart_echo.o
 $(TARGETDIR)/uart_echo.o: uart_echo.cpp
