@@ -2,7 +2,8 @@
 
 using namespace PTL;
 
-typedef board::uart uart;
+typedef board::uart hwuart;
+typedef hwuart uart;
 
 typedef ParBus<board::D5, board::D4, board::D3, board::D2> hd44780_data;
 typedef Signal<board::D6> hd44780_en_sig;
