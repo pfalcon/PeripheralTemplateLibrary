@@ -3,7 +3,9 @@
 #include <board.hpp>
 #include <uart.hpp>
 
-typedef UART<1 MHZ, 9600, USCI> uart;
+#include HW_CONFIG
+
+namespace PTL {
 
 template <>
 void uart::uart_rx_irq_handler()
@@ -12,13 +14,15 @@ void uart::uart_rx_irq_handler()
     board::LED::toggle();
 }
 
+}
+
 int main()
 {
     cpu::init(cpu::DEFAULT);
     board::LED::output();
     board::LED::low();
-    uart::init();
-    uart::enable_rx_irq();
+    hwuart::init();
+    hwuart::enable_rx_irq();
     cpu::enable_irq();
 
     while (true);
