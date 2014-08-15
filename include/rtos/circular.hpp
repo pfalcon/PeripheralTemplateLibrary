@@ -18,6 +18,10 @@
  */
 namespace PTL {
 
+
+// Note: only methods marked "volatile" are thread/interrupt safe
+// All other methods should be called only from critical section
+// (e.g., with interrupts disabled).
 template <typename elem, int max_size_>
 class CircularBuffer
 {
@@ -34,7 +38,7 @@ public:
         return _size;
     }
 
-    bool empty() const
+    bool empty() const volatile
     {
         return _size == 0;
     }
@@ -56,7 +60,7 @@ public:
         return e;
     }
 
-    elem front() const
+    elem front() const volatile
     {
         return *head;
     }
@@ -71,7 +75,7 @@ public:
         return max_size_ - _size;
     }
 
-    bool full() const
+    bool full() const volatile
     {
         return _size == max_size_;
     }
