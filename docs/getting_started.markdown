@@ -147,7 +147,7 @@ board using following make command:
 
 For our Arduino blink example, the exact command is:
 
-    make TARGET=avr deploy-avr
+    make TARGET=avr deploy-blink
 
 In few seconds, you should see your board chearfully blink its LED with
 frequency 1Hz.
