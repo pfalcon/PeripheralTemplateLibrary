@@ -19,7 +19,6 @@
 #ifndef _TIMER_TICK_HPP
 #define _TIMER_TICK_HPP
 #include <timer.hpp>
-#include <timer_irq_dispatch.hpp>
 
 namespace PTL {
 
@@ -33,8 +32,9 @@ public:
     static void inc() { ticks++; }
     static width value() { return ticks; }
 
-    struct Irqs : public TimerIrqsBase {
-        static void overflow()
+    class timer_handlers : public timer {
+    public:
+        static void irq_reset()
         {
             Ticks::inc();
         }

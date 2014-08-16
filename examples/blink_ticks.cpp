@@ -3,17 +3,16 @@
 #include <board.hpp>
 #include <timer.hpp>
 #include <rtos/ticks.hpp>
+#include <irq_dispatch.hpp>
 
 using namespace PTL;
 
 typedef Ticks<> delayer;
 typedef board::LED led;
 
-namespace PTL {
 // For Ticks to actually work, we must route hardware timer
 // interrupts to it
-IRQ_DISPATCH(timer, delayer::Irqs);
-}
+IRQ_DISPATCH(delayer::timer_handlers);
 
 int main()
 {
