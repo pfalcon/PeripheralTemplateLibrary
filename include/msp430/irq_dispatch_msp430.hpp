@@ -100,7 +100,18 @@ public:
    application code. Note that there can be at most one IRQ_DISPATCH
    per application. Specifying all irq-receiving classes at once allows
    to suffle/sort/group irq handlers to produce optimal code - that's
-   what all fucntions/classes/macros above do actually.
+   what all functions/classes/macros above do actually.
+
+   Note that gross effect of thsi macro will be definition of all
+   listed interrupt handler vectors - even though unused ones will
+   be empty (or contain rudimentary dispatching/acknowledge code).
+   This is price of magic of having hardware details independent
+   IRQ routing. It's unclear how to optimize this further (likely,
+   assembler preprocessing needed). So, it may be considered as
+   part of runtime support code: like it or not, need it or not,
+   it's just there, live with it. Once again, if you don't use
+   interrupts (and IRQ_DISPATCH), you won't have this overhead.
+
    What to change when porting: list of CALL_HANDLER calls. */
 #define IRQ_DISPATCH(blocks...) \
     template class IrqDispatch<blocks>; \
